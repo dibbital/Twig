@@ -1,0 +1,17 @@
+/*
+* app.css
+*
+*/
+
+@media screen {
+
+	#temperature, #light {
+		display: block;
+		width: 100px;
+		height: 25px;
+		box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+		padding: 10px;
+		margin: 0 auto 10px;
+	}
+
+}
