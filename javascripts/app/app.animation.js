@@ -76,6 +76,12 @@ App.Animation = (function (window, document) {
 			var anim = {};
 			anim['' + params['prop']] = params['value'];
 
+			var $el;
+			if(typeof params['el'] != 'undefined'){
+				$el = $(params['el']);
+			}else if(typeof params['$el'] != 'undefined'){
+				$el = params['$el'];
+			} 
 
 			$el.animate(anim, params['duration'], params['callback']);
 		},

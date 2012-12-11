@@ -115,7 +115,7 @@ var DashboardView = Backbone.View.extend({
 		e.stopPropagation();
 
 
-		// Backbone.history.navigate('newPlant', {'trigger': true});
+		Backbone.history.navigate('add', {'trigger': true});
 	},
 
 	'flipPlant': function (e) {

@@ -1,4 +1,4 @@
 Twig
 ====
 
-RIT Team Project
+<blink><marquee>RIT Team Project</blink></marquee>

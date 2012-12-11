@@ -9,7 +9,8 @@ var AppRouter = Backbone.Router.extend({
 	'routes': {
 		'': 'index',
 		'splash': 'splash',
-		'plant/:user/:pID': 'plantProfile' //  #plant/Andy/123
+		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
+		'add': 'add'
 	},
 
 	initialize: function () {
@@ -68,6 +69,14 @@ var AppRouter = Backbone.Router.extend({
 			'el': '#section_content',
 			'userID': user,
 			'plantID': pID
+		});
+	},
+
+	'add': function(){
+		var router = this;
+
+		router.addView = new AddPlantView({
+			'el': '#section_content' // ?
 		});
 	}
 
