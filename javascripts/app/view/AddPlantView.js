@@ -24,7 +24,7 @@ var AddPlantView = Backbone.View.extend({
 
 		view.pageURL = 'templates/addplant.php';
 		view.$el.load(view.pageURL, function () {
-			view.$originalEl.css('opacity', 0.1);
+			view.$originalEl.fadeTo(350, .1);
 			view.render();
 		});
 
@@ -38,18 +38,16 @@ var AddPlantView = Backbone.View.extend({
 			'header': 'Add a Plant',
 			'subtext': 'do it, c\'mon',
 			'callback': function () {
-				$('#header_global .button.right').on('click',
-
-				function (e) {
+				$('#header_global .button.left').fadeOut();
+				$('#header_global .button.right').on('click',function(e){
 					view.close(e);
 				});
 			}
 		});
 
-		Walt.cssAnimate({
+		Walt.animate({
 			'$el': view.$el.show(),
-			'prop': 'left',
-			'value': '0%',
+			'transition': 'fadeInRight',
 			'duration': '.4s'
 		});
 
@@ -62,10 +60,15 @@ var AddPlantView = Backbone.View.extend({
 		e.stopPropagation();
 
 		view.$el.fadeOut();
-		Backbone.history.navigate('', {
-			'trigger': true
+		$('#header_global .button.right').off('click');
+		Backbone.history.navigate('');
+		// 'trigger': true
+		App.trigger('header:change', {
+			'header': 'Dashboard',
+			'subtext': 'Your Plants'
 		});
-		view.$originalEl.css('opacity', 1);
+		$('#header_global .button.left').fadeIn();
+		view.$originalEl.fadeTo(350, 1);
 	}
 
 });
