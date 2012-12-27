@@ -14,10 +14,11 @@ var IndexView = Backbone.View.extend({
 		_.bindAll(this);
 
 
-		// Check if user is logged in
-		  // If not, redirect to #splash
-		// Else, render the dashboard
-		this.render();
+		if(window.loggedIn || App.User.isLoggedIn()) {
+			this.render();
+		}else{
+			Backbone.history.navigate('#splash', {'trigger': true});
+		}
 
 		log('Backbone : IndexView : Initialized');
 	},

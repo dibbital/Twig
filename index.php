@@ -1,3 +1,4 @@
+<?php require_once('users/models/config.php'); ?>
 <!DOCTYPE html>
 <!--[if IE 7 ]><html lang="en" class="ie7 nojs"><![endif]-->
 <!--[if IE 8 ]><html lang="en" class="ie8 nojs"><![endif]-->
@@ -21,11 +22,20 @@
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 
-		<title></title>
+		<title>Twig</title>
 
 		<link rel="shortcut icon" href="images/favicon.ico" />
 
 		<script>document.documentElement.className = document.documentElement.className.replace('nojs', '');</script>
+
+
+		<?php
+			if(isUserLoggedIn()) {
+				echo "<script>";
+				echo "window.alreadyLogged = '" . $loggedInUser->username ."';";
+				echo "</script>";
+			}
+		?>
 
 		<link rel="stylesheet" href="stylesheets/reset.css" />
 		<link rel="stylesheet" href="stylesheets/app/app.css" />
@@ -41,6 +51,7 @@
 
 	</head>
 	<body>
+
 		<!-- BEGIN: section_main -->
 		<div id="section_main">
 			<div id="mouseLoader"></div>
@@ -49,13 +60,13 @@
 			</noscript>
 
 			<div id="header_global">
-				<h2 class="title">Dashboard</h2>
-				<h3 class="description">Your Plants</h2>
+				
 			</div>
 
 			<div id="section_content">
 
 
+	
 
 			</div>
 
@@ -86,6 +97,7 @@
 				.script('javascripts/app/view/IndexView.js').wait()
 				// Site-Specific JS - Global
 				.script('javascripts/app/app.utilities.js').wait()
+				.script('javascripts/app/app.user.js').wait()
 				.script('javascripts/app/app.animation.js').wait()
 				// Page-Specific JS
 				.script('javascripts/app/app.global.js').wait(function() {

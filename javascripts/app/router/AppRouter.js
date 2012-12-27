@@ -10,13 +10,14 @@ var AppRouter = Backbone.Router.extend({
 		'': 'index',
 		'splash': 'splash',
 		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
-		'add': 'add'
+		'add': 'add',
+		'logout': 'logout'
 	},
 
 	initialize: function () {
 		var router = this;
 
-		// I don't really like this being in the AppRouter - A
+		// I don't really like this being in the AppRouter - Andy
 		// Params is used for callbacks
 		App.on('header:check', function (params) {
 			if(router.headerView == undefined) {
@@ -72,12 +73,33 @@ var AppRouter = Backbone.Router.extend({
 		});
 	},
 
-	'add': function(){
+	'add': function () {
 		var router = this;
 
 		router.addView = new AddPlantView({
 			'el': '#section_content' // ?
 		});
+	},
+
+	'logout': function () {
+		log('logout', this.indexView);
+		var router = this;
+		if(router.indexView == undefined) {
+			Backbone.history.navigate('', {
+				'trigger': true,
+				'replace': true
+			});
+		} else {
+			$.ajax({
+				'url': 'users/logout.php'
+			}).done(function (data) {
+				if(data == 'success') {
+					window.loggedIn = false;
+					// Backbone.history.navigate('splash', {'trigger': true});
+					window.location.href = '/';
+				}
+			});
+		}
 	}
 
 });

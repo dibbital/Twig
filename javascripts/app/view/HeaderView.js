@@ -19,16 +19,24 @@ var HeaderView = Backbone.View.extend({
 
 		App.on('header:change', this.changeTitle);
 
+		// App.on('header:hide', this.hideHeader);
+
 		log('Backbone : HeaderView : Initialized');
 	},
 
 	'render': function() {
 		var view = this;
-
+		view.buildBar();
 		view.buildOptionsButton('left');
 		view.buildSettingsButton('right');
 
 		log('Backbone : HeaderView : Render');
+	},
+
+	'buildBar': function(){
+		var view = this;
+		view.$el.append($('<h2 class="title"></h2>'));
+		view.$el.append($('<h3 class="description"></h2>'));
 	},
 
 	'buildOptionsButton': function(position) {
@@ -115,5 +123,15 @@ var HeaderView = Backbone.View.extend({
 			}
 		});
 		
+	},
+
+	'hideHeader': function(){
+		var view = this;
+
+		Walt.animate({
+					'$el': view.$el,
+					'transition': 'fadeOutUp',
+					'duration': '.4s'
+				});
 	}
 });

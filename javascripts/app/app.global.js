@@ -15,16 +15,11 @@ App.Global = (function(window, document) {
 	App.$body = $(document.body);
 
 	var self = {
-
-		/**
-		 * Initialize Application. Responsible for instantiating Backbone router
-		 * and starting Backbone history.
-		 * @method App.Global.init
-		 * @param config {Object} JS App configuration object, typically passed from the middle tier.
-		 */
+		
 		'init': function(config) {
 
 			App.appRouter = new AppRouter();
+			App.User.init();
 
 			Backbone.history.start();
 

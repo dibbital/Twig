@@ -15,14 +15,15 @@
     font-family: 'Ubuntu'; }
 
   h1,
-  h2 {
+  h2,
+  h3 {
     font-family: 'Asap'; }
 
   #header_global {
-    background: #fff;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    background: #eee;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     display: none;
-    height: 48px;
+    height: 44px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -53,26 +54,23 @@
     #header_global .button.left {
       left: 5px; }
     #header_global h2 {
-      color: #87A708;
-      font-size: 2.2em;
+      color: #333;
+      font-size: 2em;
       line-height: 1.54em;
       text-align: center;
-      text-shadow: 0 -0.9px 0 #799607;
-      font-weight: bold; }
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
     #header_global h3 {
       color: #333;
       font-size: 1.3em;
       line-height: .5em;
       text-align: center;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-      font-weight: 100; }
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
 
   #section_content {
     -moz-transition: left .5s ease;
     -o-transition: left .5s ease;
     -webkit-overflow-scrolling: touch;
     -webkit-transition: left .5s ease;
-    background: #fbfbfb;
     height: 100%;
     left: 0;
     overflow: scroll;
@@ -93,9 +91,10 @@
     background-size: 100% auto;
     color: transparent;
     display: block;
-    height: 164px;
+    height: 210px;
     margin: 0 auto;
-    max-width: 390px;
+    max-height: 210px;
+    max-width: 429px;
     position: relative;
     top: 5%;
     width: 80%; }
@@ -167,7 +166,7 @@
         background: #8bc53e;
         width: 100%; }
 
-  .menu li a {
+  .menu li a, #signup li a {
     background: #181818;
     background: rgba(24, 24, 24, 0.6);
     border-radius: 10px;
@@ -184,16 +183,6 @@
     min-width: 100px;
     width: 46%; }
 
-  li.cancel {
-    clear: none;
-    font-size: 1.2em;
-    float: left;
-    width: 49%; }
-    li.cancel a {
-      color: #fff;
-      background: #c53e3e;
-      width: 100%; }
-
   .dashboard {
     height: 100%;
     overflow: scroll;
@@ -208,50 +197,29 @@
       position: relative;
       width: 48%;
       z-index: 50; }
-      .dashboard li#addNew {
-        background: #8bc53e;
-        border-radius: 6px;
-        height: 100px;
-        width: 100px; }
-      .dashboard li#addNew a {
-        color: transparent;
-        display: block;
-        height: 100%;
-        position: relative;
-        width: 100%; }
-      .dashboard li#addNew a:after {
-        color: #FFF;
-        content: '+';
-        display: block;
-        font-size: 12em;
-        font-weight: 900;
-        height: 100%;
-        line-height: .55em;
-        position: absolute;
-        text-align: center;
-        width: 100%; }
-      .dashboard li#logOut {
-        background: #c53e3e;
-        border-radius: 6px;
-        height: 100px;
-        width: 100px; }
-      .dashboard li#logOut a {
-        color: transparent;
-        display: block;
-        height: 100%;
-        position: relative;
-        width: 100%; }
-      .dashboard li#logOut a:after {
-        color: #FFF;
-        content: '-';
-        display: block;
-        font-size: 12em;
-        font-weight: 900;
-        height: 100%;
-        line-height: .55em;
-        position: absolute;
-        text-align: center;
-        width: 100%; }
+    .dashboard #addNew {
+      background: #f10000;
+      border-radius: 6px;
+      height: 100px;
+      opacity: 0.7;
+      width: 100px; }
+    .dashboard #addNew a {
+      color: transparent;
+      display: block;
+      height: 100%;
+      position: relative;
+      width: 100%; }
+    .dashboard #addNew a:after {
+      color: #FFF;
+      content: '+';
+      display: block;
+      font-size: 12em;
+      font-weight: 900;
+      height: 100%;
+      line-height: .7em;
+      position: absolute;
+      text-align: center;
+      width: 100%; }
     .dashboard img {
       clear: both;
       display: block;

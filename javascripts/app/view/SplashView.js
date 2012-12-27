@@ -10,6 +10,10 @@ var SplashView = Backbone.View.extend({
 
 	'initialize': function (options) {
 		var view = this;
+
+		Backbone.history.navigate('', {
+			'trigger': false
+		});
 		_.bindAll(view);
 
 		view.pageURL = 'templates/splash.php';
@@ -19,6 +23,7 @@ var SplashView = Backbone.View.extend({
 			App.trigger('route:ready');
 			view.render();
 		});
+
 
 		log('Backbone : SplashView : Initialized');
 	},
@@ -34,7 +39,8 @@ var SplashView = Backbone.View.extend({
 		var $txtBlurb = view.$el.find('.main.blurb');
 
 
-		$btnLogin.on('click', view.login);
+		$btnLogin.on('click', view.showLogin);
+		$btnSignup.on('click', view.showSignup);
 
 		$txtBlurb.hide();
 		$btnLogin.hide();
@@ -68,7 +74,7 @@ var SplashView = Backbone.View.extend({
 		log('Backbone : SplashView : Render');
 	},
 
-	'login': function (e) {
+	'showLogin': function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		var view = this;
@@ -105,15 +111,80 @@ var SplashView = Backbone.View.extend({
 					'delay': .2
 				});
 
-				$loginMenu.find('#herp').on('click', function (e) {
+				$loginMenu.find('.cancel a').on('click', function () {
+					view.$el.find('.login').fadeOut();
+					view.$el.find('#login').fadeOut();
+					view.$el.find('.main').fadeIn();
+					view.$el.find('#main').fadeIn();
+				});
+
+				$loginMenu.find('#loginBtn').on('click', function (e) {
 					e.preventDefault();
 					e.stopPropagation();
-					view.close();
-					Backbone.history.navigate('', {
-						'trigger': true
+					var ajaxCall = $.ajax({
+						'url': 'users/login.php',
+						'type': 'POST',
+						'data': {
+							'username': 'biscuits',
+							'password': 'biscuits'
+						}
+					}).done(function (data) {
+						if(data == 'success') {
+							App.User.set('biscuits');
+							view.close();
+							Backbone.history.navigate('hello', {
+								'trigger': false
+							});
+							Backbone.history.navigate('', {
+								'trigger': true
+							});
+						}
 					});
 				});
 			}
+		});
+	},
+
+	'showSignup': function () {
+		var view = this;
+
+		view.$el.find('.main').fadeOut();
+		view.$el.find('#main').fadeOut();
+		view.$el.find('#signup').fadeIn();
+
+		view.$el.find('.signUp a').on('click', function () {
+			var $form = view.$el.find('#signup');
+			var ajaxCall = $.ajax({
+				'url': 'users/register.php',
+				'type': 'POST',
+				'data': {
+					'displayname': $form.find('#displayname').val(),
+					'username': $form.find('#username').val(),
+					'password': $form.find('#password').val(),
+					'passwordc': $form.find('#passwordc').val(),
+					'email': $form.find('#email').val()
+				}
+			}).done(function (data) {
+				if(data == 'success') {
+					App.User.set($form.find('#displayname').val());
+					view.close();
+					Backbone.history.navigate('hello', {
+						'trigger': false
+					});
+					Backbone.history.navigate('', {
+						'trigger': true
+					});
+				} else {
+					alert(JSON.stringify(data));
+				}
+			});
+		});
+
+		view.$el.find('.cancel a').on('click', function () {
+
+			view.$el.find('#signup').fadeOut();
+			view.$el.find('.main').fadeIn();
+			view.$el.find('#main').fadeIn();
 		});
 	},
 

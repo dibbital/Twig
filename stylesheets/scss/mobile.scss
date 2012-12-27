@@ -1,39 +1,86 @@
+@import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
+
 @media screen { 
     html,
     body,
-    #section_main { font-size: 10px; height: 100%; overflow: hidden; width: 100%; }
+    #section_main { -webkit-font-smoothing: antialiased; font-family: 'Ubuntu'; font-size: 10px; height: 100%; overflow: hidden; width: 100%; }
+
+    select, input, button, textarea, button { font-family: 'Ubuntu'; }
+    h1,
+    h2 { font-family: 'Asap'; }
 
     #header_global {
-    	background: #eee; border-bottom: 1px solid rgba(0,0,0,0.3); display: none; height: 44px; overflow: hidden; position: relative; width: 100%; z-index: 100; 
+    	background: #fff; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); display: none; height: 48px; overflow: hidden; position: relative; width: 100%; z-index: 100; 
    
     	.button { -moz-transition: background-color .5s ease; -o-transition: background-color .5s ease; -webkit-transition: background-color .5s ease; background: rgba(0,0,0,0.06); border-left: 1px solid rgba(0,0,0,0.07); border-radius: 3px; border-right: 1px solid rgba(0,0,0,0.07); box-shadow: 0 -1px 0 rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.9); color: transparent; height: 37px; position: absolute; top: 3px; transition: background-color .5s ease; width: 37px; }
     	.button.active { background-color: rgba(0,0,0,0.3) }
 	    .button.right { right: 5px }
 	    .button.right.dashboard { background: url(../../images/dashboard.png) no-repeat; background-position: 50% 50%; background-size: 89% auto; }
 	    .button.left { left: 5px }
-	    h2 { color: #333; font-size: 2em; line-height: 1.54em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
-	    h3 { color: #333; font-size: 1.3em; line-height: .5em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); }
+	    h2 { color: #87A708; font-size: 2.2em; line-height: 1.54em; text-align: center; text-shadow: 0 -.9px 0 #799607; font-weight: bold }
+	    h3 { color: #333; font-size: 1.3em; line-height: .5em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); font-weight: 100; }
     }
      
-    #section_content { -moz-transition: left .5s ease; -o-transition: left .5s ease; -webkit-overflow-scrolling: touch; -webkit-transition: left .5s ease; height: 100%; left: 0; overflow: scroll; padding-bottom: 44px; position: relative; transition: left .5s ease; width: 100%; 
-	    &.splash { background: url(../../images/grass_bg.jpg) no-repeat; background-size: 100% auto; height: 100%; padding: 5%; width: 100%; }
+    #section_content { -moz-transition: left .5s ease; -o-transition: left .5s ease; -webkit-overflow-scrolling: touch; -webkit-transition: left .5s ease; background: #fbfbfb; height: 100%; left: 0; overflow: scroll; padding-bottom: 44px; position: relative; transition: left .5s ease; width: 100%; 
+	    &.splash { background: url(../../images/grass_bg.jpg) no-repeat; background-size: 100% auto; background-position: center top; height: 100%; padding: 5%; width: 100%; }
 	}
 
     .splash {
-		.logo { background: url(../../images/logo.png) no-repeat; background-size: 100% auto; color: transparent; display: block; height: 210px; margin: 0 auto; max-height: 210px; max-width: 429px; position: relative; top: 15%; width: 80%; }
-	    .blurb { bottom: 30%; position: absolute; }
-	    h2 { color: #FFF; font-size: 200%; font-weight: 700; }
-	    p { color: #FFF; font-size: 1.8em; font-weight: 100; opacity: 0.7; }
-	    .menu { bottom: 15%; position: absolute; width: 100%; }
+		.logo { background: url(../../images/logo.png) no-repeat; background-size: 100% auto; color: transparent; display: block; height: 164px; margin: 0 auto; max-width: 390px; position: relative; top: 5%; width: 80%; }
+	    .blurb { background: #2e2e2e; background: rgba(46, 46, 46, 0.4); bottom: 24%; left: 0; padding: 6% 10%; position: absolute; height: auto; width: 100%; -moz-transition: height .5s ease; -o-transition: height .5s ease; -webkit-transition: height .5s ease; }
+	    h2 { color: #FFF; font-size: 3em; font-weight: 700; }
+	    p { color: #FFF; font-size: 1.8em; font-weight: 100; }
+	    .menu { bottom: 10%; position: absolute; width: 90%; }
+
+	    #signup {
+	    	.facebookBtn {
+	    		height: 20px;
+	    		a {background: #526EA6; text-transform: lowercase; color: white; font-weight: 800; width: 100%; }
+	    	}
+	    
+	    	li { clear: both; display: block; height: 40px; width: 100%; margin-bottom: 10px; border-radius: 5px; font-weight: 100;
+	    		a{ width: 100%; }
+	    		input { width: 100%; height: 100%; border: none;  font-size: 1.8em; text-indent: 3%; }
+	    		&.cancel {
+	    			clear: none;
+	    			font-size: 1.2em;
+	    			float: left;
+	    			width: 49%;
+	    			a { color: #fff; background: #c53e3e; width: 100%; }
+	    		}
+	    		&.signUp {
+	    			clear: none;
+	    			font-size: 1.2em;
+	    			color: #fff;
+	    			float: right;
+	    			width: 49%;
+	    			a { color: #fff; background: #8bc53e; width: 100%; }
+	    		}
+	    	}
+	    }
     }
 
-    .menu li a { background: #FFF; border: 3px solid #333; border-radius: 4px; color: #333; display: block; float: left; font-size: 1.6em; height: 40px; line-height: 1.9em; margin-right: 28px; text-align: center; text-decoration: none; width: 40%; }
+    .menu li a{ background: #181818; background: rgba(24,24,24,0.6); border-radius: 10px; color: #dadada; display: block; float: left; font-size: 1.8em; font-weight: 700; min-height: 42px; line-height: 2.2em; margin-right: 4%; text-align: center; text-decoration: none; min-width: 100px; width: 46%; }
+
+    li.cancel {
+	    			clear: none;
+	    			font-size: 1.2em;
+	    			float: left;
+	    			width: 49%;
+	    			a { color: #fff; background: #c53e3e; width: 100%; }
+	    		}
     
     .dashboard { height: 100%; overflow: scroll; padding: 20px 5% 0; position: relative; width: 100%; z-index: 50; 
-	    li { float: left; height: 144px; margin: 1%; position: relative; width: 48%; z-index: 50; }
-	    #addNew { background: #f10000; border-radius: 6px; height: 100px; opacity: 0.7; width: 100px; }
-	    #addNew a { color: transparent; display: block; height: 100%; position: relative; width: 100%; }
-	    #addNew a:after { color: #FFF; content: '+'; display: block; font-size: 12em; font-weight: 900; height: 100%; line-height: .7em; position: absolute; text-align: center; width: 100%; }
+	    li { float: left; height: 144px; margin: 1%; position: relative; width: 48%; z-index: 50; 
+	    &#addNew { background: #8bc53e; border-radius: 6px; height: 100px; width: 100px; }
+	    &#addNew a { color: transparent; display: block; height: 100%; position: relative; width: 100%; }
+	    &#addNew a:after { color: #FFF; content: '+'; display: block; font-size: 12em; font-weight: 900; height: 100%; line-height: .55em; position: absolute; text-align: center; width: 100%; }
+	    &#logOut { background: #c53e3e; border-radius: 6px; height: 100px; width: 100px; }
+	    &#logOut a { color: transparent; display: block; height: 100%; position: relative; width: 100%; }
+	    &#logOut a:after { color: #FFF; content: '-'; display: block; font-size: 12em; font-weight: 900; height: 100%; line-height: .55em; position: absolute; text-align: center; width: 100%; }
+	}
+	   
 	    img { clear: both; display: block; max-width: 100px; position: relative; }
 	    li:after { background: #FFF; content: ''; display: block; height: 100px; left: 0; opacity: 0.01; position: absolute; top: 0; width: 100px; }
 	    h2 { font-size: 2em; font-weight: 700; }
@@ -91,6 +138,7 @@
     #footer_global,
     .splash #login,
     .splash .blurb.login,
+    .splash #signup,
     .profileContent > div { display: none }
     ::selection,
     ::-moz-selection { background: transparent }
