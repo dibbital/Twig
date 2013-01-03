@@ -80,7 +80,7 @@ if(!empty($_POST))
 	}
 }
 
-echo "fail";
+echo json_encode($errors);
 die();
 /*
 require_once("models/header.php");

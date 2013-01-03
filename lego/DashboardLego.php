@@ -1,31 +1,29 @@
 <?php
 
-//Lego for database connection
-if($_SERVER['SERVER_NAME'] == 'localhost'){
-	$GLOBALS['HOST'] = "localhost";
-	$GLOBALS['DB'] = "dibbital";
-	$GLOBALS['DB_USER'] = "root";
-	$GLOBALS['DB_PASS'] = "root";
-}else{
-	$GLOBALS['HOST'] = "cias.rit.edu";
-	$GLOBALS['DB'] = "twig";
-	$GLOBALS['DB_USER'] = "twig";
-	$GLOBALS['DB_PASS'] = "geoZ3t00dom";
+//Lego for Dashboard helpers
+require_once("DatabaseLego.php");
+if($GLOBALS['CONNECTION'] == null){
+	ConnectDB();
 }
-	
-$GLOBALS['CONNECTION'] = null;
 
-function ConnectDB()
+function getPlants($user)
 {
-	$GLOBALS['CONNECTION'] = mysql_connect($GLOBALS['HOST'], $GLOBALS['DB_USER'], $GLOBALS['DB_PASS']);
-	mysql_select_db($GLOBALS['DB'], $GLOBALS['CONNECTION']) or die("Error connecting to DB - " . mysql_error());
-}
-
-
-function writePlantDB($pid, $key, $value){
 	if($GLOBALS['CONNECTION'] == null){
 		ConnectDB();
 	}
+
+	$getQuery = "SELECT * FROM `user_plants` WHERE `uid` = 2 LIMIT 0, 30 ";
+	$getSQL = mysql_query($getQuery) or die("Error getting plants: " . mysql_error());
+	while($result = mysql_fetch_assoc($getSQL)){
+		var_dump($result);
+		echo "<br /><br />";
+	}
+}
+
+/*
+
+function writePlantDB($pid, $key, $value){
+	
 
 	if(empty($value) || $key == "created_at" || $key == "author" || $key == "updated_at" || $key == "record_checked"){
 		return;
@@ -33,9 +31,7 @@ function writePlantDB($pid, $key, $value){
 
 	$create = "INSERT INTO `" . $GLOBALS['DB'] . "`.`plants` (`id`, `pid`, `key`, `value`, `timestamp`) VALUES (NULL, '" . $pid . "', '" .$key . "', '" . mysql_real_escape_string($value) . "', NULL);";
 	$sql = mysql_query($create) or die("Error creating in writePlantDB:" . mysql_error() . " - query: " . $create);
-}
-
-/*
+} 
 
 function writeDB($assetType, $key, $value, $entryID)
 {

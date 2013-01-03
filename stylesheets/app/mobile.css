@@ -1,10 +1,11 @@
 @import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
-@media screen {
+@media screen and (max-width: 800px) {
   html,
   body,
   #section_main {
     -webkit-font-smoothing: antialiased;
+    background: #FBFBFB;
     font-family: 'Ubuntu';
     font-size: 10px;
     height: 100%;
@@ -17,6 +18,9 @@
   h1,
   h2 {
     font-family: 'Asap'; }
+
+  * {
+    -webkit-overflow-scrolling: touch; }
 
   #header_global {
     background: #fff;
@@ -57,6 +61,7 @@
       font-size: 2.2em;
       line-height: 1.54em;
       text-align: center;
+      text-transform: capitalize;
       text-shadow: 0 -0.9px 0 #799607;
       font-weight: bold; }
     #header_global h3 {
@@ -70,9 +75,7 @@
   #section_content {
     -moz-transition: left .5s ease;
     -o-transition: left .5s ease;
-    -webkit-overflow-scrolling: touch;
     -webkit-transition: left .5s ease;
-    background: #fbfbfb;
     height: 100%;
     left: 0;
     overflow: scroll;
@@ -123,6 +126,30 @@
     bottom: 10%;
     position: absolute;
     width: 90%; }
+  .splash #login li {
+    clear: both;
+    display: block;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: 100; }
+    .splash #login li.cancel {
+      clear: none;
+      width: 50%;
+      float: left; }
+    .splash #login li.login {
+      clear: none;
+      width: 50%;
+      float: right; }
+    .splash #login li a {
+      width: 100%; }
+    .splash #login li input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      font-size: 1.8em;
+      text-indent: 3%; }
   .splash #signup .facebookBtn {
     height: 20px; }
     .splash #signup .facebookBtn a {
@@ -145,6 +172,7 @@
       width: 100%;
       height: 100%;
       border: none;
+      font-weight: 100;
       font-size: 1.8em;
       text-indent: 3%; }
     .splash #signup li.cancel {
@@ -166,6 +194,53 @@
         color: #fff;
         background: #8bc53e;
         width: 100%; }
+
+  .addPlant {
+    background-color: #fbfbfb;
+    height: 100%;
+    position: absolute;
+    top: 44px;
+    width: 100%;
+    overflow: scroll;
+    z-index: 90;
+    padding: 4% 1% 15%; }
+    .addPlant input {
+      width: 100%;
+      height: 39px;
+      font-size: 1.8em;
+      text-indent: 3%;
+      font-weight: 100;
+      border: 1px solid #D8D8D8;
+      border-radius: 3px;
+      margin-bottom: 11px;
+      position: relative;
+      box-shadow: 0px 0px 2px rgba(14, 14, 11, 0.1); }
+    .addPlant h2 {
+      text-indent: 3%;
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #A0A0A0; }
+    .addPlant input[type=file] {
+      position: relative;
+      z-index: 20;
+      height: 280px;
+      box-shadow: none;
+      border: none;
+      border-radius: 0; }
+    .addPlant input[type=file].nope:after {
+      display: none; }
+    .addPlant input[type=file]:after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: #fbfbfb url("../../images/camera.png") no-repeat center center;
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      border: 2px dashed rgba(143, 141, 141, 0.5);
+      border-radius: 20px; }
 
   .menu li a {
     background: #181818;
@@ -287,13 +362,6 @@
       background: rgba(255, 255, 0, 0.8); }
     .dashboard .poor.status {
       background: rgba(255, 0, 0, 0.8); }
-
-  .addPlant {
-    background-color: rgba(0, 0, 0, 0.3);
-    height: 100%;
-    position: absolute;
-    top: 44px;
-    width: 100%; }
 
   #section_main {
     overflow-x: hidden;
@@ -417,17 +485,26 @@
 
   .button {
     -webkit-box-sizing: border-box;
-    background: #CCC;
-    border-radius: 9px;
+    border-radius: 5px;
     box-sizing: border-box;
     height: 71px;
     margin: 3%;
-    overflow: hidden; }
+    overflow: hidden;
+    background: #a1b05d;
+    background: -moz-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a1b05d), color-stop(50%, #a1b05d), color-stop(51%, #96a754), color-stop(100%, #96a754));
+    background: -webkit-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -o-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -ms-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: linear-gradient(to bottom, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a1b05d', endColorstr='#96a754',GradientType=0 ); }
     .button a {
+      color: #575f30;
+      text-decoration: none;
       display: block;
-      font-size: 3em;
+      font-size: 2.6em;
       height: 100%;
-      line-height: 1.9em;
+      line-height: 2.6em;
       text-align: center;
       width: 100%; }
 

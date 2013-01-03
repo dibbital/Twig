@@ -5,6 +5,12 @@
 ?>
 
 <ul class="dashboard">
+	<?
+
+	require_once("../lego/DashboardLego.php");
+	getPlants(2);
+
+	?>
 	<li><img src="http://placekitten.com/150/150" />
 		<h2>Frederick</h2>
 		<h3>Tomato Plant</h3>
@@ -28,7 +34,8 @@
 		<h3>Tomato Plant</h3>
 		<p class="status meh">Meh</p>
 	</li>
-
+	
+	
 <? /*
 	<li><img src="http://placekitten.com/150/150" />
 		<h2>Frederick</h2>

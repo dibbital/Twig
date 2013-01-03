@@ -37,10 +37,13 @@
 			}
 		?>
 
+
+
 		<link rel="stylesheet" href="stylesheets/reset.css" />
 		<link rel="stylesheet" href="stylesheets/app/app.css" />
 		<link rel="stylesheet" href="stylesheets/app/mobile.css" />
 		<link rel="stylesheet" href="stylesheets/plugins/animate.css" />
+		<link rel="stylesheet" href="stylesheets/plugins/ui-lightness/jquery-ui-1.9.2.custom.css" />
 		<link rel="stylesheet" href="stylesheets/app/print.css" />
 
 	<!--
@@ -87,6 +90,7 @@
 				.script('javascripts/lib/backbone.js').wait()
 				.script('javascripts/app/router/AppRouter.js').wait()
 				.script('javascripts/plugins/touchable.js').wait()
+				.script('javascripts/plugins/jquery-ui-1.9.2.custom.min.js').wait()
 				// Backbone - Models
 				// Backbone - Views
 				.script('javascripts/app/view/HeaderView.js').wait()

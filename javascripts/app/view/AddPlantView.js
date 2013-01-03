@@ -24,7 +24,7 @@ var AddPlantView = Backbone.View.extend({
 
 		view.pageURL = 'templates/addplant.php';
 		view.$el.load(view.pageURL, function () {
-			view.$originalEl.fadeTo(350, .1);
+			// view.$originalEl.fadeTo(350, .1);
 			view.render();
 		});
 
@@ -34,20 +34,29 @@ var AddPlantView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
+		$('#plantPhoto').on('change', function(e){
+			// TODO: silently upload file to server, display
+			// http://www.zurb.com/playground/ajax_upload
+		});
+
 		App.trigger('header:change', {
-			'header': 'Add a Plant',
-			'subtext': 'do it, c\'mon',
+			'header': 'New Plant',
+			'subtext': 'Add plant',
 			'callback': function () {
 				$('#header_global .button.left').fadeOut();
 				$('#header_global .button.right').on('click',function(e){
+					e.preventDefault();
+					e.stopPropagation();
 					view.close(e);
 				});
 			}
 		});
 
+		$('#plantSearch').autocomplete({source:'suggest_plant.php', minLength:1});
+
 		Walt.animate({
 			'$el': view.$el.show(),
-			'transition': 'fadeInRight',
+			'transition': 'fadeInUp',
 			'duration': '.4s'
 		});
 
@@ -62,13 +71,14 @@ var AddPlantView = Backbone.View.extend({
 		view.$el.fadeOut();
 		$('#header_global .button.right').off('click');
 		Backbone.history.navigate('');
-		// 'trigger': true
+
+		// This shouldn't reset the header, the dashboardview should handle that
 		App.trigger('header:change', {
 			'header': 'Dashboard',
 			'subtext': 'Your Plants'
 		});
 		$('#header_global .button.left').fadeIn();
-		view.$originalEl.fadeTo(350, 1);
+		// view.$originalEl.fadeTo(350, 1);
 	}
 
 });

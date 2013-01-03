@@ -88,13 +88,13 @@ var SplashView = Backbone.View.extend({
 			'transition': 'fadeOutRight',
 			'callback': function () {
 				$blurb.hide();
-				var $loginBlurb = view.$el.find('.login.blurb');
+				/*var $loginBlurb = view.$el.find('.login.blurb');
 				Walt.animateEachChild({
 					'container': $loginBlurb.show(),
 					'transition': 'fadeInLeft',
 					'delay': .1,
 					'duration': '.5s'
-				});
+				});*/
 			}
 		});
 
@@ -121,23 +121,37 @@ var SplashView = Backbone.View.extend({
 				$loginMenu.find('#loginBtn').on('click', function (e) {
 					e.preventDefault();
 					e.stopPropagation();
+
+					var userName = view.$el.find('#login_username').val();
+					var passWord = view.$el.find('#login_password').val();
 					var ajaxCall = $.ajax({
 						'url': 'users/login.php',
 						'type': 'POST',
 						'data': {
-							'username': 'biscuits',
-							'password': 'biscuits'
+							'username': userName,
+							'password': passWord
 						}
 					}).done(function (data) {
 						if(data == 'success') {
-							App.User.set('biscuits');
-							view.close();
-							Backbone.history.navigate('hello', {
-								'trigger': false
+							App.User.set(userName);
+							Walt.animateEachChild({
+								'container': $('.menu'),
+								'transition': 'fadeOutUp',
+								'delay': .1,
+								'callback': function(){
+									$('.menu').hide();
+									view.close();
+									Backbone.history.navigate('hello', {
+										'trigger': false
+									});
+									Backbone.history.navigate('', {
+										'trigger': true
+									});
+								}
 							});
-							Backbone.history.navigate('', {
-								'trigger': true
-							});
+							
+						}else{
+							alert(data);
 						}
 					});
 				});

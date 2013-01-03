@@ -18,21 +18,26 @@
 	</li>
 </ul>
 
+<!--
 <div class="blurb login">
 	<h2>qrqrqr werwer</h2>
 	<p>Use asdfasdf to help you learn to grow plants.</p>
 </div>
+-->
 <ul class="menu" id="login">
+	<li><input type="text" name="username" id="login_username" placeholder="Username"></input></li>
+	<li><input type="password" name="password" id="login_password" placeholder="Password"></input></li>
+	
 	<li class="cancel">
 		<a href="#">Cancel</a>
 	</li>
-	<li>
+	<li class="login">
 		<a href="#" id="loginBtn">log in here</a>
 	</li>
 </ul>
 
 <ul class="menu" id="signup">
-	<li class="facebookBtn"><a href="#">Facebook Login</a></li>
+	<!-- <li class="facebookBtn"><a href="#">Facebook Login</a></li> -->
 	<li><input type="text" name="displayname" id="displayname" placeholder="Name"></input></li>
 	<li><input type="text" name="username" id="username" placeholder="Username"></input></li>
 	<li><input type="password" name="password" id="password" placeholder="Password"></input></li>
