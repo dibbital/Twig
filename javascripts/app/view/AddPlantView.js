@@ -34,7 +34,7 @@ var AddPlantView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
-		$('#plantPhoto').on('change', function(e){
+		$('#plantPhoto').on('change', function (e) {
 			// TODO: silently upload file to server, display
 			// http://www.zurb.com/playground/ajax_upload
 		});
@@ -44,7 +44,7 @@ var AddPlantView = Backbone.View.extend({
 			'subtext': 'Add plant',
 			'callback': function () {
 				$('#header_global .button.left').fadeOut();
-				$('#header_global .button.right').on('click',function(e){
+				$('#header_global .button.right').on('click', function (e) {
 					e.preventDefault();
 					e.stopPropagation();
 					view.close(e);
@@ -52,7 +52,10 @@ var AddPlantView = Backbone.View.extend({
 			}
 		});
 
-		$('#plantSearch').autocomplete({source:'suggest_plant.php', minLength:1});
+		$('#plantSearch').autocomplete({
+			source: 'suggest_plant.php',
+			minLength: 1
+		});
 
 		Walt.animate({
 			'$el': view.$el.show(),
@@ -60,23 +63,65 @@ var AddPlantView = Backbone.View.extend({
 			'duration': '.4s'
 		});
 
+		$('#submitButton').on('click', function (e) {
+			view.submitForm(e);
+		});
+
 		log('Backbone : AddPlantView : Render');
 	},
 
-	'close': function (e) {
+	'submitForm': function (e) {
 		var view = this;
 		e.preventDefault();
 		e.stopPropagation();
 
-		view.$el.fadeOut();
+		$form = view.$el.find('#newPlantForm');
+		var nickname = $form.find('#nickname').val();
+		var plantType = $form.find('#plantSearch').val();
+		var age = $form.find('#age').val();
+
+		var data = JSON.stringify({
+			'name': nickname,
+			'uid': App.User.getID(),
+			'plantTypeID': plantType
+		});
+
+		$.ajax({
+			'url': 'query.php?a=newPlant&data=' + data
+		}).done(function (response) {
+			var data = JSON.parse(response);
+			if(data['return'] == 'success') {
+				App.trigger('dashboard:reset');
+				view.close({});
+			}
+		});
+	},
+
+	'close': function (e) {
+		var view = this;
+		if(!$.isEmptyObject(e)) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			// This shouldn't reset the header, the dashboardview should handle that
+			App.trigger('header:change', {
+				'header': 'Dashboard',
+				'subtext': 'Your Plants'
+			});
+		}
+
+		Walt.animate({
+			'$el': view.$el,
+			'transition': 'fadeOutDown',
+			'duration': '.4s',
+			'callback': function () {
+				view.$el.remove();
+			}
+		});
 		$('#header_global .button.right').off('click');
 		Backbone.history.navigate('');
 
-		// This shouldn't reset the header, the dashboardview should handle that
-		App.trigger('header:change', {
-			'header': 'Dashboard',
-			'subtext': 'Your Plants'
-		});
+
 		$('#header_global .button.left').fadeIn();
 		// view.$originalEl.fadeTo(350, 1);
 	}

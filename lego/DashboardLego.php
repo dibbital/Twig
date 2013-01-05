@@ -12,14 +12,58 @@ function getPlants($user)
 		ConnectDB();
 	}
 
-	$getQuery = "SELECT * FROM `user_plants` WHERE `uid` = 2 LIMIT 0, 30 ";
+	$getQuery = "SELECT * FROM `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `uid` = '" . $user . "' LIMIT 0, 50";
 	$getSQL = mysql_query($getQuery) or die("Error getting plants: " . mysql_error());
+	$sallGoodBaby = true;
 	while($result = mysql_fetch_assoc($getSQL)){
-		var_dump($result);
-		echo "<br /><br />";
+		$sallGoodBaby = false;
+		$info = array();
+
+		$info["plantid"] = $result["id"];
+		$info["typeid"] = $result["type"];
+		$info["created"] = $result["timestamp"];
+		$info["name"] = $result["name"];
+
+		$deepSQL = "SELECT * FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = '" . $info["typeid"] . "'";
+		$deepQuery = mysql_query($deepSQL) or die("Error getting deep plant info");
+		while($deepResults = mysql_fetch_assoc($deepQuery)){
+			$key = $deepResults["key"];
+			$val = $deepResults["value"];
+			$info[$key] = $val;
+		}
+		printPlant($info);
 	}
+
+	if($sallGoodBaby){
+		echo "<h2>What the heck? You ain't got none plants!</h2>";
+	}
+	//echo json_encode($info);
 }
 
+
+function printPlant($data)
+{
+	// var_dump($data);
+	$name = $data['name'];
+	$plantType = (array_key_exists('common_name', $data) ? $data['common_name'] : $data['latin_name']);
+	$plantID = $data['plantid'];
+	$created = date("F j, Y, g:i a", strtotime($data['created']));
+
+	echo "
+	<li data-plant-id=\"" . $plantID . "\"><img src=\"http://placekitten.com/150/150\" />";
+
+	if(empty($name)){
+		echo "<h2>" . $plantType . "</h2>";
+		echo "<h3>" . $created . "</h3>";
+	}else{
+		echo "<h2>" . $name . "</h2>";
+		echo "<h3>" . $plantType . "</h3>";
+	}
+	echo "
+		<p class=\"status good\">Good</p>
+	</li>
+	";
+}
 /*
 
 function writePlantDB($pid, $key, $value){

@@ -23,7 +23,7 @@ if ( $rs && mysql_num_rows($rs) )
 	{
 		$data[] = array(
 			'label' => $row['value'] ,
-			'value' => $row['value']
+			'value' => $row['pid']
 		);
 	}
 }

@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
-@media screen and (max-width: 800px) {
+@media screen {
   html,
   body,
   #section_main {
@@ -30,7 +30,7 @@
     overflow: hidden;
     position: relative;
     width: 100%;
-    z-index: 100; }
+    z-index: 500; }
     #header_global .button {
       -moz-transition: background-color .5s ease;
       -o-transition: background-color .5s ease;
@@ -526,4 +526,15 @@
 
   ::selection,
   ::-moz-selection {
-    background: transparent; } }
+    background: transparent; }
+
+  .loading:after {
+    content: '';
+    display: block;
+    position: fixed;
+    background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 200; } }

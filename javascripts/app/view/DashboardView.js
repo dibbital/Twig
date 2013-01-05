@@ -14,8 +14,15 @@ var DashboardView = Backbone.View.extend({
 
 		view.mouse = false;
 
+		App.on('dashboard:reset', function (e) {
+			view.$el.empty();
+			view.initialize();
+		});
+
+
 		view.pageURL = 'templates/dashboard.php';
-		view.$el.load(view.pageURL, function () {
+		view.$el.addClass('loading').load(view.pageURL, function () {
+			view.$el.removeClass('loading');
 			view.render();
 		});
 		log('Backbone : DashboardView : Initialized');
@@ -24,10 +31,7 @@ var DashboardView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
-		App.trigger('header:change', {
-			'header': App.User.get() + '\'s Dashboard',
-			'subtext': 'Your Plants'
-		});
+
 
 		var $dash = view.$el.find('.dashboard');
 
@@ -38,13 +42,19 @@ var DashboardView = Backbone.View.extend({
 
 		var $logOutBtn = $('<li id="logOut"><a href="#">Log Out</a></li>');
 		$dash.append($logOutBtn);
-		$logOutBtn.on('click', function(){
-			Backbone.history.navigate('logout', {'trigger': true});
+		$logOutBtn.on('click', function () {
+			Backbone.history.navigate('logout', {
+				'trigger': true
+			});
 		});
 
 		var $plants = view.$el.find('.dashboard li'); //.not('#addNew');
 		$('.dashboard .status').hide();
 
+		App.trigger('header:change', {
+			'header': App.User.get() + '\'s Dashboard',
+			'subtext': 'Your Plants'
+		});
 
 		Walt.animateEach({
 			'list': $plants,
@@ -91,8 +101,10 @@ var DashboardView = Backbone.View.extend({
 		// $plants.on('tap', view.flipPlant);
 		$plants.Touchable();
 
-		var doubleTapFunction = function () {
+		var doubleTapFunction = function (e) {
 			view.trigger('dashboard:doubletap');
+			var $target = $(e.currentTarget);
+			var $plantID = $target.attr('data-plant-id');
 			Walt.animateEachChild({
 				'container': view.$el.find('.dashboard'),
 				'transition': 'fadeOutDown',
@@ -102,7 +114,7 @@ var DashboardView = Backbone.View.extend({
 					$(obj).css('visibility', 'hidden');
 				},
 				'callback': function () {
-					Backbone.history.navigate('#plant/username/' + Math.round(Math.random() * 100), {
+					Backbone.history.navigate('#plant/' + App.User.get() + '/' + $plantID, {
 						'trigger': true
 					});
 				}
@@ -122,7 +134,9 @@ var DashboardView = Backbone.View.extend({
 		e.stopPropagation();
 
 
-		Backbone.history.navigate('add', {'trigger': true});
+		Backbone.history.navigate('add', {
+			'trigger': true
+		});
 	},
 
 	'flipPlant': function (e) {

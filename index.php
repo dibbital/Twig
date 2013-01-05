@@ -32,7 +32,7 @@
 		<?php
 			if(isUserLoggedIn()) {
 				echo "<script>";
-				echo "window.alreadyLogged = '" . $loggedInUser->username ."';";
+				echo ("window.alreadyLogged = {'userName': '" . $loggedInUser->username ."', 'displayName': '" . $loggedInUser->displayname . "', 'userID': '" . $loggedInUser->user_id . "'};");
 				echo "</script>";
 			}
 		?>

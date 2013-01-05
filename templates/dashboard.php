@@ -1,16 +1,17 @@
 <?php
-
+	require_once("../lego/DatabaseLego.php");
+	require_once("../users/models/config.php");
+	require_once("../lego/DashboardLego.php");
+	require_once("../lego/UserCakeLego.php");
 // Dashboard page
 
 ?>
 
 <ul class="dashboard">
 	<?
+	getPlants($loggedInUser->user_id);
 
-	require_once("../lego/DashboardLego.php");
-	getPlants(2);
-
-	?>
+	/*
 	<li><img src="http://placekitten.com/150/150" />
 		<h2>Frederick</h2>
 		<h3>Tomato Plant</h3>
@@ -34,6 +35,7 @@
 		<h3>Tomato Plant</h3>
 		<p class="status meh">Meh</p>
 	</li>
+	*/ ?>
 	
 	
 <? /*

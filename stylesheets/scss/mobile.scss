@@ -5,7 +5,7 @@
 	
 }
 
-@media screen and (max-width:800px){ 
+@media screen{ 
 	html,
 	body,
 	#section_main { -webkit-font-smoothing: antialiased; background: #FBFBFB; font-family: 'Ubuntu'; font-size: 10px; height: 100%; overflow: hidden; width: 100%; }
@@ -17,7 +17,7 @@
 	* { -webkit-overflow-scrolling: touch; }
 
 	#header_global {
-		background: #fff; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); display: none; height: 48px; overflow: hidden; position: relative; width: 100%; z-index: 100; 
+		background: #fff; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1); display: none; height: 48px; overflow: hidden; position: relative; width: 100%; z-index: 500; 
    
 		.button { -moz-transition: background-color .5s ease; -o-transition: background-color .5s ease; -webkit-transition: background-color .5s ease; background: rgba(0,0,0,0.06); border-left: 1px solid rgba(0,0,0,0.07); border-radius: 3px; border-right: 1px solid rgba(0,0,0,0.07); box-shadow: 0 -1px 0 rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.9); color: transparent; height: 37px; position: absolute; top: 3px; transition: background-color .5s ease; width: 37px; }
 		.button.active { background-color: rgba(0,0,0,0.3) }
@@ -218,4 +218,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a1b05d', end
 	.profileContent > div { display: none }
 	::selection,
 	::-moz-selection { background: transparent }
+
+	.loading {  }
+	.loading:after{ content: '';
+display: block;
+position: fixed;
+background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat;
+height: 100%;
+width: 100%;
+top: 0;
+left: 0;
+z-index: 200; }
 }
