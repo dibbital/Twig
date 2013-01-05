@@ -133,12 +133,12 @@ var SplashView = Backbone.View.extend({
 						}
 					}).done(function (data) {
 						if(data == 'success') {
-							App.User.set(userName);
+							App.User.set();
 							Walt.animateEachChild({
 								'container': $('.menu'),
 								'transition': 'fadeOutUp',
 								'delay': .1,
-								'callback': function(){
+								'callback': function () {
 									$('.menu').hide();
 									view.close();
 									Backbone.history.navigate('hello', {
@@ -149,8 +149,8 @@ var SplashView = Backbone.View.extend({
 									});
 								}
 							});
-							
-						}else{
+
+						} else {
 							alert(data);
 						}
 					});
@@ -180,7 +180,7 @@ var SplashView = Backbone.View.extend({
 				}
 			}).done(function (data) {
 				if(data == 'success') {
-					App.User.set($form.find('#displayname').val());
+					App.User.set();
 					view.close();
 					Backbone.history.navigate('hello', {
 						'trigger': false

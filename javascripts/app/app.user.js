@@ -22,7 +22,7 @@ App.User = (function (window, document) {
 
 		'get': function () {
 			var appUser = this;
-			return appUser.currentUser['userName'];
+			return appUser.currentUser['displayName'];
 		},
 
 		'getID': function () {
@@ -33,9 +33,14 @@ App.User = (function (window, document) {
 		'set': function (userID) {
 			var appUser = this;
 
-			appUser.currentUser['userID'] = userID;
-
-			// This should retrieve information about the user
+			$.ajax({
+				'url': '/query.php?a=getUserStuff'
+			}).done(function (data) {
+				var jsonified = $.parseJSON(data);
+				appUser.currentUser['userName'] = jsonified['userName'];
+				appUser.currentUser['userID'] = jsonified['userID'];
+				appUser.currentUser['displayName'] = jsonified['displayName'];
+			});
 		},
 
 		'logout': function () {

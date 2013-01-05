@@ -1,8 +1,8 @@
 <?php
-	require_once("../lego/DatabaseLego.php");
-	require_once("../users/models/config.php");
-	require_once("../lego/DashboardLego.php");
-	require_once("../lego/UserCakeLego.php");
+	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
+	require_once(realpath( dirname( __FILE__ ) ) . "/../users/models/config.php");
+	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DashboardLego.php");
+	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/UserCakeLego.php");
 // Dashboard page
 
 ?>

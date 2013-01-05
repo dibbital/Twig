@@ -34,9 +34,9 @@ if(!empty($_POST))
 	if(!ctype_alnum($username)){
 		$errors[] = lang("ACCOUNT_USER_INVALID_CHARACTERS");
 	}
-	if(minMaxRange(5,25,$displayname))
+	if(minMaxRange(4,25,$displayname))
 	{
-		$errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(5,25));
+		$errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(4,25));
 	}
 	if(!ctype_alnum($displayname)){
 		$errors[] = lang("ACCOUNT_DISPLAY_INVALID_CHARACTERS");
@@ -75,11 +75,12 @@ if(!empty($_POST))
 				if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
 			}
 		}
-	}else{
+	}
+
+	if(count($errors) > 0){
 		echo json_encode($errors);
 		die();
-	}
-	if(count($errors) == 0) {
+	}else if(count($errors) == 0) {
 		$successes[] = $user->success;
 	}
 }

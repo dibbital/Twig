@@ -5,8 +5,8 @@
 
 
 	//Stuff needed by UserCake
-	//echo("looking for " . $_SERVER['DOCUMENT_ROOT'] . '/hivemind/users/models/config.php <br />');
-	require_once($_SERVER['DOCUMENT_ROOT'] . '/users/models/config.php');
+	// echo("looking for " .$_SERVER['DOCUMENT_ROOT'] . '/users/models/config.php');
+	require_once(realpath( dirname( __FILE__ ) ) . '/../users/models/config.php');
 	
 	
 	//Checks login in header
@@ -55,12 +55,20 @@
 	
 	function getCurrentUserName()
 	{	
+		$loggedInUser =  $_SESSION["userCakeUser"];
 		//echo($loggedInUser->display_username);
-		return($loggedInUser->display_username);
+		return($loggedInUser->username);
+	}
+
+	function getCurrentDisplayName()
+	{
+		$loggedInUser =  $_SESSION["userCakeUser"];
+		return($loggedInUser->displayname);
 	}
 	
 	function getCurrentUserID()
 	{
+		$loggedInUser =  $_SESSION["userCakeUser"];
 		return($loggedInUser->user_id);	
 	}
 	
