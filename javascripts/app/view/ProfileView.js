@@ -20,7 +20,7 @@ var ProfileView = Backbone.View.extend({
 
 		App.trigger('header:check', {
 			'callback': function () {
-				view.pageURL = 'templates/profile.php';
+				view.pageURL = 'templates/profile.php?uid='  + App.User.getID() + '&plantID=' + view.plantID;
 				view.$el.load(view.pageURL, function () {
 					view.render();
 				});
@@ -37,9 +37,10 @@ var ProfileView = Backbone.View.extend({
 
 		App.trigger('header:change', {
 			'header': 'Plant Profile',
-			'subtext': view.plantID,
+			'subtext': $('#data').attr('data-name'),
 			'callback': function(){
-				$('#header_global .button.right').addClass('dashboard');
+				$('#header_global .button.right').addClass('backToDash');
+				$('#header_global .button.right').on('click', function(){ $('#header_global .button.right').removeClass('backToDash'); });
 			}
 		});
 
@@ -67,7 +68,7 @@ var ProfileView = Backbone.View.extend({
 							'list': $guages.show(),
 							'transition': 'bounceIn',
 							'delay': .1,
-							'duration': '1s',
+							'duration': '.5s',
 							'callback': function(){
 								Walt.animateEachChild({
 									'container': $header.fadeIn(),
@@ -81,6 +82,9 @@ var ProfileView = Backbone.View.extend({
 											'delay': .1,
 											'duration': '.4s'
 										});
+
+
+		setInterval(function(){ view.updateGuages(); }, 2000);
 									}
 								});
 							}
@@ -89,6 +93,8 @@ var ProfileView = Backbone.View.extend({
 				});
 			}
 		});
+
+		view.$el.find('.dial').knob();
 
 
 		log('Backbone : ProfileView : Render');
@@ -105,6 +111,45 @@ var ProfileView = Backbone.View.extend({
 
 		view.$el.find('.profileContent > .active').removeClass('active');
 		view.$el.find('.profileContent #' + newSection).addClass('active');
+	},
+
+	'updateGuages': function(){
+		var view = this;
+
+		var $call = $.ajax({
+			'url': 'query.php?a=currentStats&plantID=' + view.plantID
+		}).done(function(response){
+			log('updateGuages', view.plantID, response);
+			var jsonified = $.parseJSON(response);
+
+			$('#waterGuage').attr('value', jsonified['moisture']);
+			$('#lightGuage').attr('value', parseInt(jsonified['light'])/100);
+			$('#tempGuage').attr('value', jsonified['temp']);
+		});
 	}
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

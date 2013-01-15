@@ -100,6 +100,7 @@
 				.script('javascripts/app/view/AddPlantView.js').wait()
 				.script('javascripts/app/view/IndexView.js').wait()
 				// Site-Specific JS - Global
+				.script('javascripts/plugins/jquery.knob.js').wait()
 				.script('javascripts/app/app.utilities.js').wait()
 				.script('javascripts/app/app.user.js').wait()
 				.script('javascripts/app/app.animation.js').wait()

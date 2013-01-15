@@ -30,19 +30,70 @@ function newPlant($data){
 	$userID = $data->{'uid'};
 	$plantTypeID = $data->{'plantTypeID'};
 	$plantNickname = $data->{'name'};
+	$deviceID = $data->{'device'};
 
-	$insertSQL = "INSERT INTO `" . $GLOBALS['DB'] . "`.`user_plants` (`uid`, `type`, `name`) VALUES ('" . $userID . "', '" . $plantTypeID . "', '" . $plantNickname . "')";
+	$insertSQL = "INSERT INTO `" . $GLOBALS['DB'] . "`.`user_plants` (`uid`, `type`, `name`, `device`) VALUES ('" . $userID . "', '" . $plantTypeID . "', '" . $plantNickname . "', '" . $deviceID . "')";
 	$insertQuery = mysql_query($insertSQL) or die("Error in insertQuery: " . mysql_error());
 
 	$plantID = mysql_insert_id();
+
+	$plantImg = $data->{'plantImg'};
+
+	if(!empty($plantImg)){
+		$moreSQL = "INSERT INTO `" . $GLOBALS['DB'] . "`.`user_plant_stuff` (`uid`, `pid`, `key`, `value`) VALUES ('" . $userID . "', '" . $plantID . "', 'imgPath', '" . $plantImg . "')"; 
+		$moreQuery = mysql_query($moreSQL) or die("Error inserting more: " . mysql_error());
+	}
 	$response = array();
 	$response['return'] = "success";
 	$response['id'] = $plantID;
 	echo json_encode($response);
 
-	// other stuff would be inserted to `user_plant_stuff`
 }
 
+
+function getCurrentPlantStats($plantID){
+	if($GLOBALS['CONNECTION'] == null){
+		ConnectDB();
+	}
+
+	$info = array();
+
+
+	// Temperature
+	$tempSQL = "SELECT * FROM `user_plant_stats` WHERE `pid` = '" . $plantID . "' AND `key` LIKE 'temperature' ORDER BY `timestamp` DESC LIMIT 1 ";
+	$tempQuery = mysql_query($tempSQL) or die("Error getting temperature: " . mysql_error());
+
+	while($tempResults = mysql_fetch_assoc($tempQuery)){
+		$key = $tempResults["key"];
+		$val = $tempResults["value"];
+		$info["temp"] = $val;
+	}
+
+	// Light
+	$lightSQL = "SELECT * FROM `user_plant_stats` WHERE `pid` = '". $plantID ."' AND `key` LIKE 'light' ORDER BY `timestamp` DESC LIMIT 1 ";
+	$lightQuery = mysql_query($lightSQL) or die("Error getting light: " . mysql_error());
+
+	while($lightResults = mysql_fetch_assoc($lightQuery)){
+		$key = $lightResults["key"];
+		$val = $lightResults["value"];
+		$info["light"] = $val;
+	}
+/*
+	// Moisture
+	$moistSQL = "SELECT * FROM `user_plant_stats` WHERE `pid` = 11 AND `key` LIKE 'moisture' LIMIT 1 ";
+	$moistQuery = mysql_query($moistSQL) or die("Error getting moisture: " . mysql_error());
+
+	while($moistResults = mysql_fetch_assoc($moistQuery)){
+		$key = $moistResults["key"];
+		$val = $moistResults["value"];
+		$info[$key] = $val;
+	}*/
+
+	echo json_encode($info);
+
+	//$sql = "SELECT * FROM `user_plant_stats` WHERE `pid` = 11 AND `key` LIKE \'temperature\' LIMIT 0, 30 ";
+
+}
 /*
 
 ## Outdated - used for generating database

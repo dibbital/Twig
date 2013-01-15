@@ -2,10 +2,20 @@
 
 // Plant profile page
 
+require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DashboardLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/../users/models/config.php");
+
+$plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 ?>
 
+<div id="data" data-name="<? echo $plantData['name'] ?>"></div>
 <div class="hero">
-	<img src="images/500.jpeg" />
+	<? if(isset($plantData['imgPath'])){ ?>
+		<img src="<? echo $plantData['imgPath']; ?>" />
+	<? }else{ ?>
+	 	<img src="images/500.jpeg" />
+	<? } ?>
 </div>
 
 <ul class="profileNav">
@@ -20,14 +30,14 @@
 	<!-- State -->
 	<div id="state" class="active">
 		<ul class="guages">
-			<li><img src="images/meter.png" />Water Levels</li>
-			<li><img src="images/meter.png" />Light Levels</li>
-			<li><img src="images/meter.png" />Temperature</li>
+			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="58" data-readOnly=true>Water Levels</li>
+			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="4" data-readOnly=true>Light Levels</li>
+			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="85" data-readOnly=true>Temperature</li>
 		</ul>
 
 		<div class="header">
 			<h2>Notifications</h2>
-			<span>2</span>
+			<!-- <span>2</span> -->
 		</div>
 		<ul class="notifications">
 			<li>Level Alert - Water requirement not filled</li>

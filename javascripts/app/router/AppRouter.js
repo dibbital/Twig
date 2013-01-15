@@ -17,6 +17,8 @@ var AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		var router = this;
 
+		router.indexView = undefined;
+
 		// I don't really like this being in the AppRouter - Andy
 		// Params is used for callbacks
 		App.on('header:check', function (params) {
@@ -75,10 +77,22 @@ var AppRouter = Backbone.Router.extend({
 
 	'add': function () {
 		var router = this;
+		if(router.indexFirst()){
+			router.addView = new AddPlantView({
+				'el': '#section_content' // ?
+			});
+		}else{
+			Backbone.history.navigate('', {'trigger': true}); 
+		}
+	},
 
-		router.addView = new AddPlantView({
-			'el': '#section_content' // ?
-		});
+	'indexFirst': function(){
+		var router = this;
+		if(typeof router.indexView == undefined){
+			return false;
+		}else{
+			return true;
+		}
 	},
 
 	'logout': function () {

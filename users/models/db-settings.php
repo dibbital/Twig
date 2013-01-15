@@ -5,11 +5,21 @@ http://usercake.com
 */
 
 //Database Information
-$db_host = "localhost"; //Host address (most likely localhost)
-$db_name = "dibbital"; //Name of Database
-$db_user = "root"; //Name of database user
-$db_pass = "root"; //Password for database user
+if($_SERVER['SERVER_NAME'] == 'localhost'){
+	$db_host = "localhost"; //Host address (most likely localhost)
+	$db_name = "dibbital"; //Name of Database
+	$db_user = "root"; //Name of database user
+	$db_pass = "root"; //Password for database user
+}else{
+	$db_host = "cias.rit.edu"; //Host address (most likely localhost)
+	$db_name = "twig"; //Name of Database
+	$db_user = "twig"; //Name of database user
+	$db_pass = "geoZ3t00dom"; //Password for database user
+}
+
+
 $db_table_prefix = "uc_";
+
 
 GLOBAL $errors;
 GLOBAL $successes;

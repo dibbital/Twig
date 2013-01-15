@@ -30,7 +30,7 @@ App.User = (function (window, document) {
 			return appUser.currentUser['userID'];
 		},
 
-		'set': function (userID) {
+		'set': function () {
 			var appUser = this;
 
 			$.ajax({

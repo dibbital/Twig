@@ -141,6 +141,7 @@ var SplashView = Backbone.View.extend({
 								'callback': function () {
 									$('.menu').hide();
 									view.close();
+									
 									Backbone.history.navigate('hello', {
 										'trigger': false
 									});

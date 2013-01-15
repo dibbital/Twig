@@ -12,8 +12,6 @@ var AddPlantView = Backbone.View.extend({
 		var view = this;
 		_.bindAll(view);
 
-		// Backbone.history.navigate('', {'trigger': false, 'replace': true});
-
 		var $newEl = $('<div></div>', {
 			'class': 'addPlant'
 		});
@@ -24,7 +22,6 @@ var AddPlantView = Backbone.View.extend({
 
 		view.pageURL = 'templates/addplant.php';
 		view.$el.load(view.pageURL, function () {
-			// view.$originalEl.fadeTo(350, .1);
 			view.render();
 		});
 
@@ -34,9 +31,24 @@ var AddPlantView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
+		var $silentFrame = $('<iframe id="frameLoader" name="frameLoader" seamless height="100%" width="100%" onLoad="App.trigger(\'iframe:loaded\');"></iframe>');
+			view.$el.append($silentFrame);
+			$silentFrame.hide();
 		$('#plantPhoto').on('change', function (e) {
+			$('#plantPhoto').off('change');
 			// TODO: silently upload file to server, display
-			// http://www.zurb.com/playground/ajax_upload
+			$('#plantPhoto').addClass('loader');
+			App.on('iframe:loaded', function(e){
+				var returnText = $($('#frameLoader')[0].contentDocument).find('body').text();
+				if(returnText.indexOf('ERROR') == -1){
+					var $newImage = $('#imgThumb');
+					$newImage.attr('src', '/' + returnText);
+				}else{
+					alert(returnText);
+				}
+				$('#plantPhoto').removeClass('loader');
+			});
+			view.$el.find('#uploadForm').submit();
 		});
 
 		App.trigger('header:change', {
@@ -78,12 +90,14 @@ var AddPlantView = Backbone.View.extend({
 		$form = view.$el.find('#newPlantForm');
 		var nickname = $form.find('#nickname').val();
 		var plantType = $form.find('#plantSearch').val();
-		var age = $form.find('#age').val();
+		var device = $form.find('#device').val();
 
 		var data = JSON.stringify({
 			'name': nickname,
 			'uid': App.User.getID(),
-			'plantTypeID': plantType
+			'plantTypeID': plantType,
+			'plantImg': $('#imgThumb').attr('src'),
+			'device': device
 		});
 
 		$.ajax({

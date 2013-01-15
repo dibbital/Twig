@@ -10,14 +10,16 @@ App.Animation = (function (window, document) {
 	var self = {
 
 		// Base animation function
-		// $el: Element to be animated
+		// ($)el: Element to be animated
 		// transition: string denoting animation to use ('bounceIn', etc)
 		// delay: string denoting time before animation fires ('1s', '.2s', etc)
 		// duration: string denoting time animation lasts ('1s', '.2s', etc)
-		'animate': function (params) { //$el, transition, delay, duration, callback) {
+		// callback: callback function upon animationEnd
+		'animate': function (params) {
 			var self = this;
 
 			var $el;
+			// Can pass in jQuery object or DOM element
 			if(typeof params['el'] != 'undefined'){
 				$el = $(params['el']);
 			}else if(typeof params['$el'] != 'undefined'){
@@ -58,20 +60,20 @@ App.Animation = (function (window, document) {
 				doneAnimating();
 			});
 
-			// This fires the event ('animated' is what triggers it for real);
+			// This fires the animation ('.animated' is what triggers it for real);
 			$el.addClass('animated ' + params['transition']);
 		},
 
 
 		// ###
 		// Function to animate a CSS property
-		// $el: Element to be animated
+		// ($)el: Element to be animated
 		// prop: string, property to be animated
 		// value: string, target value to set property to
 		// duration: string, time it takes to complete animation (ex: 2s, .2s, 0.15s)
 		// delay: string, time before anim fires (ex: 2s, .2s, etc);
 		// callback: callback function after animation is done
-		'cssAnimate': function (params){//$el, prop, value, duration, delay, callback) {
+		'cssAnimate': function (params){
 			var wally = this;
 			var anim = {};
 			anim['' + params['prop']] = params['value'];
@@ -92,7 +94,7 @@ App.Animation = (function (window, document) {
 		// delay: float, time before anim fires (ex: 2, .2, etc);
 		// duration: string, time it takes to complete animation (ex: 2s, .2s, 0.15s)
 		// callback: callback function after animation is done
-		'animateEach': function (params) {//$list, transition, delay, duration, callback) {
+		'animateEach': function (params) {
 			var wally = this;
 			params['list'].each(function (i, v) {
 				wally.animate({
@@ -106,7 +108,12 @@ App.Animation = (function (window, document) {
 			typeof params['callback'] == 'function' ? params['callback']() : 42;
 		},
 
-		'animateEachChild': function (params) {//$container, transition, delay, duration, subcallback, callback) {
+		// Function to animate each child element in a container
+		// container: target jQuery object
+		// ...
+		// subcallback: callback to fire after each child finishes animating
+		// callback: calllback to fire after animation is complete
+		'animateEachChild': function (params) {
 			var wally = this;
 			subcall = (typeof params['subcallback'] == 'function' ? params['subcallback']() : null);
 			params['container'].children().each(function (i, v) {

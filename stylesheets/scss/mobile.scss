@@ -22,7 +22,7 @@
 		.button { -moz-transition: background-color .5s ease; -o-transition: background-color .5s ease; -webkit-transition: background-color .5s ease; background: rgba(0,0,0,0.06); border-left: 1px solid rgba(0,0,0,0.07); border-radius: 3px; border-right: 1px solid rgba(0,0,0,0.07); box-shadow: 0 -1px 0 rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.9); color: transparent; height: 37px; position: absolute; top: 3px; transition: background-color .5s ease; width: 37px; }
 		.button.active { background-color: rgba(0,0,0,0.3) }
 		.button.right { right: 5px }
-		.button.right.dashboard { background: url(../../images/dashboard.png) no-repeat; background-position: 50% 50%; background-size: 89% auto; }
+		.button.right.backToDash { background: url(../../images/dashboard.png) no-repeat; background-position: 50% 50%; background-size: 89% auto; }
 		.button.left { left: 5px }
 		h2 { color: #87A708; font-size: 2.2em; line-height: 1.54em; text-align: center; text-transform: capitalize;  text-shadow: 0 -.9px 0 #799607; font-weight: bold }
 		h3 { color: #333; font-size: 1.3em; line-height: .5em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); font-weight: 100; }
@@ -97,10 +97,17 @@
 			position: relative;
 			box-shadow: 0px 0px 2px rgba(14, 14, 11, 0.1); }
 
+			#imgThumb {
+				position: absolute;
+				z-index: 100;
+				max-width: 100%;
+				max-height: 100%;
+			}
+
 		h2 { text-indent: 3%;
-font-size: 2em;
-margin-bottom: 10px;
-color: #A0A0A0; }
+			font-size: 2em;
+			margin-bottom: 10px;
+			color: #A0A0A0; }
 		input[type=file]{
 			position: relative;
 			z-index: 20;
@@ -124,6 +131,10 @@ color: #A0A0A0; }
 			top: 0;
 			border: 2px dashed rgba(143, 141, 141, 0.5);
 			border-radius: 20px;
+		}
+
+		input[type=file].loader:after {
+			background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat;
 		}
 	}
 
