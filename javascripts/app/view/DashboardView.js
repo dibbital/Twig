@@ -112,7 +112,7 @@ var DashboardView = Backbone.View.extend({
 		};
 
 
-		$plants.on('doubleTap', doubleTapFunction);
+		$plants.on('click', doubleTapFunction);
 
 		log('Backbone : DashboardView : Render');
 	},
