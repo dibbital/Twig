@@ -124,19 +124,27 @@ var SplashView = Backbone.View.extend({
 						}
 					}).done(function (data) {
 						if(data == 'success') {
-							App.User.set();
-							Walt.animateEachChild({
-								'container': $('.menu').show(),
-								'transition': 'fadeOutUp',
-								'delay': .1,
-								'callback': function () {
-									$('.menu').hide();
-									view.close();
-									Backbone.history.navigate('', {
-										'trigger': true
-									});
-								}
+
+							App.on('user:set', function () {
+								Walt.animateEachChild({
+									'container': $('.menu.active').show(),
+									'transition': 'fadeOutUp',
+									'delay': .1,
+									'callback': function () {
+										$('.menu').hide();
+										view.close();
+										Backbone.history.navigate('hello', {
+											'trigger': false
+										});
+										Backbone.history.navigate('', {
+											'trigger': true
+										});
+									}
+								});
 							});
+
+							App.User.set();
+
 
 						} else {
 							var response = data;
@@ -169,11 +177,17 @@ var SplashView = Backbone.View.extend({
 				}
 			}).done(function (data) {
 				if(data == 'success') {
-					App.User.set();
-					view.close();
-					Backbone.history.navigate('', {
-						'trigger': true
+					App.on('user:set', function () {
+						view.close();
+						Backbone.history.navigate('hello', {
+							'trigger': false
+						});
+						Backbone.history.navigate('', {
+							'trigger': true
+						});
 					});
+
+					App.User.set();
 				} else {
 					var response = JSON.stringify(data);
 

@@ -32,14 +32,16 @@ App.User = (function (window, document) {
 
 		'set': function () {
 			var appUser = this;
-
 			$.ajax({
 				'url': '/query.php?a=getUserStuff'
 			}).done(function (data) {
 				var jsonified = $.parseJSON(data);
+				appUser.currentUser = appUser.currentUser || {};
 				appUser.currentUser['userName'] = jsonified['userName'];
 				appUser.currentUser['userID'] = jsonified['userID'];
 				appUser.currentUser['displayName'] = jsonified['displayName'];
+				
+				App.trigger('user:set');
 			});
 		},
 
