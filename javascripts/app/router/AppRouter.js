@@ -53,6 +53,7 @@ var AppRouter = Backbone.Router.extend({
 		var router = this;
 
 		App.trigger('nav:enable');
+
 		router.indexView = new IndexView({
 			'el': '#section_main'
 		});
@@ -83,6 +84,7 @@ var AppRouter = Backbone.Router.extend({
 				'el': '#section_content' // ?
 			});
 		} else {
+			log('not indexfirst');
 			Backbone.history.navigate('', {
 				'trigger': true
 			});
@@ -112,7 +114,6 @@ var AppRouter = Backbone.Router.extend({
 	},
 
 	'logout': function () {
-		log('logout', this.indexView);
 		var router = this;
 		if(router.indexView == undefined) {
 			Backbone.history.navigate('', {

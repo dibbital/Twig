@@ -31,8 +31,7 @@ var AddPlantView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
-		App.on('back:button', view.close);
-		App.on('clear:modals', view.close);
+		App.on('back:button clear:modals',  view.close);
 
 		var $silentFrame = $('<iframe id="frameLoader" name="frameLoader" seamless height="100%" width="100%" onLoad="App.trigger(\'iframe:loaded\');"></iframe>');
 		view.$el.append($silentFrame);
@@ -122,21 +121,21 @@ var AddPlantView = Backbone.View.extend({
 		}).done(function (response) {
 			var data = JSON.parse(response);
 			if(data['return'] == 'success') {
-				// App.trigger('dashboard:reset');
 				view.close({});
 			}
 		});
 	},
 
 	'close': function (e) {
-		var view = this;
-
-		App.off('back:button', view.close);
-
 		if(!$.isEmptyObject(e)) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
+		var view = this;
+
+		App.off('back:button clear:modals', view.close);
+
+		
 
 		App.trigger('dashboard:reset');
 

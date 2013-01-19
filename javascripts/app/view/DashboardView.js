@@ -16,7 +16,12 @@ var DashboardView = Backbone.View.extend({
 
 		App.on('dashboard:reset', function (e) {
 			view.$el.empty();
-			view.initialize();
+
+			view.pageURL = 'templates/dashboard.php';
+			view.$el.addClass('loading').load(view.pageURL, function () {
+				view.$el.removeClass('loading');
+				view.render();
+			});
 		});
 
 
@@ -40,6 +45,32 @@ var DashboardView = Backbone.View.extend({
 
 		var $plants = view.$el.find('.dashboard li'); //.not('#addNew');
 		$('.dashboard .status').hide();
+
+
+		$plants.each(function (i, v) {
+			var url = "http://en.wikipedia.org/w/api.php?action=parse&format=json&callback=?";
+			if($(v).attr('data-plant-name') != undefined) {
+				var page = $(v).attr('data-plant-name').replace(' ', '_'); // your page title, eg. New_York
+
+				$.getJSON(url, {
+					page: page,
+					limit: 1,
+					prop: "text|imagelinks",
+					uselang: "en"
+				}, function (data) {
+
+					if(data.error != undefined){
+						log(data);
+						return;
+					}
+
+					var $response = $(data['parse']['text']['*']);
+					$(v).find('img').attr('src', $response.find('img').first().attr('src'));
+				});
+			}
+		});
+
+
 
 		App.trigger('header:change', {
 			'header': App.User.get() + '\'s Dashboard',
@@ -89,7 +120,7 @@ var DashboardView = Backbone.View.extend({
 		/* ##### */
 
 		// $plants.on('tap', view.flipPlant);
-		$plants.Touchable();
+		// $plants.Touchable();
 
 		var doubleTapFunction = function (e) {
 			view.trigger('dashboard:doubletap');
@@ -112,7 +143,7 @@ var DashboardView = Backbone.View.extend({
 		};
 
 
-		$plants.on('click', doubleTapFunction);
+		$plants.not('#addNew').on('click', doubleTapFunction);
 
 		log('Backbone : DashboardView : Render');
 	},

@@ -21,6 +21,8 @@ var IndexView = Backbone.View.extend({
 			});
 		}
 
+		this.dashboardView = null;
+
 		log('Backbone : IndexView : Initialized');
 	},
 
@@ -30,7 +32,6 @@ var IndexView = Backbone.View.extend({
 		if(typeof view.dashboardView == 'undefined') {
 			App.trigger('header:check', {
 				'callback': function () {
-					App.trigger('clear:modals');
 					view.dashboardView = new DashboardView({
 						'el': '#section_content'
 					});
