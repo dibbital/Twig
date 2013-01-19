@@ -28,7 +28,7 @@
 		h3 { color: #333; font-size: 1.3em; line-height: .5em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); font-weight: 100; }
 	}
 	 
-	#section_content { -moz-transition: left .5s ease, border-left .5s ease; -o-transition: left .5s ease, border-left .5s ease; -webkit-transition: left .5s ease, border-left .5s ease; background: #fbfbfb; height: 95%; left: 0; border-left: 2px solid rgba(0,0,0,0); overflow: scroll;/* padding-bottom: 44px;*/ position: relative; transition: left .5s ease; width: 100%; z-index: 5;
+	#section_content { -moz-transition: left .5s ease, border-left .5s ease; -o-transition: left .5s ease, border-left .5s ease; -webkit-transition: left .5s ease, border-left .5s ease; background: #fbfbfb; height: 95%; left: 0; border-left: 0px solid rgba(0,0,0,0); overflow: scroll;/* padding-bottom: 44px;*/ position: relative; transition: left .5s ease; width: 100%; z-index: 5;
 		&.splash { background: url(../../images/grass_bg.jpg) no-repeat; background-size: 100% auto; background-position: center top; height: 100%; padding: 5%; width: 100%; }
 	}
 

@@ -30,6 +30,7 @@ var HeaderView = Backbone.View.extend({
 		view.buildMenuButton('left');
 		view.buildSettingsButton('right');
 		view.enableButtons();
+		view.createMenu();
 
 		log('Backbone : HeaderView : Render');
 	},
@@ -97,10 +98,7 @@ var HeaderView = Backbone.View.extend({
 		}
 	},
 
-	'handleMenu': function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
+	'createMenu': function(){
 		var view = this;
 		if(typeof view.$menuView == "undefined") {
 			var $sideEl = $('<div id="side_menu"></div>');
@@ -108,6 +106,16 @@ var HeaderView = Backbone.View.extend({
 			view.$menuView = new MenuView({
 				'el': '#side_menu'
 			});
+		}
+	},
+
+	'handleMenu': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		var view = this;
+		if(typeof view.$menuView == "undefined") {
+			view.createMenu();
 		}
 
 		if(!view.sidebarIsOpen) {
