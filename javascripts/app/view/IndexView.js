@@ -4,36 +4,40 @@
  * @class IndexView
  * @constructor
  */
-
 var IndexView = Backbone.View.extend({
 
 	'events': {},
 
-	'initialize': function(options) {
+	'initialize': function (options) {
 
 		_.bindAll(this);
 
 
 		if(window.loggedIn || App.User.isLoggedIn()) {
 			this.render();
-		}else{
-			Backbone.history.navigate('#splash', {'trigger': true});
+		} else {
+			Backbone.history.navigate('#splash', {
+				'trigger': true
+			});
 		}
 
 		log('Backbone : IndexView : Initialized');
 	},
 
-	'render': function() {
+	'render': function () {
 		var view = this;
-		
-		if(typeof view.dashboardView == 'undefined'){
-			App.trigger('header:check', {'callback': function(){
-				view.dashboardView = new DashboardView({
-					'el': '#section_content'
-				});
-			}});
+
+		if(typeof view.dashboardView == 'undefined') {
+			App.trigger('header:check', {
+				'callback': function () {
+					App.trigger('clear:modals');
+					view.dashboardView = new DashboardView({
+						'el': '#section_content'
+					});
+				}
+			});
 		}
-		
+
 
 		log('Backbone : IndexView : Render');
 	}

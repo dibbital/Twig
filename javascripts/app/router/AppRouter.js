@@ -11,6 +11,7 @@ var AppRouter = Backbone.Router.extend({
 		'splash': 'splash',
 		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
 		'add': 'add',
+		'settings': 'settings',
 		'logout': 'logout'
 	},
 
@@ -51,6 +52,7 @@ var AppRouter = Backbone.Router.extend({
 	'index': function () {
 		var router = this;
 
+		App.trigger('nav:enable');
 		router.indexView = new IndexView({
 			'el': '#section_main'
 		});
@@ -62,7 +64,6 @@ var AppRouter = Backbone.Router.extend({
 			'el': '#section_content'
 		});
 
-		// Backbone.history.navigate('', {'trigger': false});
 	},
 
 	'plantProfile': function (user, pID) {
@@ -77,20 +78,35 @@ var AppRouter = Backbone.Router.extend({
 
 	'add': function () {
 		var router = this;
-		if(router.indexFirst()){
+		if(router.indexFirst()) {
 			router.addView = new AddPlantView({
 				'el': '#section_content' // ?
 			});
-		}else{
-			Backbone.history.navigate('', {'trigger': true}); 
+		} else {
+			Backbone.history.navigate('', {
+				'trigger': true
+			});
 		}
 	},
 
-	'indexFirst': function(){
+	'settings': function () {
 		var router = this;
-		if(typeof router.indexView == undefined){
+		if(router.indexFirst()) {
+			router.settingsView = new SettingsView({
+				'el': '#section_content' // ?
+			});
+		} else {
+			Backbone.history.navigate('', {
+				'trigger': true
+			});
+		}
+	},
+
+	'indexFirst': function () {
+		var router = this;
+		if(typeof router.indexView == undefined) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	},
@@ -109,7 +125,6 @@ var AppRouter = Backbone.Router.extend({
 			}).done(function (data) {
 				if(data == 'success') {
 					window.loggedIn = false;
-					// Backbone.history.navigate('splash', {'trigger': true});
 					window.location.href = '/';
 				}
 			});

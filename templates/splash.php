@@ -25,8 +25,10 @@
 </div>
 -->
 <ul class="menu" id="login">
+	<form  autocomplete="off">
 	<li><input type="text" name="username" id="login_username" placeholder="Username"></input></li>
 	<li><input type="password" name="password" id="login_password" placeholder="Password"></input></li>
+</form>
 	
 	<li class="cancel">
 		<a href="#">Cancel</a>
@@ -38,11 +40,13 @@
 
 <ul class="menu" id="signup">
 	<!-- <li class="facebookBtn"><a href="#">Facebook Login</a></li> -->
+	<form  autocomplete="off">
 	<li><input type="text" name="displayname" id="displayname" placeholder="Name"></input></li>
 	<li><input type="text" name="username" id="username" placeholder="Username"></input></li>
 	<li><input type="password" name="password" id="password" placeholder="Password"></input></li>
 	<li><input type="password" name="passwordc" id="passwordc" placeholder="Confirm Password"></input></li>
 	<li><input type="text" name="email" id="email" placeholder="E-mail"></input></li>
+</form>
 	<li class="cancel"><a href="#">Cancel</a></li>
 	<li class="signUp"><a href="#">Sign Up</a></li>
 </ul>

@@ -84,35 +84,26 @@ var SplashView = Backbone.View.extend({
 
 
 		Walt.animate({
-			'el': $blurb,
+			'el': $blurb.show(),
 			'transition': 'fadeOutRight',
 			'callback': function () {
 				$blurb.hide();
-				/*var $loginBlurb = view.$el.find('.login.blurb');
-				Walt.animateEachChild({
-					'container': $loginBlurb.show(),
-					'transition': 'fadeInLeft',
-					'delay': .1,
-					'duration': '.5s'
-				});*/
 			}
 		});
 
 		Walt.animate({
-			'el': $btnMainMenu,
+			'el': $btnMainMenu.show(),
 			'transition': 'fadeOutDown',
 			'callback': function () {
 				$btnMainMenu.hide();
 				var $loginMenu = view.$el.find('#login.menu');
-				$loginMenu.show();
 				Walt.animateEachChild({
-					'container': $loginMenu,
+					'container': $loginMenu.show(),
 					'transition': 'fadeInDown',
 					'delay': .2
 				});
 
 				$loginMenu.find('.cancel a').on('click', function () {
-					view.$el.find('.login').fadeOut();
 					view.$el.find('#login').fadeOut();
 					view.$el.find('.main').fadeIn();
 					view.$el.find('#main').fadeIn();
@@ -135,16 +126,12 @@ var SplashView = Backbone.View.extend({
 						if(data == 'success') {
 							App.User.set();
 							Walt.animateEachChild({
-								'container': $('.menu'),
+								'container': $('.menu').show(),
 								'transition': 'fadeOutUp',
 								'delay': .1,
 								'callback': function () {
 									$('.menu').hide();
 									view.close();
-									
-									Backbone.history.navigate('hello', {
-										'trigger': false
-									});
 									Backbone.history.navigate('', {
 										'trigger': true
 									});
@@ -152,6 +139,7 @@ var SplashView = Backbone.View.extend({
 							});
 
 						} else {
+							var response = data;
 							alert(data);
 						}
 					});
@@ -183,14 +171,24 @@ var SplashView = Backbone.View.extend({
 				if(data == 'success') {
 					App.User.set();
 					view.close();
-					Backbone.history.navigate('hello', {
-						'trigger': false
-					});
 					Backbone.history.navigate('', {
 						'trigger': true
 					});
 				} else {
-					alert(JSON.stringify(data));
+					var response = JSON.stringify(data);
+
+					response = response.replaceAll('[', '');
+					response = response.replaceAll(']', '');
+					response = response.replaceAll('"', '');
+					response = response.replaceAll('\\', '');
+					response = response.split(',');
+
+					var text = "An error occurred! \n\n";
+					for(var i = 0; i < response.length; i++) {
+						text += "• " + response[i];
+						text += "\n";
+					}
+					alert(text);
 				}
 			});
 		});

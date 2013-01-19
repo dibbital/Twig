@@ -1,10 +1,10 @@
 /**
  * @module Backbone
  * @submodule Backbone.View
- * @class AddPlantView
+ * @class SettingsView
  * @constructor
  */
-var AddPlantView = Backbone.View.extend({
+var SettingsView = Backbone.View.extend({
 
 	'events': {},
 
@@ -25,34 +25,15 @@ var AddPlantView = Backbone.View.extend({
 			view.render();
 		});
 
-		log('Backbone : AddPlantView : Initialized');
+		log('Backbone : SettingsView : Initialized');
 	},
 
 	'render': function () {
 		var view = this;
 
+
 		App.on('back:button', view.close);
 		App.on('clear:modals', view.close);
-
-		var $silentFrame = $('<iframe id="frameLoader" name="frameLoader" seamless height="100%" width="100%" onLoad="App.trigger(\'iframe:loaded\');"></iframe>');
-		view.$el.append($silentFrame);
-		$silentFrame.hide();
-		$('#plantPhoto').on('change', function (e) {
-			$('#plantPhoto').off('change');
-			// TODO: silently upload file to server, display
-			$('#plantPhoto').addClass('loader');
-			App.on('iframe:loaded', function (e) {
-				var returnText = $($('#frameLoader')[0].contentDocument).find('body').text();
-				if(returnText.indexOf('ERROR') == -1) {
-					var $newImage = $('#imgThumb');
-					$newImage.attr('src', '/' + returnText);
-				} else {
-					alert(returnText);
-				}
-				$('#plantPhoto').removeClass('loader');
-			});
-			view.$el.find('#uploadForm').submit();
-		});
 
 		/* Left Button stuff, why is there so much */
 		view.leftHeaderButtonFunction = function (e) {
@@ -70,10 +51,9 @@ var AddPlantView = Backbone.View.extend({
 		});
 
 
-
 		App.trigger('header:change', {
-			'header': 'New Plant',
-			'subtext': 'Add plant',
+			'header': 'Settings',
+			'subtext': 'Manage Your Plants',
 			'callback': function () {
 				App.trigger('nav:disable');
 				$('#header_global .button.right').fadeOut();
@@ -96,7 +76,8 @@ var AddPlantView = Backbone.View.extend({
 			view.submitForm(e);
 		});
 
-		log('Backbone : AddPlantView : Render');
+		log('render 5');
+		log('Backbone : SettingsView : Render');
 	},
 
 	'submitForm': function (e) {
@@ -149,11 +130,11 @@ var AddPlantView = Backbone.View.extend({
 			}
 		});
 
-
+		App.trigger('nav:enable');
 		$('#header_global .button.right').removeClass('active').fadeIn();
 		view.trigger('default:left');
 
-		App.trigger('nav:enable');
+
 		Backbone.history.navigate('');
 
 

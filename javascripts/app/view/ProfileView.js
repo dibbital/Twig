@@ -20,7 +20,7 @@ var ProfileView = Backbone.View.extend({
 
 		App.trigger('header:check', {
 			'callback': function () {
-				view.pageURL = 'templates/profile.php?uid='  + App.User.getID() + '&plantID=' + view.plantID;
+				view.pageURL = 'templates/profile.php?uid=' + App.User.getID() + '&plantID=' + view.plantID;
 				view.$el.load(view.pageURL, function () {
 					view.render();
 				});
@@ -38,14 +38,16 @@ var ProfileView = Backbone.View.extend({
 		App.trigger('header:change', {
 			'header': 'Plant Profile',
 			'subtext': $('#data').attr('data-name'),
-			'callback': function(){
+			'callback': function () {
 				$('#header_global .button.right').addClass('backToDash');
-				$('#header_global .button.right').on('click', function(){ $('#header_global .button.right').removeClass('backToDash'); });
+				$('#header_global .button.right').on('click', function () {
+					$('#header_global .button.right').removeClass('backToDash');
+				});
 			}
 		});
 
-		var $hero =  view.$el.find('.hero').hide();
-		var $guages =  view.$el.find('.guages li').hide();
+		var $hero = view.$el.find('.hero').hide();
+		var $guages = view.$el.find('.guages li').hide();
 		var $profileNav = view.$el.find('.profileNav li').hide();
 		var $header = view.$el.find('.header').hide();
 		var $notes = view.$el.find('.notifications').hide();
@@ -57,25 +59,25 @@ var ProfileView = Backbone.View.extend({
 			'$el': $hero.show(),
 			'transition': 'fadeInLeft',
 			'duration': '.7s',
-			'callback': function() {
+			'callback': function () {
 				Walt.animateEach({
 					'list': $profileNav.show(),
 					'transition': 'fadeInUp',
 					'delay': .05,
 					'duration': '.3s',
-					'callback': function() {
+					'callback': function () {
 						Walt.animateEach({
 							'list': $guages.show(),
 							'transition': 'bounceIn',
 							'delay': .1,
 							'duration': '.5s',
-							'callback': function(){
+							'callback': function () {
 								Walt.animateEachChild({
 									'container': $header.fadeIn(),
 									'transition': 'fadeInLeft',
 									'delay': .1,
 									'duration': '.4s',
-									'callback': function(){
+									'callback': function () {
 										Walt.animateEachChild({
 											'container': $notes.show(),
 											'transition': 'fadeInLeft',
@@ -84,7 +86,9 @@ var ProfileView = Backbone.View.extend({
 										});
 
 
-		setInterval(function(){ view.updateGuages(); }, 2000);
+										setInterval(function () {
+											view.updateGuages();
+										}, 2000);
 									}
 								});
 							}
@@ -113,43 +117,19 @@ var ProfileView = Backbone.View.extend({
 		view.$el.find('.profileContent #' + newSection).addClass('active');
 	},
 
-	'updateGuages': function(){
+	'updateGuages': function () {
 		var view = this;
 
 		var $call = $.ajax({
 			'url': 'query.php?a=currentStats&plantID=' + view.plantID
-		}).done(function(response){
+		}).done(function (response) {
 			log('updateGuages', view.plantID, response);
 			var jsonified = $.parseJSON(response);
 
 			$('#waterGuage').attr('value', jsonified['moisture']);
-			$('#lightGuage').attr('value', parseInt(jsonified['light'])/100);
+			$('#lightGuage').attr('value', parseInt(jsonified['light']) / 100);
 			$('#tempGuage').attr('value', jsonified['temp']);
 		});
 	}
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

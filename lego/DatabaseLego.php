@@ -3,7 +3,7 @@
 //Lego for database connection
 if($_SERVER['SERVER_NAME'] == 'localhost'){
 	$GLOBALS['HOST'] = "localhost";
-	$GLOBALS['DB'] = "dibbital";
+	$GLOBALS['DB'] = "twig";
 	$GLOBALS['DB_USER'] = "root";
 	$GLOBALS['DB_PASS'] = "root";
 }else{

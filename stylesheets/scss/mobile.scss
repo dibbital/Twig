@@ -28,7 +28,7 @@
 		h3 { color: #333; font-size: 1.3em; line-height: .5em; text-align: center; text-shadow: 0 1px 0 rgba(255,255,255,0.9); font-weight: 100; }
 	}
 	 
-	#section_content { -moz-transition: left .5s ease; -o-transition: left .5s ease; -webkit-transition: left .5s ease; height: 100%; left: 0; overflow: scroll; padding-bottom: 44px; position: relative; transition: left .5s ease; width: 100%; 
+	#section_content { -moz-transition: left .5s ease, border-left .5s ease; -o-transition: left .5s ease, border-left .5s ease; -webkit-transition: left .5s ease, border-left .5s ease; background: #fbfbfb; height: 95%; left: 0; border-left: 2px solid rgba(0,0,0,0); overflow: scroll;/* padding-bottom: 44px;*/ position: relative; transition: left .5s ease; width: 100%; z-index: 5;
 		&.splash { background: url(../../images/grass_bg.jpg) no-repeat; background-size: 100% auto; background-position: center top; height: 100%; padding: 5%; width: 100%; }
 	}
 
@@ -168,9 +168,35 @@
 		.poor.status { background: rgba(255,0,0,0.8) }
 	}
 
+
+
+
 	#section_main { overflow-x: hidden; overflow-y: scroll; }
-	
-	#section_content.sideMenuOpened { border-left: 2px solid rgba(0,0,0,0.3); left: 80%; }
+
+	#side_menu {
+		z-index: 5;
+		width: 80%;
+		background: #fbfbfb;
+		position: absolute;
+		left: 0;
+
+		 -moz-transition: left .4s; -o-transition: left .4s; -webkit-transition: left .4s; transition: left .4s;
+
+		ul {list-style: none;}
+    	li {float: left; top: 20px; width: 100%; height: 100%;width: 100%; }
+        div.link {font-size: 19px; line-height: 48px; height: 47px; padding-left: 44px;
+        	.dash,.about,.database,.contact,.help,.logout{display:block; float: left; position:relative; top: 24%; left: -16px; width:27px; height:27px; background: #fbfbfb;border:1px solid #000;}
+        	&:active{background: #d8e2b2;
+        		.dash,.about,.database,.contact,.help,.logout{background:#000;}
+        	}
+        }
+	}
+	#side_menu.sideMenuOpened{z-index: 0; left: 0px;}
+
+
+
+
+	#section_content.sideMenuOpened { border-left: 2px solid rgba(0,0,0,0.3);  left: 80%; }
 	.hero { height: 150px; overflow: hidden; width: 100%;
 		img { height: auto; width: 100%; }
 	}

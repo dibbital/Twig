@@ -15,6 +15,7 @@ var HeaderView = Backbone.View.extend({
 		this.render();
 
 		this.firstRun = true;
+		this.sidebarIsOpen = false;
 
 		App.on('header:change', this.changeTitle);
 
@@ -26,8 +27,9 @@ var HeaderView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 		view.buildBar();
-		view.buildOptionsButton('left');
+		view.buildMenuButton('left');
 		view.buildSettingsButton('right');
+		view.enableButtons();
 
 		log('Backbone : HeaderView : Render');
 	},
@@ -38,44 +40,105 @@ var HeaderView = Backbone.View.extend({
 		view.$el.append($('<h3 class="description">Your Plants</h2>'));
 	},
 
-	'buildOptionsButton': function (position) {
+	'enableButtons': function () {
 		var view = this;
-		view.$optionsBtn = $('<a></a>', {
+
+		App.on('nav:enable', function () {
+			view.$menuBtn.on('click', view.handleMenu);
+			view.$settingsBtn.on('click', view.handleSettings);
+		});
+		App.on('nav:disable', function () {
+			view.$menuBtn.off('click', view.handleMenu);
+			view.$settingsBtn.off('click', view.handleSettings);
+		});
+
+		App.trigger('nav:enable');
+	},
+
+	'buildMenuButton': function (position) {
+		var view = this;
+		view.$menuBtn = $('<a></a>', {
 			'class': 'button ' + position,
 			'text': '-',
 			'href': '#'
 		});
 
-		view.$optionsBtn.on('click', view.handleNav);
-
-		view.$el.append(view.$optionsBtn);
+		view.$el.append(view.$menuBtn);
 	},
 
 	'buildSettingsButton': function (position) {
 		var view = this;
 
-		view.$el.append($('<a></a>', {
+		view.$settingsBtn = $('<a></a>', {
 			'class': 'button ' + position,
-			'text': '+',
+			'text': '-',
 			'href': '#'
-		}));
+		});
+
+		view.$el.append(view.$settingsBtn);
 	},
 
-	'handleNav': function (e) {
+	'handleSettings': function (e) {
+		var view = this;
+		e.preventDefault();
+		e.stopPropagation();
+
+		// if(typeof view.$settingsView == "undefined"){
+		Backbone.history.navigate('settings', {
+			'trigger': true
+		});
+		// }
+
+
+		if(!view.$settingsBtn.hasClass('active')) {
+			view.$settingsBtn.addClass('active');
+		} else {
+			view.$settingsBtn.removeClass('active');
+		}
+	},
+
+	'handleMenu': function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		var view = this;
-
-		if(!$('#header_global').hasClass('opened')) {
-			$('#section_content').addClass('sideMenuOpened');
-			$('#header_global').addClass('opened');
-			view.$optionsBtn.addClass('active');
-		} else {
-			$('#section_content').removeClass('sideMenuOpened');
-			$('#header_global').removeClass('opened');
-			view.$optionsBtn.removeClass('active');
+		if(typeof view.$menuView == "undefined") {
+			var $sideEl = $('<div id="side_menu"></div>');
+			$sideEl.insertAfter($('#header_global')); //.prepend($sideEl);
+			view.$menuView = new MenuView({
+				'el': '#side_menu'
+			});
 		}
+
+		if(!view.sidebarIsOpen) {
+			view.openSidebar();
+			view.$menuBtn.addClass('active');
+		} else {
+			view.closeSidebar();
+			view.$menuBtn.removeClass('active');
+		}
+	},
+
+	'openSidebar': function () {
+		var view = this,
+			$content = $('#section_content'),
+			$header = $('#header_global');
+
+		$content.addClass('sideMenuOpened');
+		$header.addClass('opened');
+
+		view.sidebarIsOpen = true;
+	},
+
+	'closeSidebar': function () {
+		var view = this,
+			$content = $('#section_content'),
+			$header = $('#header_global');
+
+		$content.removeClass('sideMenuOpened');
+		$header.removeClass('opened');
+
+		view.sidebarIsOpen = false;
 	},
 
 	'changeTitle': function (params) {

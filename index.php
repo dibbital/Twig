@@ -98,6 +98,8 @@
 				.script('javascripts/app/view/SplashView.js').wait()
 				.script('javascripts/app/view/ProfileView.js').wait()
 				.script('javascripts/app/view/AddPlantView.js').wait()
+				.script('javascripts/app/view/MenuView.js').wait()
+				.script('javascripts/app/view/SettingsView.js').wait()
 				.script('javascripts/app/view/IndexView.js').wait()
 				// Site-Specific JS - Global
 				.script('javascripts/plugins/jquery.knob.js').wait()

@@ -32,21 +32,11 @@ var DashboardView = Backbone.View.extend({
 		var view = this;
 
 
-
 		var $dash = view.$el.find('.dashboard');
 
 		var $addButton = $('<li id="addNew"><a href="#">Add New Plant</a></li>');
 		$dash.append($addButton);
 		$addButton.on('click', view.addNewButton);
-
-
-		var $logOutBtn = $('<li id="logOut"><a href="#">Log Out</a></li>');
-		$dash.append($logOutBtn);
-		$logOutBtn.on('click', function () {
-			Backbone.history.navigate('logout', {
-				'trigger': true
-			});
-		});
 
 		var $plants = view.$el.find('.dashboard li'); //.not('#addNew');
 		$('.dashboard .status').hide();
