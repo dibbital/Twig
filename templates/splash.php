@@ -26,7 +26,7 @@
 -->
 <ul class="menu" id="login">
 	<form  autocomplete="off">
-	<li><input type="text" name="username" id="login_username" placeholder="Username"></input></li>
+	<li><input type="text" name="username" id="login_username" placeholder="Username" autocomplete="off"></input></li>
 	<li><input type="password" name="password" id="login_password" placeholder="Password"></input></li>
 </form>
 	

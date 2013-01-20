@@ -171,7 +171,7 @@
 
 
 
-	#section_main { overflow-x: hidden; overflow-y: scroll; }
+	#section_main { }
 
 	#side_menu {
 		z-index: 5;
@@ -207,9 +207,12 @@
 
 	.profileContent > div.active { display: block; position: relative; z-index: 200; }
 	
-	.guages { height: 150px; text-align: center; 
+	.guages { height: 138px; padding-top: 12px; text-align: center; width: 101%;
 		img { display: block; height: auto; margin: 0 auto; max-width: 150px; width: 100%; }
 		li { float: left; width: 33%; }
+		div{ margin: 0 auto; 
+			/*input {font-size: 25px !important; margin-top:11% !important; margin-left: -23% !important}*/
+		}
 	}
 
 	.header { background: rgba(0,0,0,0.3); clear: both; font-size: 1.8em; padding: .5% 5%; width: 100%; 
