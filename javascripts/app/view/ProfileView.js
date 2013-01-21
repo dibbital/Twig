@@ -126,6 +126,25 @@ var ProfileView = Backbone.View.extend({
 			log('updateGuages', view.plantID, response);
 			var jsonified = $.parseJSON(response);
 
+			// var oldWater = $('#waterGuage').attr('value');
+			// var oldLight = $('#lightGuage').attr('value');
+			// var oldTemp = $('#tempGuage').attr('value');
+
+			// var $newWater = 89;
+			// var $newLight = parseInt(jsonified['light']) / 100;
+			// var $newTemp =  jsonified['temp'];
+			
+
+			// while(oldWater < $newWater){
+			// 	setTimeOut(function(){waterUpdate($oldWater),100}
+			// 	oldWater++;
+			// }
+
+			// 'waterUpdate': function(val){
+			// 	$("#waterGuage").val(val).trigger('change');
+			// }
+
+
 			$('#waterGuage').attr('value', jsonified['moisture']);
 			$('#lightGuage').attr('value', parseInt(jsonified['light']) / 100);
 			$('#tempGuage').attr('value', jsonified['temp']);

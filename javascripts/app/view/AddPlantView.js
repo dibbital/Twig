@@ -82,7 +82,12 @@ var AddPlantView = Backbone.View.extend({
 
 		$('#plantSearch').autocomplete({
 			source: 'suggest_plant.php',
-			minLength: 1
+			minLength: 1,
+			select: function(event, ui) {
+				$('#plantType').val(ui.item.value);
+			    $(this).val(ui.item.label);
+			    return false;
+			}
 		});
 
 		Walt.animate({
@@ -105,7 +110,7 @@ var AddPlantView = Backbone.View.extend({
 
 		$form = view.$el.find('#newPlantForm');
 		var nickname = $form.find('#nickname').val();
-		var plantType = $form.find('#plantSearch').val();
+		var plantType = $form.find('#plantType').val();
 		var device = $form.find('#device').val();
 
 		var data = JSON.stringify({

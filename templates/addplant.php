@@ -8,6 +8,7 @@
 <ul id="newPlantForm">
 	<li><input type="text" placeholder="Plant Name" id="nickname"></input></li>
 	<li><input type="text" id="plantSearch" placeholder="Type"></input></li>
+	<li><input type="hidden" id="plantType"></input></li>
 	<li><div class="button" id="notSure"><a href="#">Not sure?</a></div></li>
 	<li><input type="text" id="device" placeholder="Device ID" id="device"></input></li>
 	
