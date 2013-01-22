@@ -43,21 +43,23 @@ var SettingsView = Backbone.View.extend({
 		};
 
 		view.on('custom:left', function () {
-			$('#header_global .button.left').on('click', view.leftHeaderButtonFunction);
+			$('#header_global .button.left').addClass('close').on('click', view.leftHeaderButtonFunction);
 		});
 
 		view.on('default:left', function () {
-			$('#header_global .button.left').off('click', view.leftHeaderButtonFunction);
+			$('#header_global .button.left').removeClass('close').off('click', view.leftHeaderButtonFunction);
 		});
 
+
+		App.trigger('nav:disable');
+		view.trigger('custom:left');
+		$('#header_global .button.right').fadeOut();
 
 		App.trigger('header:change', {
 			'header': 'Settings',
 			'subtext': 'Manage Your Plants',
 			'callback': function () {
-				App.trigger('nav:disable');
-				$('#header_global .button.right').fadeOut();
-				view.trigger('custom:left');
+
 			}
 		});
 

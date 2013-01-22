@@ -20,7 +20,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="en_US" />
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- <meta name="apple-mobile-web-app-capable" content="yes" /> -->
 
 		<title>Twig</title>
 
@@ -54,7 +54,7 @@
 
 	</head>
 	<body>
-
+<div id="comp"></div>
 		<!-- BEGIN: section_main -->
 		<div id="section_main">
 			<div id="mouseLoader"></div>

@@ -44,13 +44,37 @@ var HeaderView = Backbone.View.extend({
 	'enableButtons': function () {
 		var view = this;
 
+		
+
 		App.on('nav:enable', function () {
 			view.$menuBtn.on('click', view.handleMenu);
 			view.$settingsBtn.on('click', view.handleSettings);
+			view.$menuBtn.addClass('menuIcon');
+			view.$settingsBtn.addClass('settingsIcon');
 		});
 		App.on('nav:disable', function () {
 			view.$menuBtn.off('click', view.handleMenu);
 			view.$settingsBtn.off('click', view.handleSettings);
+			view.$menuBtn.removeClass('menuIcon');
+			view.$settingsBtn.removeClass('settingsIcon');
+		});
+
+		App.on('nav:menu:enable', function () {
+			view.$menuBtn.on('click', view.handleMenu);
+			view.$menuBtn.addClass('menuIcon');
+		});
+		App.on('nav:menu:disable', function () {
+			view.$menuBtn.off('click', view.handleMenu);
+			view.$menuBtn.removeClass('menuIcon');
+		});
+
+		App.on('nav:settings:enable', function () {
+			view.$settingsBtn.on('click', view.handleSettings);
+			view.$settingsBtn.addClass('settingsIcon');
+		});
+		App.on('nav:settings:disable', function () {
+			view.$settingsBtn.off('click', view.handleSettings);
+			view.$settingsBtn.removeClass('settingsIcon');
 		});
 
 		App.trigger('nav:enable');

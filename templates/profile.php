@@ -1,9 +1,3 @@
-<script type = "text/javascript">
-	$(".dial").knob();
-	$(window).bind('resize', function(){
-		$(".dial").knob();
-	});
-</script>
 <?php
 
 // Plant profile page
@@ -15,13 +9,13 @@ require_once(realpath( dirname( __FILE__ ) ) . "/../users/models/config.php");
 $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 ?>
 
-<div id="data" data-name="<?php echo $plantData['name'] ?>"></div>
+<div id="data" data-name="<? echo $plantData['name'] ?>"></div>
 <div class="hero">
-	<?php if(isset($plantData['imgPath'])){ ?>
-		<img src="<?php echo $plantData['imgPath']; ?>" />
-	<?php }else{ ?>
-	 	<img src="images/500.jpeg" />
-	<?php } ?>
+	<? if(isset($plantData['imgPath'])){ ?>
+		<img src="<? echo $plantData['imgPath']; ?>" />
+	<? }else{ ?>
+	 	<img src="<? echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
+	<? } ?>
 </div>
 
 <ul class="profileNav">
@@ -36,9 +30,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 	<!-- State -->
 	<div id="state" class="active">
 		<ul class="guages">
-			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="58"  data-width= "84" data-height= "84" data-transparent="true" data-readOnly=true>Water Levels</input></li>
-			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="4" data-width="84" ="true" data-height= "84" data-transparent="true" data-readOnly=true/>Light Levels</li>
-			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="85" data-width="84"  data-height= "84" data-transparent="true" data-readOnly=true/>Temperature</li>
+			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Water Levels</li>
+			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Light Levels</li>
+			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Temperature</li>
 		</ul>
 
 		<div class="header">

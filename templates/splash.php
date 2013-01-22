@@ -26,7 +26,7 @@
 -->
 <ul class="menu" id="login">
 	<form  autocomplete="off">
-	<li><input type="text" name="username" id="login_username" placeholder="Username" autocomplete="off"></input></li>
+	<li><input type="text" name="username" id="login_username" placeholder="Username"></input></li>
 	<li><input type="password" name="password" id="login_password" placeholder="Password"></input></li>
 </form>
 	
@@ -40,7 +40,7 @@
 
 <ul class="menu" id="signup">
 	<!-- <li class="facebookBtn"><a href="#">Facebook Login</a></li> -->
-	<form  autocomplete="off">
+	<form  autocomplete="off" onsubmit="return App.trigger('form:submit');">
 	<li><input type="text" name="displayname" id="displayname" placeholder="Name"></input></li>
 	<li><input type="text" name="username" id="username" placeholder="Username"></input></li>
 	<li><input type="password" name="password" id="password" placeholder="Password"></input></li>

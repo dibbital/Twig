@@ -58,7 +58,7 @@ function printPlant($data)
 	$plantType = (array_key_exists('common_name', $data) ? $data['common_name'] : $data['latin_name']);
 	$plantID = $data['plantid'];
 	$created = date("F j, Y, g:i a", strtotime($data['created']));
-	$img = "http://placekitten.com/150/150";
+	$img = "http://lorempixel.com/" . rand(250,265) . "/" . rand(250,265) . "/nature/";
 	if(!empty($data['imgPath'])){
 		$img = $data['imgPath'];
 	}

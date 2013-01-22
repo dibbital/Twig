@@ -39,9 +39,13 @@ var ProfileView = Backbone.View.extend({
 			'header': 'Plant Profile',
 			'subtext': $('#data').attr('data-name'),
 			'callback': function () {
+				App.trigger('nav:settings:disable');
 				$('#header_global .button.right').addClass('backToDash');
 				$('#header_global .button.right').on('click', function () {
+					Backbone.history.navigate('', {'trigger': true});
 					$('#header_global .button.right').removeClass('backToDash');
+					App.trigger('nav:enable');
+					clearInterval(view.updateInterval);
 				});
 			}
 		});
@@ -86,7 +90,7 @@ var ProfileView = Backbone.View.extend({
 										});
 
 
-										setInterval(function () {
+										view.updateInterval = setInterval(function () {
 											view.updateGuages();
 										}, 2000);
 									}
@@ -126,28 +130,13 @@ var ProfileView = Backbone.View.extend({
 			log('updateGuages', view.plantID, response);
 			var jsonified = $.parseJSON(response);
 
-			// var oldWater = $('#waterGuage').attr('value');
-			// var oldLight = $('#lightGuage').attr('value');
-			// var oldTemp = $('#tempGuage').attr('value');
-
-			// var $newWater = 89;
-			// var $newLight = parseInt(jsonified['light']) / 100;
-			// var $newTemp =  jsonified['temp'];
-			
-
-			// while(oldWater < $newWater){
-			// 	setTimeOut(function(){waterUpdate($oldWater),100}
-			// 	oldWater++;
-			// }
-
-			// 'waterUpdate': function(val){
-			// 	$("#waterGuage").val(val).trigger('change');
-			// }
-
-
 			$('#waterGuage').attr('value', jsonified['moisture']);
 			$('#lightGuage').attr('value', parseInt(jsonified['light']) / 100);
 			$('#tempGuage').attr('value', jsonified['temp']);
+
+
+
+			view.$el.find('.dial').trigger('change');
 		});
 	}
 
