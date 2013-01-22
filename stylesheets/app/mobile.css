@@ -16,6 +16,9 @@
     overflow: hidden;
     width: 100%; }
 
+  #section_main {
+    position: relative; }
+
   select, input, button, textarea, button {
     font-family: 'Asap'; }
 
@@ -399,11 +402,6 @@
     .dashboard .poor.status {
       background: rgba(255, 0, 0, 0.8); }
 
-  #section_main {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    position: relative; }
-
   #side_menu {
     z-index: 5;
     width: 80%;
@@ -506,14 +504,15 @@
     z-index: 200; }
 
   .guages {
-    height: 150px;
+    height: 138px;
+    padding-top: 12px;
     text-align: center;
-    position: relative; }
-    .guages input {
-      position: absolute !important;
-      left: 20% !important;
-      top: 17% !important;
-      margin: 0 !important; }
+    width: 101%; }
+    .guages div {
+      margin: 0 auto;
+                     /*
+input { position: absolute !important; left: 20% !important; top: 17% !important; margin: 0 !important; }
+*/ }
     .guages img {
       display: block;
       height: auto;

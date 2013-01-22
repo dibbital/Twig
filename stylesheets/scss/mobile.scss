@@ -1,9 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
 
-@media screen{
-	
-}
 
 @media screen{ 
 
@@ -16,7 +13,7 @@
 	html,
 	body,
 	#section_main { -webkit-font-smoothing: antialiased; background: #FBFBFB; color: #4e4e4e; font-family: 'Asap'; font-size: 10px; height: 110%; overflow: hidden; width: 100%; }
-
+	#section_main { position: relative; }
 	select, input, button, textarea, button { font-family: 'Asap'; }
 	h1,
 	h2 { font-family: 'Asap'; }
@@ -200,10 +197,6 @@ box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0,0,0,0.04); }
 		.poor.status { background: rgba(255,0,0,0.8) }
 	}
 
-
-
-	#section_main { overflow-x: hidden; overflow-y: scroll; position: relative; }
-
 	#side_menu {
 		z-index: 5;
 		width: 80%;
@@ -250,11 +243,10 @@ box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0,0,0,0.04); }
 
 	.profileContent > div.active { display: block; position: relative; z-index: 200; }
 	
-	.guages { height: 150px; text-align: center; position: relative;
-		input { position: absolute !important;
-left: 20% !important;
-top: 17% !important;
-margin: 0 !important; }
+	.guages { height: 138px; padding-top: 12px; text-align: center; width: 101%;
+		div {margin: 0 auto; /*
+		input { position: absolute !important; left: 20% !important; top: 17% !important; margin: 0 !important; }
+		*/ }
 		img { display: block; height: auto; margin: 0 auto; max-width: 150px; width: 100%; }
 		li { float: left; width: 33%; position: relative; }
 	}

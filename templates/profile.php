@@ -30,9 +30,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 	<!-- State -->
 	<div id="state" class="active">
 		<ul class="guages">
-			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Water Levels</li>
-			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Light Levels</li>
-			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true>Temperature</li>
+			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Water Levels</li>
+			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Light Levels</li>
+			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Temperature</li>
 		</ul>
 
 		<div class="header">

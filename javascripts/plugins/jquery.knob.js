@@ -59,6 +59,8 @@
         this.isInit = false;
         this.fgColor = null; // main color
         this.pColor = null; // previous color
+        this.textBgColor = null;
+        this.transparent = null;
         this.dH = null; // draw hook
         this.cH = null; // change hook
         this.eH = null; // cancel hook
@@ -97,6 +99,8 @@
                     displayInput : this.$.data('displayinput') == null || this.$.data('displayinput'),
                     displayPrevious : this.$.data('displayprevious'),
                     fgColor : this.$.data('fgcolor') || '#87CEEB',
+                    transparent: this.$.data('transparent') || "false",
+                    textBgColor: this.$.data('textbgcolor') || "#ffffff",
                     inline : false,
 
                     // Hooks
@@ -146,14 +150,14 @@
             (!this.o.displayInput) && this.$.hide();
 
             this.$c = $('<canvas width="' +
-                            this.o.width + 'px" height="' +
-                            this.o.height + 'px"></canvas>');
+                            this.o.width + '%" height="' +
+                            this.o.height + '%"></canvas>');
             this.c = this.$c[0].getContext("2d");
 
             this.$
-                .wrap($('<div style="' + (this.o.inline ? 'display:inline;' : '') +
-                        'width:' + this.o.width + 'px;height:' +
-                        this.o.height + 'px;"></div>'))
+                .wrap($('<div style="' + (this.o.inline ? 'display:block;' : '') +
+                        'width:' + this.o.width + '%;height:' +
+                        this.o.height + '%; margin-bottom: 6%;"></div>'))
                 .before(this.$c);
 
             if (this.v instanceof Object) {
@@ -348,6 +352,12 @@
                 this.fgColor = this.h2rgba(this.o.fgColor, "0.6");
             } else {
                 this.fgColor = this.o.fgColor;
+            }
+
+            if(this.o.transparent === true){
+                this.textBgColor = this.h2rgba(this.o.textBgColor, "0.0");
+            }else{
+                this.textBgColor = this.o.textBgColor;
             }
 
             return this;
@@ -575,6 +585,7 @@
                         ,'font' : 'bold ' + ((this.o.width / s) >> 0) + 'px Arial'
                         ,'text-align' : 'center'
                         ,'color' : this.o.fgColor
+                        ,'background-color' : this.textBgColor
                         ,'padding' : '0px'
                         ,'-webkit-appearance': 'none'
                         })
