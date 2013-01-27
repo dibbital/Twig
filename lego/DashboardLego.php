@@ -45,7 +45,7 @@ function getPlants($user)
 	}
 
 	if($sallGoodBaby){
-		echo "<h2>What the heck? You ain't got none plants!</h2>";
+		echo "<h2>You don't have any plants yet!</h2>";
 	}
 	//echo json_encode($info);
 }

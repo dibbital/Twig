@@ -1,11 +1,14 @@
 <?php
+
+error_reporting(E_ALL);
+ ini_set("display_errors", 1);
 require_once(realpath( dirname( __FILE__ ) ) . "/users/models/config.php");
 // require_once("users/models/header.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/DatabaseLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/UserCakeLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/UploadLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/lego/PlantLego.php");
 ConnectDB();
-
 switch($_REQUEST['a']){
 	case 'newPlant':
 		newPlant($_REQUEST['data']);
@@ -23,9 +26,24 @@ switch($_REQUEST['a']){
 	case 'currentStats':
 		getCurrentPlantStats($_REQUEST['plantID']);
 		break;
+	case 'getDefaultPhotos':
+		getDefaultPhotos($_REQUEST['name']);
+		break;
+	case 'getDefaultPhotosString':
+		getDefaultPhotosString($_REQUEST['name']);
+		break;
+	case 'savePhoto':
+		if (!is_dir(realpath(dirname( __FILE__ )).'/plants/')) {
+		    mkdir(realpath( dirname( __FILE__ ) ).'/plants/');
+		}
+		copy($_REQUEST['fileUrl'], realpath( dirname( __FILE__ ) ).'/plants/' . $_REQUEST['fileName']);
+		echo ('/plants/' . $_REQUEST['fileName']);
+		break;
+	case 'getScientificName':
+		getScientificName($_REQUEST['pid']);
+		break;
 	default:
 		var_dump($_REQUEST);
 		break;
 }
-
 ?>

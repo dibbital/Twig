@@ -43,34 +43,8 @@ var DashboardView = Backbone.View.extend({
 		$dash.append($addButton);
 		$addButton.on('click', view.addNewButton);
 
-		var $plants = view.$el.find('.dashboard li'); //.not('#addNew');
+		var $plants = view.$el.find('.dashboard li');
 		$('.dashboard .status').hide();
-
-
-		$plants.each(function (i, v) {
-			var url = "http://en.wikipedia.org/w/api.php?action=parse&format=json&callback=?";
-			if($(v).attr('data-plant-name') != undefined) {
-				var page = $(v).attr('data-plant-name').replace(' ', '_'); // your page title, eg. New_York
-
-				$.getJSON(url, {
-					page: page,
-					limit: 1,
-					prop: "text|imagelinks",
-					uselang: "en"
-				}, function (data) {
-
-					if(data.error != undefined){
-						log(data);
-						return;
-					}
-
-					var $response = $(data['parse']['text']['*']);
-					$(v).find('img').attr('src', $response.find('img').first().attr('src'));
-				});
-			}
-		});
-
-
 
 		App.trigger('header:change', {
 			'header': App.User.get() + '\'s Dashboard',

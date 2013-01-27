@@ -159,7 +159,6 @@
     bottom: 30%;
     left: 0;
     padding: 6% 10%;
-    position: absolute;
     height: auto;
     width: 100%;
     -moz-transition: height .5s ease;
@@ -175,7 +174,6 @@
     font-weight: 100; }
   .splash .menu {
     bottom: 15%;
-    position: absolute;
     width: 80%;
     left: 10%; }
     .splash .menu li a {
@@ -273,7 +271,7 @@
     width: 100%;
     overflow: scroll;
     z-index: 90;
-    padding: 4% 1% 15%; }
+    padding: 4% 1% 30%; }
     .addPlant input {
       width: 100%;
       height: 39px;
@@ -286,7 +284,7 @@
       position: relative;
       box-shadow: 0px 0px 2px rgba(14, 14, 11, 0.1); }
     .addPlant #imgThumb {
-      position: absolute;
+      /*position: absolute;*/
       z-index: 100;
       max-width: 100%;
       max-height: 100%; }
@@ -298,7 +296,7 @@
     .addPlant input[type=file] {
       position: relative;
       z-index: 20;
-      height: 280px;
+      /*height: 280px;*/
       box-shadow: none;
       border: none;
       border-radius: 0; }
@@ -306,7 +304,7 @@
       display: none; }
     .addPlant input[type=file]:after {
       content: '';
-      display: block;
+      display: none;
       height: 100%;
       width: 100%;
       background: #fbfbfb url("../../images/camera.png") no-repeat center center;
@@ -318,6 +316,66 @@
       border-radius: 20px; }
     .addPlant input[type=file].loader:after {
       background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat; }
+    .addPlant #newPlantForm li {
+      clear: both; }
+    .addPlant #newPlantForm li span {
+      display: block;
+      text-indent: -9999px;
+      overflow: hidden;
+      height: 70px;
+      width: 33%;
+      float: left;
+      margin-bottom: -10px; }
+    .addPlant #newPlantForm li label.left {
+      float: left; }
+    .addPlant #newPlantForm li label.right {
+      float: right; }
+    .addPlant #newPlantForm li span.seed {
+      background: url("../../images/sprites.age.png") no-repeat;
+      background-position: left top;
+      /*width: 50px;*/ }
+    .addPlant #newPlantForm li span.mid {
+      background: url("../../images/sprites.age.png") no-repeat;
+      background-position: center center;
+      /*width: 50px;*/ }
+    .addPlant #newPlantForm li span.mature {
+      background: url("../../images/sprites.age.png") no-repeat;
+      background-position: right bottom;
+      /*width: 44px;*/ }
+    .addPlant input[type="range"] {
+      -webkit-appearance: none !important;
+      border-radius: 50px;
+      height: 10px;
+      background: #c3c3c3;
+      /* url('../../images/bg.slider.png'); */
+      background-size: auto 100%; }
+    .addPlant input[type="range"]::-webkit-slider-thumb {
+      height: 30px;
+      width: 30px;
+      display: block;
+      background: #4f4f4f;
+      /* url('../../images/btn.slider.png'); */
+      background-size: 100%;
+      background-repeat: no-repeat;
+      border-radius: 100%;
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+      -webkit-appearance: none !important; }
+    .addPlant #defaultPhotosContainer {
+      width: 100%;
+      height: 180px;
+      padding: 10px 0;
+      overflow-x: scroll;
+      overflow-y: hidden; }
+      .addPlant #defaultPhotosContainer .grabbed {
+        max-height: 100%;
+        margin-right: 15px;
+        border: 0px solid #a1b05d;
+        transition: 0.5s -webkit-filter ease, 0.5s filter ease, 0.5s border ease;
+        -webkit-transition: 0.5s -webkit-filter ease, 0.5s filter ease, 0.5s border ease; }
+      .addPlant #defaultPhotosContainer .selected {
+        border: 5px solid #a1b05d;
+        height: 100%;
+        box-shadow: 0px 0px 5px rgba(161, 176, 93, 0.6), 0px 0px 8px rgba(161, 176, 93, 0.3), 0px 0px 10px rgba(161, 176, 93, 0.1), 0px 0px 5px rgba(161, 176, 93, 0.6), 0px 0px 8px rgba(161, 176, 93, 0.3), 0px 0px 10px rgba(161, 176, 93, 0.1); }
 
   li.cancel {
     clear: none;
@@ -481,7 +539,9 @@
     width: 100%; }
     .hero img {
       height: auto;
-      width: 100%; }
+      width: 100%;
+      position: relative;
+      top: -25%; }
 
   .profileNav {
     height: 29px;
@@ -523,6 +583,9 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
       float: left;
       width: 33%;
       position: relative; }
+
+  .guages > li {
+    height: 46px; }
 
   .header {
     background: rgba(0, 0, 0, 0.3);

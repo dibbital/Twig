@@ -26,7 +26,6 @@ function newPlant($data){
 		ConnectDB();
 	}
 	$data = json_decode($data);
-	// What the hell is this bracket shit? Welcome to PHP
 	$userID = $data->{'uid'};
 	$plantTypeID = $data->{'plantTypeID'};
 	$plantNickname = $data->{'name'};
@@ -43,6 +42,7 @@ function newPlant($data){
 		$moreSQL = "INSERT INTO `" . $GLOBALS['DB'] . "`.`user_plant_stuff` (`uid`, `pid`, `key`, `value`) VALUES ('" . $userID . "', '" . $plantID . "', 'imgPath', '" . $plantImg . "')"; 
 		$moreQuery = mysql_query($moreSQL) or die("Error inserting more: " . mysql_error());
 	}
+	
 	$response = array();
 	$response['return'] = "success";
 	$response['id'] = $plantID;

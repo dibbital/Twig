@@ -11,7 +11,7 @@ function upload($file_) {
 	$extension = end($explode);
 
 	if((($file["type"] == "image/gif") || ($file["type"] == "image/jpeg") || ($file["type"] == "image/png") || ($file["type"] == "image/pjpeg")) && in_array(strtolower($extension), $allowedExts)) {
-		if(($file["size"] > 2100000 || $file["size"] <= 0)){
+		if(($file["size"] > 5000000 || $file["size"] <= 0)){
 			echo "ERROR! File too big or empty " . $file["size"];
 			return;
 		}

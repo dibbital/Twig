@@ -22,7 +22,6 @@ App.Global = (function (window, document) {
 
 			Backbone.history.start();
 
-
 			// Hack to detect back button presses, triggers App-wide event back:button
 			window.onload = function () {
 				if(typeof history.pushState === "function") {
