@@ -263,6 +263,14 @@
         background: #8bc53e;
         width: 100%; }
 
+  #settings .sub {
+    height: 0;
+    overflow: hidden;
+    transition: .4s height ease;
+    -webkit-transition: .4s height ease; }
+  #settings .open .sub {
+    height: 240px; }
+
   .addPlant {
     background-color: #fbfbfb;
     height: 100%;
@@ -284,10 +292,43 @@
       position: relative;
       box-shadow: 0px 0px 2px rgba(14, 14, 11, 0.1); }
     .addPlant #imgThumb {
-      /*position: absolute;*/
       z-index: 100;
       max-width: 100%;
       max-height: 100%; }
+    .addPlant .name.button {
+      color: #fff;
+      font-weight: bold;
+      height: auto;
+      padding: 2% 0;
+      line-height: 2em;
+      font-size: 18px;
+      text-indent: 8px; }
+    .addPlant .name.button:after {
+      display: block;
+      content: '';
+      width: 50px;
+      height: 50px;
+      background: url("../../images/arrow.png") no-repeat center center;
+      position: absolute;
+      top: 50%;
+      margin-top: -25px;
+      right: 0%;
+      transition: .4s all ease;
+      -webkit-transition: .4s all ease; }
+    .addPlant .open .name.button:after {
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+      right: 1%; }
+    .addPlant ul.sub li {
+      border-radius: 5px;
+      box-sizing: border-box;
+      height: auto;
+      margin: 3%;
+      font-size: 16px;
+      padding: 9px 5px;
+      overflow: hidden;
+      border: 1px solid #c0c0c0;
+      text-indent: 3px; }
     .addPlant h2 {
       text-indent: 3%;
       font-size: 2em;
@@ -296,7 +337,6 @@
     .addPlant input[type=file] {
       position: relative;
       z-index: 20;
-      /*height: 280px;*/
       box-shadow: none;
       border: none;
       border-radius: 0; }
@@ -707,7 +747,12 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
     -webkit-transform: rotate(45deg);
     text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.9); }
 
-  #footer_global,
+  img.placeholder {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block; }
+
   .splash #login,
   .splash .blurb.login,
   .splash #signup,
@@ -728,6 +773,10 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
     top: 0;
     left: 0;
     z-index: 200; }
+
+  #footer_global li {
+    float: left;
+    width: 25%; }
 
   /* JQuery UI */
   .ui-autocomplete {

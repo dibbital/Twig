@@ -20,7 +20,7 @@ var SettingsView = Backbone.View.extend({
 		view.$originalEl = view.$el;
 		view.$el = $newEl;
 
-		view.pageURL = 'templates/addplant.php';
+		view.pageURL = 'templates/settings.php';
 		view.$el.load(view.pageURL, function () {
 			view.render();
 		});
@@ -78,7 +78,22 @@ var SettingsView = Backbone.View.extend({
 			view.submitForm(e);
 		});
 
-		log('render 5');
+		/* ----- */
+
+		var $settings = view.$el.find('#settings');
+		$settings.find('.name.button').on('click', function(e){
+			var $this = $(e.currentTarget);
+			if($this.parent().hasClass('open')){
+				$this.parent().removeClass('open');
+			}else{
+				$settings.find('.open').removeClass('open');
+				$this.parent().addClass('open');
+			}
+		});
+
+
+
+
 		log('Backbone : SettingsView : Render');
 	},
 

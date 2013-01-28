@@ -12,6 +12,9 @@ var AppRouter = Backbone.Router.extend({
 		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
 		'add': 'add',
 		'settings': 'settings',
+		'help': 'help',
+		'about': 'about',
+		'contact': 'contact',
 		'logout': 'logout'
 	},
 
@@ -29,6 +32,11 @@ var AppRouter = Backbone.Router.extend({
 					'el': '#header_global'
 				});
 
+				
+
+				router.footerView = new FooterView({
+					'el': '#footer_global'
+				});
 				Walt.animate({
 					'el': $('#header_global').show(),
 					'transition': 'fadeInDownBig',
@@ -95,6 +103,45 @@ var AppRouter = Backbone.Router.extend({
 		var router = this;
 		if(router.indexFirst()) {
 			router.settingsView = new SettingsView({
+				'el': '#section_content' // ?
+			});
+		} else {
+			Backbone.history.navigate('', {
+				'trigger': true
+			});
+		}
+	},
+
+	'help': function () {
+		var router = this;
+		if(router.indexFirst()) {
+			router.helpView = new HelpView({
+				'el': '#section_content' // ?
+			});
+		} else {
+			Backbone.history.navigate('', {
+				'trigger': true
+			});
+		}
+	},
+
+	'about': function () {
+		var router = this;
+		if(router.indexFirst()) {
+			router.aboutView = new AboutView({
+				'el': '#section_content' // ?
+			});
+		} else {
+			Backbone.history.navigate('', {
+				'trigger': true
+			});
+		}
+	},
+
+	'contact': function () {
+		var router = this;
+		if(router.indexFirst()) {
+			router.contactView = new ContactView({
 				'el': '#section_content' // ?
 			});
 		} else {

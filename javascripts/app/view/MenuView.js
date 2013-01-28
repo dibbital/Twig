@@ -36,11 +36,24 @@ var MenuView = Backbone.View.extend({
 
 		view.$el.find('._logout').on('click', view.logOut);
 
+		App.on('menu:change', function(data){
+			view.$el.find('.active').removeClass('active');
+			view.$el.find('._' + data).addClass('active');
+		});
+
 	},
 
 	'backTab': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
 		var view = this;
+
+
+		view.$el.find('.active').removeClass('active');
+		view.$el.find('._dash').addClass('active');
 		view.closeTab();
+
 		setTimeout(function () {
 			Backbone.history.navigate('#', {
 				'trigger': true
@@ -48,17 +61,10 @@ var MenuView = Backbone.View.extend({
 		}, 550);
 	},
 
-	'showAbout': function (e) {
-		var view = this;
-		view.closeTab();
-		App.trigger('header:change', {
-			'header': 'About',
-			'subtext': 'Twig'
-		});
-		//console.log("hello");
-	},
-
-	'logOut': function () {
+	'logOut': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
 		var view = this;
 		view.closeTab();
 		Backbone.history.navigate('logout', {
@@ -66,32 +72,64 @@ var MenuView = Backbone.View.extend({
 		});
 	},
 
-	'showDatabase': function () {
+	'showDatabase': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
 		var view = this;
+		view.$el.find('.active').removeClass('active');
+		view.$el.find('._database').addClass('active');
 		view.closeTab();
 		setTimeout(function () {
-			Backbone.history.navigate('#search', {
+			Backbone.history.navigate('search', {
 				'trigger': true
 			});
 		}, 550);
 	},
 
-	'showContact': function () {
+	'showAbout': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
 		var view = this;
 		view.closeTab();
-		App.trigger('header:change', {
-			'header': 'Contact',
-			'subtext': 'connect with us'
-		});
+		view.$el.find('.active').removeClass('active');
+		view.$el.find('._about').addClass('active');
+		setTimeout(function () {
+			Backbone.history.navigate('about', {
+				'trigger': true
+			});
+		}, 550);
 	},
 
-	'showHelp': function () {
+	'showContact': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
 		var view = this;
 		view.closeTab();
-		App.trigger('header:change', {
-			'header': 'Help',
-			'subtext': 'Help with Twig'
-		});
+		view.$el.find('.active').removeClass('active');
+		view.$el.find('._contact').addClass('active');
+		setTimeout(function () {
+			Backbone.history.navigate('contact', {
+				'trigger': true
+			});
+		}, 550);
+	},
+
+	'showHelp': function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		
+		var view = this;
+		view.closeTab();
+		view.$el.find('.active').removeClass('active');
+		view.$el.find('._help').addClass('active');
+		setTimeout(function () {
+			Backbone.history.navigate('help', {
+				'trigger': true
+			});
+		}, 550);
 	},
 
 	'close': function () {

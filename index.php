@@ -73,7 +73,9 @@
 
 			</div>
 
-			<div id="footer_global"></div>
+			<div id="footer_global">
+
+			</div>
 
 		</div>
 		<!-- END: section_main -->
@@ -100,6 +102,10 @@
 				.script('javascripts/app/view/AddPlantView.js').wait()
 				.script('javascripts/app/view/MenuView.js').wait()
 				.script('javascripts/app/view/SettingsView.js').wait()
+				.script('javascripts/app/view/FooterView.js').wait()
+				.script('javascripts/app/view/HelpView.js').wait()
+				.script('javascripts/app/view/AboutView.js').wait()
+				.script('javascripts/app/view/ContactView.js').wait()
 				.script('javascripts/app/view/IndexView.js').wait()
 				// Site-Specific JS - Global
 				.script('javascripts/plugins/jquery.knob.js').wait()
