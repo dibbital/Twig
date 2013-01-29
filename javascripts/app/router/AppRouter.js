@@ -14,6 +14,7 @@ var AppRouter = Backbone.Router.extend({
 		'settings': 'settings',
 		'help': 'help',
 		'about': 'about',
+		'search': 'search',
 		'contact': 'contact',
 		'logout': 'logout'
 	},
@@ -110,6 +111,13 @@ var AppRouter = Backbone.Router.extend({
 				'trigger': true
 			});
 		}
+	},
+
+	'search': function(){
+		var router = this;
+		router.searchView = new SearchView({
+			'el': '#section_content'
+		});
 	},
 
 	'help': function () {

@@ -8,7 +8,7 @@
 ?>
 
 <ul class="dashboard">
-	<?
+	<?php
 	getPlants($loggedInUser->user_id);
 
 	/*
@@ -38,7 +38,7 @@
 	*/ ?>
 	
 	
-<? /*
+<?php /*
 	<li><img src="http://placekitten.com/150/150" />
 		<h2>Frederick</h2>
 		<h3>Tomato Plant</h3>

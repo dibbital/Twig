@@ -12,9 +12,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 <div id="data" data-name="<? echo $plantData['name'] ?>"></div>
 <div class="hero">
 	<? if(isset($plantData['imgPath'])){ ?>
-		<img src="<? echo $plantData['imgPath']; ?>" />
+		<img src="<?php echo $plantData['imgPath']; ?>" />
 	<? }else{ ?>
-	 	<img src="<? echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
+	 	<img src="<?php echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
 	<? } ?>
 </div>
 
