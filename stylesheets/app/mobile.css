@@ -764,9 +764,11 @@
       width: 100px; }
     .returnList h2 {
       font-size: 1.5em;
-      font-weight: 700; }
+      font-weight: 700;
+      color: #3f3f3f; }
     .returnList h3 {
-      font-size: 1em; }
+      font-size: 1em;
+      color: #545454; }
 
   #section_content.sideMenuOpened {
     border-left: 2px solid rgba(0, 0, 0, 0.3);

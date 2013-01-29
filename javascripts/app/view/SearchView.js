@@ -31,7 +31,6 @@ var SearchView = Backbone.View.extend({
 
 	'render': function() {
 		var view = this;
-		console.log("here");
 		App.trigger('header:change', {
 			'header': 'Database',
 			'subtext': 'Search Plants',
@@ -39,6 +38,8 @@ var SearchView = Backbone.View.extend({
 				$('#header_global .button.right').addClass('dashboard');
 			}
 		});
+
+		view.$el.find('#advancedOptions').hide();
 
 		var $advancedBtn = view.$el.find(".advancedButton");
 		var $searchBtn = view.$el.find(".searchButton");
@@ -171,13 +172,17 @@ var SearchView = Backbone.View.extend({
 	'expandOptions': function() {
 		var view = this;
 		if(!$('#plantResults').hasClass('advancedOptionsOpened')){
-			$('#plantResults').addClass('advancedOptionsOpened');
-			$('#advancedOptions').addClass('advancedOptionsOpened');
-			$('.advancedButton').addClass('active');
+			view.$el.find("#advancedOptions").show();
+			setTimeout(function(){
+				$('#plantResults').addClass('advancedOptionsOpened');
+				$('#advancedOptions').addClass('advancedOptionsOpened');
+				$('.advancedButton').addClass('active');
+			}, 5);
 		}else{
 			$('#plantResults').removeClass('advancedOptionsOpened');
 			$('#advancedOptions').removeClass('advancedOptionsOpened');
 			$('.advancedButton').removeClass('active');
+			setTimeout(function(){view.$el.find("#advancedOptions").hide();}, 500);
 		}
 	},
 
