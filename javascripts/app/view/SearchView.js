@@ -103,8 +103,7 @@ var SearchView = Backbone.View.extend({
 						});
 
 						break;
-			case 'maintenance': console.log('maintenance');
-								var $mainSelects = $("#plantMaintenance option");
+			case 'maintenance': var $mainSelects = $("#plantMaintenance option");
 								$html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>";
 								for(var i = 1; i < $mainSelects.length; i++){
 									$value = $($mainSelects[i]).val();
@@ -198,13 +197,39 @@ var SearchView = Backbone.View.extend({
 
 		var $urlString = "searchDatabase.php?"
 		if($plantName == ''){
-			$("#plantName").addClass('error');
+			$('#header_global .button.right').fadeOut();
+			$('#header_global .button.left').fadeOut();
 			view.$el.find('#plantResults').removeClass('loading');
-		}else{
+			view.$el.addClass('modal');
+			$warningEl = $("<div class='selectModal'><h2>You must enter something in the search field!</h2><div class='submit'>OK</div></div>");
+			$warningEl.insertAfter(view.$el);
 
-			if($("#plantName").addClass('error')){
-				$("#plantName").removeClass('error');
-			}
+			Walt.animateEach({
+				'list': $warningEl,
+				'transition':'bounceIn',
+				'delay': 0,
+				'duration': '.4s',
+				'callback': function(){
+					$('.selectModal .submit').on('click', function(){
+						Walt.animateEach({
+							'list': $warningEl,
+							'transition':'bounceOut',
+							'delay': 0,
+							'duration': '.4s',
+							'callback': function(){
+								setTimeout(function(){
+									$warningEl.remove();
+									view.$el.removeClass('modal');
+									$('#header_global .button.right').fadeIn();
+									$('#header_global .button.left').fadeIn();
+								}, 400);
+
+							}
+						});
+					});
+				}
+			});
+		}else{
 
 			$urlString += "plantName=" + $plantName;
 
