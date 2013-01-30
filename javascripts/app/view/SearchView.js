@@ -60,9 +60,6 @@ var SearchView = Backbone.View.extend({
 
 		var $options = view.$el.find(".option");
 		$options.on("click",view.showSearchModal);
-		view.$el.find('.returnList li').on('click', function(){
-			console.log('derp');
-		})
 
 		view.$page = $('.returnList li').eq(0).data('page');
 		view.$totalPages = $('#totalPages').val();
@@ -70,6 +67,43 @@ var SearchView = Backbone.View.extend({
 		view.$searched = false;
 
 		view.$el.find('.returnList').on('scroll', function(){view.checkBottom(this)});
+
+		view.animateResults();
+	},
+
+	'animateResults' : function(){
+		var view = this;
+		Walt.animate({
+			'$el':view.$el.find('.returnList'),
+			'transition': 'fadeInUp',
+			'delay': 0,
+			'duration': '.5s',
+			'callback':function(){
+				view.$el.find('.returnList li').on('click', function(){
+					$(this).addClass('clicked');
+					$plantID = $(this).data('plant-id');
+					Walt.animate({
+						'el': this,
+						'transition':'fadeOutUp',
+						'delay':0,
+						'duration':'.5s',
+						'callback': function(){
+							
+							console.log($plantID);
+							// Backbone.history.navigate('#plantDatabase/' + $plantID, {
+							// 	'trigger': true
+							// });
+						}				
+					});
+					// Walt.animateEach({
+					// 	'list': view.$el.find('.returnList').not(this),
+					// 	'transition':'fadeOutDown',
+					// 	'delay':0,
+					// 	'duration':'.5s'					
+					// });
+				});
+			}
+		});
 	},
 
 	'checkBottom': function(elem){
@@ -100,9 +134,9 @@ var SearchView = Backbone.View.extend({
 						for (var i = 0; i< $plants.length ;i++){
 							var $name = $plants[i].common_name;
 							var $latin = $plants[i].family;
-							var $id = $plants[i].pid;
+							var $id = $plants[i].id;
 							var $img = "<img src='http://placekitten.com/150/150' />";
-							$html+="<li data-plant-id='$id'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
+							$html+="<li data-plant-id='"+$id+"'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
 						}
 
 						view.$el.find('.returnList').append($html);
@@ -346,9 +380,9 @@ var SearchView = Backbone.View.extend({
 						for (var i = 0; i< $plants.length ;i++){
 							var $name = $plants[i].common_name;
 							var $latin = $plants[i].family;
-							var $id = $plants[i].pid;
+							var $id = $plants[i].id;
 							var $img = "<img src='http://placekitten.com/150/150' />";
-							$html+="<li data-plant-id='$id'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
+							$html+="<li data-plant-id='"+$id+"'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
 						}
 					}
 
@@ -362,6 +396,7 @@ var SearchView = Backbone.View.extend({
 				}
 			}).done(function(){
 				view.$el.find("#plantResults").removeClass('loading');
+				view.animateResults();
 			});
 		}
 	}
