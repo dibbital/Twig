@@ -57,7 +57,7 @@
 	</div>
 	<div id="plantResults">
 		<ul class="returnList">
-			<?php getAllPlants();?>
+			<?php getAllPlants(1);?>
 			<!--<li><img src="http://placekitten.com/150/150" />
 				<h2>Frederick</h2>
 				<h3>Tomato Plant</h3>

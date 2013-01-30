@@ -732,18 +732,21 @@
   .returnList {
     font: 'Asap';
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 7px 2%;
     position: relative;
     width: 100%;
     z-index: 50; }
-    .returnList li {
+    .returnList > li {
       float: left;
       height: 139px;
       margin: 1%;
       position: relative;
       width: 31%;
       z-index: 50; }
+      .returnList > li div.ajaxLoader {
+        width: 89;
+        height: 61%; }
     .returnList img {
       clear: both;
       display: block;

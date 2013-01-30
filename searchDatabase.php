@@ -3,11 +3,21 @@
 	require_once('lego/DatabaseLego.php');
 	ConnectDB();
 
+	$count = 9;
+	$page = $_REQUEST['page'];
+	$offset = ($page - 1)*$count;
+
 	$plantName = strtolower(mysql_real_escape_string($_GET['plantName']));
+
 	$query = mysql_query("SELECT * FROM  `plants` WHERE  `key` =  'common_name' AND  `value` LIKE  '%$plantName%'");
+	$num_rows = mysql_num_rows($query);
+
+	$totalPages = ceil($num_rows/$count);
+
+	$query = mysql_query("SELECT * FROM  `plants` WHERE  `key` =  'common_name' AND  `value` LIKE  '%$plantName%' LIMIT $offset,$count");
 
 	$num_rows = mysql_num_rows($query);
-	$plants = array('num_rows'=>$num_rows, 'plants'=>array());
+	$plants = array('page'=>$page, 'total_pages'=>$totalPages, 'num_rows'=>$num_rows, 'plants'=>array());
 
 	if($num_rows != 0){
 

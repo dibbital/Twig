@@ -60,8 +60,65 @@ var SearchView = Backbone.View.extend({
 
 		var $options = view.$el.find(".option");
 		$options.on("click",view.showSearchModal);
+		view.$el.find('.returnList li').on('click', function(){
+			console.log('derp');
+		})
 
-		
+		view.$page = $('.returnList li').eq(0).data('page');
+		view.$totalPages = $('#totalPages').val();
+
+		view.$searched = false;
+
+		view.$el.find('.returnList').on('scroll', function(){view.checkBottom(this)});
+	},
+
+	'checkBottom': function(elem){
+		var view = this;
+		//console.log(elem.scrollHeight+","+elem.offsetHeight+","+elem.scrollTop);
+		if(elem.offsetHeight + elem.scrollTop >= elem.scrollHeight){
+			view.pagination(elem.scrollTop,view.$page);
+		}
+	},
+
+	'pagination': function(offset, page){
+
+		var view = this;
+		view.$page++;
+		//console.log(view.$page + "," + view.$totalPages);
+		if(view.$page <= view.$totalPages){
+			view.$el.find('.returnList').append("<li class='loader'><div class='ajaxLoader loading'></div></li>");
+	
+			if(view.$searched == true){
+				var $html ='';
+				$.ajax({
+					url: view.$urlString+'&page='+view.$page,
+					dataType: 'json',
+					success: function(data){
+						//alert(JSON.stringify(data));
+						$('.returnList li.loader').remove();
+						$plants = data.plants;
+						for (var i = 0; i< $plants.length ;i++){
+							var $name = $plants[i].common_name;
+							var $latin = $plants[i].family;
+							var $id = $plants[i].pid;
+							var $img = "<img src='http://placekitten.com/150/150' />";
+							$html+="<li data-plant-id='$id'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
+						}
+
+						view.$el.find('.returnList').append($html);
+					}
+				});
+			}else{
+				$.ajax({
+					url: '/paginateAllPlants.php?page='+view.$page,
+					success: function(data){
+						$('.returnList li.loader').remove();
+						$('.returnList').append(data);
+					}
+				});
+			}
+		}
+
 	},
 
 	'showSearchModal':function(e){
@@ -200,35 +257,43 @@ var SearchView = Backbone.View.extend({
 		var $plantMain = $('#plantMaintenance').val();
 		var $plantType = $('#plantType').val();
 
-		var $urlString = "searchDatabase.php?"
+		view.$urlString = "searchDatabase.php?"
+
+		//if the user hasn't entered anything in the search field
 		if($plantName == ''){
+
+			//fade out header buttons
 			$('#header_global .button.right').fadeOut();
 			$('#header_global .button.left').fadeOut();
+
+			//remove loading from plant div and apply the modal background 
 			view.$el.find('#plantResults').removeClass('loading');
 			view.$el.addClass('modal');
+
+			//create pop up
 			$warningEl = $("<div class='selectModal'><h2>You must enter something in the search field!</h2><div class='submit'>OK</div></div>");
 			$warningEl.insertAfter(view.$el);
 
-			Walt.animateEach({
-				'list': $warningEl,
+			//bounce-in animation
+			Walt.animate({
+				'$el': $warningEl,
 				'transition':'bounceIn',
 				'delay': 0,
 				'duration': '.4s',
 				'callback': function(){
+					//bounce-out animation
 					$('.selectModal .submit').on('click', function(){
-						Walt.animateEach({
-							'list': $warningEl,
+						Walt.animate({
+							'$el': $warningEl,
 							'transition':'bounceOut',
 							'delay': 0,
 							'duration': '.4s',
 							'callback': function(){
-								setTimeout(function(){
-									$warningEl.remove();
-									view.$el.removeClass('modal');
-									$('#header_global .button.right').fadeIn();
-									$('#header_global .button.left').fadeIn();
-								}, 400);
-
+								//remove modals and fade back in header buttons
+								$warningEl.remove();
+								view.$el.removeClass('modal');
+								$('#header_global .button.right').fadeIn();
+								$('#header_global .button.left').fadeIn();
 							}
 						});
 					});
@@ -236,45 +301,59 @@ var SearchView = Backbone.View.extend({
 			});
 		}else{
 
-			$urlString += "plantName=" + $plantName;
+			//set url parameter of the search field
+			view.$urlString += "plantName=" + $plantName;
 
+			//if type is selected, add to url string
 			if($plantType != '-'){
-				$urlString += "&plantType=" + $plantType;
+				view.$urlString += "&plantType=" + $plantType;
 			}
 
+			//if size is selected, add to the string
 			if($plantSize != '-'){
-				$urlString += "&plantSize=" + $plantSize;
+				view.$urlString += "&plantSize=" + $plantSize;
 			}
 
+			//if maintenance is selected, add to the string
 			if($plantMain != '-'){
-				$urlString += "&plantMaintenance=" + $plantMain;
+				view.$urlString += "&plantMaintenance=" + $plantMain;
 			}
 
+			view.$el.find('.returnList').scrollTop(0);
+
+			//AJAXZ!!!
 			$.ajax({
-				url: $urlString,
+				url: view.$urlString+"&page=1",
 				dataType: 'json',
 				type: 'GET',
 				success: function(data){
+
 					var numResults = data.num_rows;
 					var $html ="";
-					//alert(JSON.stringify(data));
+					view.$page = data.page;
+					view.$totalPages = data.total_pages;
+					
+					//if there are no results, print out the message to search again
 					if(numResults == 0){
 						console.log('no results');
-						//alert(JSON.stringify(data));
 						$html += "<h2>Could not find plants that matched your query. Please modify your search.</h2>";
 					}else{
+						//print out 
 						console.log('results');
-						var $plants = data.plants;
 						//alert(JSON.stringify(data));
+						//alert(view.$totalPages);
+						var $plants = data.plants;
 						for (var i = 0; i< $plants.length ;i++){
 							var $name = $plants[i].common_name;
 							var $latin = $plants[i].family;
+							var $id = $plants[i].pid;
 							var $img = "<img src='http://placekitten.com/150/150' />";
-							$html+="<li>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
+							$html+="<li data-plant-id='$id'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
 						}
 					}
 
 					view.$el.find(".returnList").html($html);
+					view.$searched = true;
 				},
 
 				error: function(error){

@@ -3,13 +3,20 @@
 	require_once('lego/DatabaseLego.php');
 	ConnectDB();
 	
-	function getAllPlants(){
+	function getAllPlants($page){
+		$query = mysql_query("SELECT * FROM plants GROUP BY pid");
+		$num_rows = mysql_num_rows($query);
 
-		$query = mysql_query('SELECT * FROM plants GROUP BY pid');/*Limit for right now*/
+		$count = 9;
+		$offset = ($page - 1)*$count;
+		$totalPages = ceil($num_rows/$count);
+
+		$query = mysql_query("SELECT * FROM plants GROUP BY pid LIMIT $offset ,$count");/*Limit for right now*/
 		$plants = array();
 
 		while($result = mysql_fetch_assoc($query)){
 			$plant = array();
+			$plant['pid'] = $result['pid'];
 			$plantQuery = mysql_query('SELECT * FROM plants WHERE pid='.$result['pid']);
 			while($plantResults = mysql_fetch_assoc($plantQuery)){
 				$plant[$plantResults['key']] = $plantResults['value'];
@@ -26,20 +33,23 @@
 			}
 		}
 
+		//print_r($plants);
+
 		$html = "";
 		$img = "<img src='http://placekitten.com/150/150' />";
 		foreach($plants as $plant){
 			$name = $plant['common_name'];
 			$type = $plant['latin_name'];
+			$id = $plant['pid'];
 
-			$html .= "<li>
+			$html .= "<li data-page='$page' data-plant-id='$id'>
 						$img
 						<h2>$name</h2>
 						<h3>$type</h3>
 					 </li>";
 		}
 
-		$html.="</ul>";
+		$html .= "<input id='totalPages' type='hidden' value='$totalPages'></input>";
 
 		echo $html;
 	}
@@ -66,7 +76,7 @@
 		}
 
 		$types = array_unique($types);
-		print_r($types);
+		//print_r($types);
 
 		$html = "<option value='-'></option>";
 
