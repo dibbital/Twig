@@ -416,8 +416,8 @@
 	}
 	
 	#results{font: 'Asap'; width:100%;height: 68%;
-		#advancedOptions{width: 85%; height: 110%; position:absolute; margin: auto 0 auto auto; overflow-y:scroll; overflow-x:hidden; -moz-transition: left .5s; -o-transition: left .5s; -webkit-transition: left .5s; transition: left .5s; left: 65%;
-			.option{display:block; clear:both; margin: -1% 0; width: 100%; border-bottom: 2px solid #ccc;
+		#advancedOptions{width: 85%; height: 106%; position:absolute; margin: auto 0 auto auto; overflow-y:scroll; overflow-x:hidden; -moz-transition: left .5s; -o-transition: left .5s; -webkit-transition: left .5s; transition: left .5s; left: 65%;
+			.option{display:block; clear:both; margin: -1% 0; width: 100%; border-bottom: 1px solid #ccc;
 				select{visibility:hidden;}
 				&:active{background-color:#a1b05d;}
 				h2{font-size: 16pt; font-weight: bold; color: #545454;}
@@ -438,13 +438,13 @@
 	#plantResults.advancedOptionsOpened { border-right: 2px solid rgba(0,0,0,0.3); left: -94%; }
 
 	.returnList { font: 'Asap'; height: 100%; overflow-y: scroll; padding: 7px 2%; position: relative; width: 100%; z-index: 50; 
-	    &>li { float: left; height: 139px; margin: 1%; position: relative; width: 31%; z-index: 50; 
+	    &>li { float: left; height: 150px; overflow: none; margin: 1% 14% 8% 1%; position: relative; width: 18%; z-index: 50;
 	    	div.ajaxLoader{width:89; height:61%}
 	    }
-	    img { clear: both; display: block; max-width: 83px; position: relative; border-radius: 4px; border:1px solid #000; margin-bottom: 5px;}
+	    img { clear: both; display: block; max-width: 160%; position: relative; border-radius: 4px; border:1px solid #000; margin-bottom: 5px;}
 	    li:after { background: #FFF; content: ''; display: block; height: 100px; left: 0; opacity: 0.01; position: absolute; top: 0; width: 100px; }
-	    h2 { font-size: 1.5em; font-weight: 700; color: #3f3f3f}
-	    h3 { font-size: 1em; color: #545454}
+	    h2 { font-size: 1.5em; font-weight: 700; color: #3f3f3f; width:158%;}
+	    h3 { font-size: 1em; color: #545454; width:161%; margin-bottom: 5px;}
 	}
 
 	#section_content.sideMenuOpened { border-left: 2px solid rgba(0,0,0,0.3);  left: 80%; }
@@ -611,7 +611,7 @@ z-index: 200; }
 		font-size: 14pt;
 		font-weight: bold;
 		text-align: center;
-		margin: 57px 5px 7px 5px;
+		margin: 29px 5px 7px 5px;
 	}
 
 }

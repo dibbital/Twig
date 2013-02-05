@@ -7,7 +7,7 @@
 		$query = mysql_query("SELECT * FROM plants GROUP BY pid");
 		$num_rows = mysql_num_rows($query);
 
-		$count = 9;
+		$count = 18;
 		$offset = ($page - 1)*$count;
 		$totalPages = ceil($num_rows/$count);
 
@@ -15,6 +15,7 @@
 		$plants = array();
 
 		while($result = mysql_fetch_assoc($query)){
+			//print_r($result);
 			$plant = array();
 			$plant['pid'] = $result['pid'];
 			$plantQuery = mysql_query('SELECT * FROM plants WHERE pid='.$result['pid']);
@@ -33,8 +34,6 @@
 			}
 		}
 
-		//print_r($plants);
-
 		$html = "";
 		$img = "<img src='http://placekitten.com/150/150' />";
 		foreach($plants as $plant){
@@ -42,14 +41,12 @@
 			$type = $plant['latin_name'];
 			$id = $plant['pid'];
 
-			$html .= "<li data-page='$page' data-plant-id='$id'>
+			$html .= "<li data-page='$page' data-plant-id='$id' data-total='$totalPages'>
 						$img
 						<h2>$name</h2>
 						<h3>$type</h3>
 					 </li>";
 		}
-
-		$html .= "<input id='totalPages' type='hidden' value='$totalPages'></input>";
 
 		echo $html;
 	}

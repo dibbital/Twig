@@ -3,7 +3,7 @@
 	require_once('lego/DatabaseLego.php');
 	ConnectDB();
 
-	$count = 9;
+	$count = 18;
 	$page = $_REQUEST['page'];
 	$offset = ($page - 1)*$count;
 
@@ -136,7 +136,5 @@
 	}else{
 		echo json_encode($plants);
 	}
-
-	
 
 ?>

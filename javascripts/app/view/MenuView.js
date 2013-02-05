@@ -22,6 +22,8 @@ var MenuView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
+		$("#side_menu").css({'height':$(window).height() - $('#header_global').height() + 'px', 'overflow-y':'scroll'});
+
 		var $aboutBtn = view.$el.find('._about');
 		var $backBtn = view.$el.find("._dash");
 		var $dataBtn = view.$el.find("._database");

@@ -658,7 +658,7 @@
     height: 68%; }
     #results #advancedOptions {
       width: 85%;
-      height: 110%;
+      height: 106%;
       position: absolute;
       margin: auto 0 auto auto;
       overflow-y: scroll;
@@ -673,7 +673,7 @@
         clear: both;
         margin: -1% 0;
         width: 100%;
-        border-bottom: 2px solid #cccccc; }
+        border-bottom: 1px solid #cccccc; }
         #results #advancedOptions .option select {
           visibility: hidden; }
         #results #advancedOptions .option:active {
@@ -739,10 +739,11 @@
     z-index: 50; }
     .returnList > li {
       float: left;
-      height: 139px;
-      margin: 1%;
+      height: 150px;
+      overflow: none;
+      margin: 1% 14% 8% 1%;
       position: relative;
-      width: 31%;
+      width: 18%;
       z-index: 50; }
       .returnList > li div.ajaxLoader {
         width: 89;
@@ -750,7 +751,7 @@
     .returnList img {
       clear: both;
       display: block;
-      max-width: 83px;
+      max-width: 160%;
       position: relative;
       border-radius: 4px;
       border: 1px solid black;
@@ -768,10 +769,13 @@
     .returnList h2 {
       font-size: 1.5em;
       font-weight: 700;
-      color: #3f3f3f; }
+      color: #3f3f3f;
+      width: 158%; }
     .returnList h3 {
       font-size: 1em;
-      color: #545454; }
+      color: #545454;
+      width: 161%;
+      margin-bottom: 5px; }
 
   #section_content.sideMenuOpened {
     border-left: 2px solid rgba(0, 0, 0, 0.3);
@@ -1033,7 +1037,7 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
       font-size: 14pt;
       font-weight: bold;
       text-align: center;
-      margin: 57px 5px 7px 5px; }
+      margin: 29px 5px 7px 5px; }
 
   #footer_global li {
     float: left;

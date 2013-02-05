@@ -47,7 +47,7 @@ var SearchView = Backbone.View.extend({
 		$searchBtn.on('click', view.finishSearch);
 
 		var $menuBtn = $("#header_global .button.left");
-		console.log($menuBtn);
+		
 		$menuBtn.on('click', function(e){
 			e.preventDefault();
 			e.stopImmediatePropagation();
@@ -62,7 +62,7 @@ var SearchView = Backbone.View.extend({
 		$options.on("click",view.showSearchModal);
 
 		view.$page = $('.returnList li').eq(0).data('page');
-		view.$totalPages = $('#totalPages').val();
+		view.$totalPages = $('.returnList li').eq(0).data('total');
 
 		view.$searched = false;
 
@@ -71,15 +71,9 @@ var SearchView = Backbone.View.extend({
 		view.animateResults();
 	},
 
-	'animateResults' : function(){
+	'selectPlant':function(){
 		var view = this;
-		Walt.animate({
-			'$el':view.$el.find('.returnList'),
-			'transition': 'fadeInUp',
-			'delay': 0,
-			'duration': '.5s',
-			'callback':function(){
-				view.$el.find('.returnList li').on('click', function(){
+		view.$el.find('.returnList li').on('click', function(){
 					$(this).addClass('clicked');
 					$plantID = $(this).data('plant-id');
 					Walt.animate({
@@ -102,6 +96,18 @@ var SearchView = Backbone.View.extend({
 					// 	'duration':'.5s'					
 					// });
 				});
+
+	},
+
+	'animateResults' : function(){
+		var view = this;
+		Walt.animate({
+			'$el':view.$el.find('.returnList'),
+			'transition': 'fadeInUp',
+			'delay': 0,
+			'duration': '.5s',
+			'callback':function(){
+				view.selectPlant()
 			}
 		});
 	},
@@ -117,8 +123,9 @@ var SearchView = Backbone.View.extend({
 	'pagination': function(offset, page){
 
 		var view = this;
+		console.log(view.$page + "," + view.$totalPages);
 		view.$page++;
-		//console.log(view.$page + "," + view.$totalPages);
+		
 		if(view.$page <= view.$totalPages){
 			view.$el.find('.returnList').append("<li class='loader'><div class='ajaxLoader loading'></div></li>");
 	
@@ -140,6 +147,7 @@ var SearchView = Backbone.View.extend({
 						}
 
 						view.$el.find('.returnList').append($html);
+						view.selectPlant();
 					}
 				});
 			}else{
@@ -148,6 +156,7 @@ var SearchView = Backbone.View.extend({
 					success: function(data){
 						$('.returnList li.loader').remove();
 						$('.returnList').append(data);
+						view.selectPlant();
 					}
 				});
 			}
@@ -307,6 +316,7 @@ var SearchView = Backbone.View.extend({
 			//create pop up
 			$warningEl = $("<div class='selectModal'><h2>You must enter something in the search field!</h2><div class='submit'>OK</div></div>");
 			$warningEl.insertAfter(view.$el);
+			$('.selectModal').css({'top':($(window).height() / 3) + 'px', 'left' : ($(window).width() / 13) + 'px'});
 
 			//bounce-in animation
 			Walt.animate({
@@ -388,6 +398,7 @@ var SearchView = Backbone.View.extend({
 
 					view.$el.find(".returnList").html($html);
 					view.$searched = true;
+					view.animateResults();
 				},
 
 				error: function(error){
@@ -396,7 +407,6 @@ var SearchView = Backbone.View.extend({
 				}
 			}).done(function(){
 				view.$el.find("#plantResults").removeClass('loading');
-				view.animateResults();
 			});
 		}
 	}
