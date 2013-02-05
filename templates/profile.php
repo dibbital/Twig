@@ -40,8 +40,12 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 			<!-- <span>2</span> -->
 		</div>
 		<ul class="notifications">
-			<li>Level Alert - Water requirement not filled</li>
-			<li>Level Alert - Water requirement not filled</li>
+			<li id="lightNoti">Level Alert - Water requirement not filled</li>
+			<li id="lightNotiInfo">There needs to be more water!</li>
+			<li id="tempNoti">Level Alert - Water requirement not filled</li>
+			<li id="tempNotiInfo">There needs to be more water!</li>
+			<li id="moistureNoti">Level Alert - Water requirement not filled</li>
+			<li id="moistureNoti">There needs to be more water!</li>
 		</ul>
 	</div>
 
