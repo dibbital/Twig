@@ -697,16 +697,15 @@
           height: 118px;
           position: relative;
           top: -22px;
-          left: 7px; }
-        #results #advancedOptions .option .sizeImage {
-          background: url("/images/small.png") no-repeat center center;
+          left: 7px;
+          background: url("") no-repeat center center;
           background-size: 65%; }
         #results #advancedOptions .option .typeImage {
-          background: url("/images/type.png") no-repeat center center;
-          background-size: 65%; }
+          background-image: url("/images/type.png"); }
+        #results #advancedOptions .option .sizeImage {
+          background-image: url("/images/sizeNone.png"); }
         #results #advancedOptions .option .maintenanceImage {
-          background: url("/images/maintenance.png") no-repeat center center;
-          background-size: 65%; }
+          background-image: url("/images/maintenance.png"); }
     #results #advancedOptions.advancedOptionsOpened {
       left: 15%; }
     #results #plantResults {
@@ -741,17 +740,17 @@
       float: left;
       height: 150px;
       overflow: none;
-      margin: 1% 14% 8% 1%;
+      margin: 1% 2% 10% 2.5%;
       position: relative;
-      width: 18%;
+      width: 28%;
       z-index: 50; }
       .returnList > li div.ajaxLoader {
-        width: 89;
+        width: 150%;
         height: 61%; }
     .returnList img {
       clear: both;
       display: block;
-      max-width: 160%;
+      max-width: 100%;
       position: relative;
       border-radius: 4px;
       border: 1px solid black;
@@ -766,16 +765,16 @@
       position: absolute;
       top: 0;
       width: 100px; }
-    .returnList h2 {
+    .returnList > li h2, .returnList h2 {
       font-size: 1.5em;
       font-weight: 700;
-      color: #3f3f3f;
-      width: 158%; }
-    .returnList h3 {
+      color: #3f3f3f; }
+    .returnList > li h3 {
       font-size: 1em;
       color: #545454;
-      width: 161%;
       margin-bottom: 5px; }
+    .returnList h2 {
+      width: 98%; }
 
   #section_content.sideMenuOpened {
     border-left: 2px solid rgba(0, 0, 0, 0.3);
@@ -986,6 +985,7 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
     content: '';
     display: block;
     position: fixed;
+    pointer-events: none;
     background-color: rgba(0, 0, 0, 0.5);
     height: 100%;
     width: 100%;
@@ -1001,7 +1001,8 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
     background: #fbfbfb;
     width: 82%;
     margin: 0 auto;
-    max-height: 61%;
+    max-height: 44%;
+    overflow-x: hidden;
     overflow-y: scroll;
     border-radius: 10px;
     box-shadow: 1px 1px 11px black, -1px -1px 11px black; }
@@ -1019,13 +1020,6 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
       .selectModal div:active {
         color: #fff;
         background: #a1b05d; }
-    .selectModal .cancel {
-      text-align: center;
-      color: #fbfbfb;
-      background: #c53e3e; }
-      .selectModal .cancel:active {
-        color: #fbfbfb;
-        background: #c53e3e; }
     .selectModal .submit {
       text-align: center;
       color: #fff;
@@ -1038,6 +1032,26 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
       font-weight: bold;
       text-align: center;
       margin: 29px 5px 7px 5px; }
+
+  .cancel {
+    display: block;
+    font: 18pt Asap;
+    margin: 16px auto;
+    width: 77%;
+    height: 74px;
+    line-height: 74px;
+    padding-left: 20px;
+    border: 1px solid #ce2020;
+    border-radius: 5px;
+    position: relative;
+    top: -53%;
+    z-index: 5;
+    text-align: center;
+    color: #fbfbfb;
+    background: #c53e3e; }
+    .cancel:active {
+      color: #fbfbfb;
+      background: #ce2020; }
 
   #footer_global li {
     float: left;

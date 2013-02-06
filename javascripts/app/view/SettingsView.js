@@ -22,6 +22,9 @@ var SettingsView = Backbone.View.extend({
 
 		view.pageURL = 'templates/settings.php';
 		view.$el.load(view.pageURL, function () {
+			App.on('clear:modals', function () {
+				view.close();
+			});
 			view.render();
 		});
 
@@ -30,10 +33,6 @@ var SettingsView = Backbone.View.extend({
 
 	'render': function () {
 		var view = this;
-
-
-		App.on('back:button', view.close);
-		App.on('clear:modals', view.close);
 
 		/* Left Button stuff, why is there so much */
 		view.leftHeaderButtonFunction = function (e) {
@@ -47,13 +46,20 @@ var SettingsView = Backbone.View.extend({
 		});
 
 		view.on('default:left', function () {
-			$('#header_global .button.left').removeClass('close').off('click', view.leftHeaderButtonFunction);
+			$('#header_global .button.left').removeClass('close'); //.off('click', view.leftHeaderButtonFunction);
 		});
 
+		Walt.animate({
+			'$el': $('#header_global .button.right'),
+			'transition': 'fadeOutDown',
+			'duration': '.4s',
+			'callback': function () {
+				App.trigger('nav:disable');
+				view.trigger('custom:left');
+				$('#header_global .button.right').hide();
+			}
+		});
 
-		App.trigger('nav:disable');
-		view.trigger('custom:left');
-		$('#header_global .button.right').fadeOut();
 
 		App.trigger('header:change', {
 			'header': 'Settings',
@@ -63,73 +69,99 @@ var SettingsView = Backbone.View.extend({
 			}
 		});
 
-		$('#plantSearch').autocomplete({
-			source: 'suggest_plant.php',
-			minLength: 1
-		});
-
 		Walt.animate({
 			'$el': view.$el.show(),
 			'transition': 'fadeInUp',
 			'duration': '.4s'
 		});
 
-		$('#submitButton').on('click', function (e) {
-			view.submitForm(e);
-		});
-
 		/* ----- */
 
+
+
 		var $settings = view.$el.find('#settings');
-		$settings.find('.name.button').on('click', function(e){
+		$settings.find('.name.button').on('click', function (e) {
 			var $this = $(e.currentTarget);
-			if($this.parent().hasClass('open')){
+			if($this.parent().hasClass('open')) {
 				$this.parent().removeClass('open');
-			}else{
+			} else {
 				$settings.find('.open').removeClass('open');
 				$this.parent().addClass('open');
 			}
 		});
 
 
+		view.$el.find('.button.red').on('click', view.deletePrompt);
+
 
 
 		log('Backbone : SettingsView : Render');
 	},
 
-	'submitForm': function (e) {
+	'deletePrompt': function (e) {
 		var view = this;
-		e.preventDefault();
-		e.stopPropagation();
 
-		$form = view.$el.find('#newPlantForm');
-		var nickname = $form.find('#nickname').val();
-		var plantType = $form.find('#plantSearch').val();
-		var device = $form.find('#device').val();
+		// log(e, $(e.currentTarget), $(e.currentTarget).closest('h2'), $(e.currentTarget).closest('h2').attr('data-plant-nickname'));
+		var $parentPlant = $(e.currentTarget).closest('.plant');
+		var name = $parentPlant.attr('data-plant-nickname');
+		var type = $parentPlant.attr('data-plant-type');
+		var uid = $parentPlant.attr('data-uid');
+		var pid = $parentPlant.attr('data-pid');
 
-		var data = JSON.stringify({
-			'name': nickname,
-			'uid': App.User.getID(),
-			'plantTypeID': plantType,
-			'plantImg': $('#imgThumb').attr('src'),
-			'device': device
+		if(typeof view.$dim === 'undefined') {
+			view.$dim = $('<div class="dim"></div>');
+			view.$modal = $('<div class="confirm"><p>This will permanently delete <em>' + name + ' (' + type + ')</em> <span>This can not be undone.</span></p><div class="btnContainer"><div class="button" id="btncancel">Cancel</div><div class="button red" id="btndelete">Delete</div></div>');
+			view.$el.append(view.$dim.hide());
+			view.$el.append(view.$modal.hide());
+		}
+		view.$el.closest('.addPlant').addClass('modafied');
+
+		view.$dim.fadeIn();
+		view.$modal.fadeIn();
+
+		view.$modal.find('#btncancel').on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			view.$dim.fadeOut();
+			view.$modal.fadeOut();
+			$('.modafied').removeClass('modafied');
+
+			view.$modal.find('#btncancel').unbind();
 		});
 
-		$.ajax({
-			'url': 'query.php?a=newPlant&data=' + data
-		}).done(function (response) {
-			var data = JSON.parse(response);
-			if(data['return'] == 'success') {
-				// App.trigger('dashboard:reset');
-				view.close({});
-			}
+		view.$modal.find('#btndelete').on('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			view.$modal.addClass('loading');
+
+
+
+			$.ajax({
+				'url': 'query.php?a=deletePlant&uid=' + uid + '&pid=' + pid
+			}).done(function (response) {
+				if(response == 'success') {
+					view.$dim.fadeOut();
+					view.$modal.removeClass('loading').fadeOut();
+					$('.modafied').removeClass('modafied');
+					$parentPlant.remove();
+				} else {
+					alert(response);
+				}
+			});
+
+			view.$modal.find('#btncancel').unbind();
 		});
+
+
+
 	},
 
 	'close': function (e) {
 		var view = this;
 
-		App.off('back:button', view.close);
+		// App.off('back:button', view.close);
 
 		if(!$.isEmptyObject(e)) {
 			e.preventDefault();
@@ -148,7 +180,11 @@ var SettingsView = Backbone.View.extend({
 		});
 
 		App.trigger('nav:enable');
-		$('#header_global .button.right').removeClass('active').fadeIn();
+		Walt.animate({
+			'$el': $('#header_global .button.right').removeClass('active').show(),
+			'transition': 'fadeInUp',
+			'duration': '.4s'
+		});
 		view.trigger('default:left');
 
 

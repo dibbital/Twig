@@ -31,11 +31,14 @@ var SearchView = Backbone.View.extend({
 
 	'render': function() {
 		var view = this;
+
+		App.Utilities.supportPlaceholders();
+
 		App.trigger('header:change', {
 			'header': 'Database',
 			'subtext': 'Search Plants',
 			'callback': function(){
-				$('#header_global .button.right').addClass('dashboard');
+				$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
 			}
 		});
 
@@ -45,21 +48,19 @@ var SearchView = Backbone.View.extend({
 		var $searchBtn = view.$el.find(".searchButton");
 		$advancedBtn.on('click', view.expandOptions);
 		$searchBtn.on('click', view.finishSearch);
-
-		var $menuBtn = $("#header_global .button.left");
-		
-		$menuBtn.on('click', function(e){
-			e.preventDefault();
-			e.stopImmediatePropagation();
-			if($('#advancedOptions').hasClass('advancedOptionsOpened')){
-				$('#plantResults').removeClass('advancedOptionsOpened');
-				$('#advancedOptions').removeClass('advancedOptionsOpened');
-				$('.advancedButton').removeClass('active');
-			}
-		});
+		$('#plantName').on('input', function(e){ if($(this).val().length >= 2){  view.finishSearch(e); } });
 
 		var $options = view.$el.find(".option");
 		$options.on("click",view.showSearchModal);
+
+		view.$el.find(".returnList").hide();
+		Walt.animateEachChild({
+			'container': view.$el.find('.returnList').show(),
+			'transition': 'fadeInUp',
+			'delay': 0.05,
+			'duration': '0.4s',
+		});
+		view.selectPlant();
 
 		view.$page = $('.returnList li').eq(0).data('page');
 		view.$totalPages = $('.returnList li').eq(0).data('total');
@@ -68,99 +69,8 @@ var SearchView = Backbone.View.extend({
 
 		view.$el.find('.returnList').on('scroll', function(){view.checkBottom(this)});
 
-		view.animateResults();
-	},
 
-	'selectPlant':function(){
-		var view = this;
-		view.$el.find('.returnList li').on('click', function(){
-					$(this).addClass('clicked');
-					$plantID = $(this).data('plant-id');
-					Walt.animate({
-						'el': this,
-						'transition':'fadeOutUp',
-						'delay':0,
-						'duration':'.5s',
-						'callback': function(){
-							
-							console.log($plantID);
-							// Backbone.history.navigate('#plantDatabase/' + $plantID, {
-							// 	'trigger': true
-							// });
-						}				
-					});
-					// Walt.animateEach({
-					// 	'list': view.$el.find('.returnList').not(this),
-					// 	'transition':'fadeOutDown',
-					// 	'delay':0,
-					// 	'duration':'.5s'					
-					// });
-				});
-
-	},
-
-	'animateResults' : function(){
-		var view = this;
-		Walt.animate({
-			'$el':view.$el.find('.returnList'),
-			'transition': 'fadeInUp',
-			'delay': 0,
-			'duration': '.5s',
-			'callback':function(){
-				view.selectPlant()
-			}
-		});
-	},
-
-	'checkBottom': function(elem){
-		var view = this;
-		//console.log(elem.scrollHeight+","+elem.offsetHeight+","+elem.scrollTop);
-		if(elem.offsetHeight + elem.scrollTop >= elem.scrollHeight){
-			view.pagination(elem.scrollTop,view.$page);
-		}
-	},
-
-	'pagination': function(offset, page){
-
-		var view = this;
-		console.log(view.$page + "," + view.$totalPages);
-		view.$page++;
-		
-		if(view.$page <= view.$totalPages){
-			view.$el.find('.returnList').append("<li class='loader'><div class='ajaxLoader loading'></div></li>");
-	
-			if(view.$searched == true){
-				var $html ='';
-				$.ajax({
-					url: view.$urlString+'&page='+view.$page,
-					dataType: 'json',
-					success: function(data){
-						//alert(JSON.stringify(data));
-						$('.returnList li.loader').remove();
-						$plants = data.plants;
-						for (var i = 0; i< $plants.length ;i++){
-							var $name = $plants[i].common_name;
-							var $latin = $plants[i].family;
-							var $id = $plants[i].id;
-							var $img = "<img src='http://placekitten.com/150/150' />";
-							$html+="<li data-plant-id='"+$id+"'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
-						}
-
-						view.$el.find('.returnList').append($html);
-						view.selectPlant();
-					}
-				});
-			}else{
-				$.ajax({
-					url: '/paginateAllPlants.php?page='+view.$page,
-					success: function(data){
-						$('.returnList li.loader').remove();
-						$('.returnList').append(data);
-						view.selectPlant();
-					}
-				});
-			}
-		}
+		$('#searchDatabase').submit(function(e){ e.preventDefault(); e.stopPropagation(); view.finishSearch(); });
 
 	},
 
@@ -170,9 +80,10 @@ var SearchView = Backbone.View.extend({
 		view.$el.addClass('modal');
 		$('#header_global .button.right').fadeOut();
 		$('#header_global .button.left').fadeOut();
+
 		switch($($element).data('search')){
 			case 'type': $typeSelects = $('#plantType option');
-					$html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>"
+					$html = "<div class='selectModal'><div data-value='none'>None</div>"
 					for(var i = 1; i< $typeSelects.length; i++){
 						$value = $($typeSelects[i]).val();
 						$html += "<div data-value='"+$value+"'>"+$value+"</div>";
@@ -182,6 +93,7 @@ var SearchView = Backbone.View.extend({
 
 				  var $typeEl = $($html);
 						$typeEl.insertAfter(view.$el);
+						view.makeCancelButton($typeEl);
 
 						var $types = $('.selectModal div');
 						$types.on('click', function(e){
@@ -198,6 +110,7 @@ var SearchView = Backbone.View.extend({
 							}
 							
 							$('.selectModal').remove();
+							$('.cancel').remove();
 							view.$el.removeClass('modal');
 							$('#header_global .button.right').fadeIn();
 							$('#header_global .button.left').fadeIn();
@@ -205,7 +118,7 @@ var SearchView = Backbone.View.extend({
 
 						break;
 			case 'maintenance': var $mainSelects = $("#plantMaintenance option");
-								$html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>";
+								$html = "<div class='selectModal'><div data-value='none'>None</div>";
 								for(var i = 1; i < $mainSelects.length; i++){
 									$value = $($mainSelects[i]).val();
 						 			$html += "<div data-value='"+$value+"'>"+$value+"</div>";
@@ -214,6 +127,8 @@ var SearchView = Backbone.View.extend({
 								$html +="</div>";
 								var $mainEl = $($html);
 								$mainEl.insertAfter(view.$el);
+								view.makeCancelButton($mainEl);
+
 								var $maintenanceLevels = $('.selectModal div');
 								$maintenanceLevels.on('click', function(e){
 									$selected = e.currentTarget;
@@ -228,14 +143,16 @@ var SearchView = Backbone.View.extend({
 									}
 
 									$('.selectModal').remove();
+									$('.cancel').remove();
 									view.$el.removeClass('modal');
+									view.changeImage('maintenance',$maintenanceLevel);
 									$('#header_global .button.right').fadeIn();
 									$('#header_global .button.left').fadeIn();
 								});
 							break;
 
 			case 'size': var $sizeSelects = $('#plantSize option');
-						 $html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>";
+						 $html = "<div class='selectModal'><div data-value='none'>None</div>";
 						 for(var i = 1; i < $sizeSelects.length; i++){
 						 	$value = $($sizeSelects[i]).val();
 						 	$html += "<div data-value='"+$value+"'>"+$value+"</div>";
@@ -245,6 +162,7 @@ var SearchView = Backbone.View.extend({
 
 						var $sizeEl = $($html);
 						$sizeEl.insertAfter(view.$el);
+						view.makeCancelButton($sizeEl);
 
 						var $sizes = $('.selectModal div');
 						$sizes.on('click', function(e){
@@ -260,6 +178,8 @@ var SearchView = Backbone.View.extend({
 							}
 							
 							$('.selectModal').remove();
+							$('.cancel').remove();
+							view.changeImage('size',$size);
 							view.$el.removeClass('modal');
 							$('#header_global .button.right').fadeIn();
 							$('#header_global .button.left').fadeIn();
@@ -267,6 +187,19 @@ var SearchView = Backbone.View.extend({
 
 						break;
 		}
+	},
+
+	'makeCancelButton':function(elem){
+		var view = this;
+		console.log(elem);
+		$cancelButton = $("<div class='cancel'>Cancel</div>");
+		$cancelButton.insertAfter($(elem)).on("click", function(){
+			$('.selectModal').remove();
+			$(this).remove();
+			view.$el.removeClass('modal');
+			$('#header_global .button.right').fadeIn();
+			$('#header_global .button.left').fadeIn();
+		});
 	},
 
 	'expandOptions': function() {
@@ -277,11 +210,27 @@ var SearchView = Backbone.View.extend({
 				$('#plantResults').addClass('advancedOptionsOpened');
 				$('#advancedOptions').addClass('advancedOptionsOpened');
 				$('.advancedButton').addClass('active');
+				App.trigger('nav:left:disable');
+
+				$('#header_global .button.left').addClass('close').on('click', function(e){
+					if($('#advancedOptions').hasClass('advancedOptionsOpened')){
+						e.preventDefault();
+						e.stopImmediatePropagation();
+						$('#plantResults').removeClass('advancedOptionsOpened');
+						$('#advancedOptions').removeClass('advancedOptionsOpened');
+						$('.advancedButton').removeClass('active');
+						$('#header_global .button.left').removeClass('close');
+						App.trigger('nav:left:enable');
+					}
+				});
+
+
 			}, 5);
 		}else{
 			$('#plantResults').removeClass('advancedOptionsOpened');
 			$('#advancedOptions').removeClass('advancedOptionsOpened');
 			$('.advancedButton').removeClass('active');
+			App.trigger('nav:enable:left');
 			setTimeout(function(){view.$el.find("#advancedOptions").hide();}, 500);
 		}
 	},
@@ -301,7 +250,6 @@ var SearchView = Backbone.View.extend({
 		var $plantType = $('#plantType').val();
 
 		view.$urlString = "searchDatabase.php?"
-
 		//if the user hasn't entered anything in the search field
 		if($plantName == ''){
 
@@ -363,30 +311,29 @@ var SearchView = Backbone.View.extend({
 				view.$urlString += "&plantMaintenance=" + $plantMain;
 			}
 
-			view.$el.find('.returnList').scrollTop(0);
-
-			//AJAXZ!!!
-			$.ajax({
+			if(typeof view.$ajax != 'undefined'){
+				view.$ajax.abort();
+			}
+			view.$ajax = $.ajax({
 				url: view.$urlString+"&page=1",
 				dataType: 'json',
 				type: 'GET',
 				success: function(data){
-
 					var numResults = data.num_rows;
 					var $html ="";
 					view.$page = data.page;
 					view.$totalPages = data.total_pages;
-					
-					//if there are no results, print out the message to search again
+
+					//alert(JSON.stringify(data));
 					if(numResults == 0){
 						console.log('no results');
+						view.$results = false;
+						//alert(JSON.stringify(data));
 						$html += "<h2>Could not find plants that matched your query. Please modify your search.</h2>";
 					}else{
-						//print out 
 						console.log('results');
-						//alert(JSON.stringify(data));
-						//alert(view.$totalPages);
 						var $plants = data.plants;
+						//alert(JSON.stringify(data));
 						for (var i = 0; i< $plants.length ;i++){
 							var $name = $plants[i].common_name;
 							var $latin = $plants[i].family;
@@ -396,18 +343,150 @@ var SearchView = Backbone.View.extend({
 						}
 					}
 
-					view.$el.find(".returnList").html($html);
 					view.$searched = true;
-					view.animateResults();
+					view.$results = true;
+					view.$el.find(".returnList").hide().html($html);
+					Walt.animateEachChild({
+						'container': view.$el.find('.returnList').show(),
+						'transition': 'fadeInUp',
+						'delay': 0.05,
+						'duration': '0.4s'
+					});
+					view.selectPlant();
 				},
 
 				error: function(error){
-					console.log("error\n" + error.responseText);
+					view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>");
 					view.$el.find("#plantResults").removeClass('loading');
 				}
 			}).done(function(){
 				view.$el.find("#plantResults").removeClass('loading');
 			});
+		}
+	},
+
+	'checkBottom': function(elem){
+		var view = this;
+		//console.log(elem.scrollHeight+","+elem.offsetHeight+","+elem.scrollTop);
+		if(elem.offsetHeight + elem.scrollTop >= elem.scrollHeight - 250 && $(".returnList li").length != 0){
+			view.pagination(elem.scrollTop,view.$page);
+		}
+	},
+
+	'pagination': function(offset, page){
+
+		var view = this;
+		//console.log(view.$page + "," + view.$totalPages);
+		
+
+		if(view.$page <= view.$totalPages && $(".ajaxLoader").length == 0){
+			view.$el.find('.returnList').append("<li class='loader'><div class='ajaxLoader loading'></div></li>");
+			//console.log($(".ajaxLoader").length);
+			view.$page++;
+
+			if(view.$searched == true && view.$results == true){
+				var $html ='';
+				$.ajax({
+					url: view.$urlString+'&page='+view.$page,
+					dataType: 'json',
+					success: function(data){
+						//alert(JSON.stringify(data));
+						$('.returnList li.loader').remove();
+						$plants = data.plants;
+						for (var i = 0; i< $plants.length ;i++){
+							var $name = $plants[i].common_name;
+							var $latin = $plants[i].family;
+							var $id = $plants[i].id;
+							var $img = "<img src='http://placekitten.com/150/150' />";
+							$html+="<li data-plant-id='"+$id+"'>"+$img+"<h2>"+$name+"</h2><h3>"+$latin+"</h3></li>";
+						}
+
+						view.$el.find('.returnList').append($html);
+						view.selectPlant();
+					},
+					error: function(){
+						view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>");
+					}
+				});
+			}else{
+				$.ajax({
+					url: '/paginateAllPlants.php?page='+view.$page,
+					success: function(data){
+						$('.returnList li.loader').remove();
+						$('.returnList').append(data);
+						view.selectPlant();
+					},
+					error: function(){
+						view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>");
+					}
+				});
+			}
+		}
+
+	},
+
+	'selectPlant':function(){
+		var view = this;
+		view.$el.find('.returnList li').on('click', function(e){
+					e.preventDefault();
+					e.stopPropagation();
+					$plantID = $(this).data('plant-id');
+					Walt.animate({
+						'el': this,
+						'transition':'fadeOutUp',
+						'delay':0,
+						'duration':'.5s',
+						'callback': function(){
+							
+							console.log($plantID);
+							// Backbone.history.navigate('#plantSearch/' + $plantID, {
+							// 	'trigger': true
+							// });
+						}				
+					});
+					// Walt.animateEach({
+					// 	'list': view.$el.find('.returnList').not(this),
+					// 	'transition':'fadeOutDown',
+					// 	'delay':0,
+					// 	'duration':'.5s'					
+					// });
+				});
+
+	},
+
+	'changeImage': function(i,v){
+		
+		v = v.toLowerCase(v);
+		switch(i){
+			case 'size':
+				switch(v){
+					case 'none': $('.sizeImage').css({'background-image':"url('/images/sizeNone.png')"}); break;
+					case 'small' : $('.sizeImage').css({'background-image':"url('/images/sizeSmall.png')"}); break;
+					case 'medium' : $('.sizeImage').css({'background-image':"url('/images/sizeMedium.png')"}); break;
+					case 'large' : $('.sizeImage').css({'background-image':"url('/images/sizeLarge.png')"}); break;
+					default: $('.sizeImage').css({'background-image':"url('/images/sizeNone.png')"}); break;
+				}
+				break;
+
+			// case 'type':
+			// 	switch(v){
+			// 		case 'none': $('.sizeImage').css({'background-image':"url('/images/sizeNone.png')"}); break;
+			// 		case 'small' : $('.sizeImage').css({'background-image':"url('/images/sizeSmall.png')"}); break;
+			// 		case 'medium' : $('.sizeImage').css({'background-image':"url('/images/sizeMedium.png')"}); break;
+			// 		case 'large' : $('.sizeImage').css({'background-image':"url('/images/sizeLarge.png')"}); break;
+			// 		default: $('.sizeImage').css({'background-image':"url('/images/sizeNone.png')"}); break;
+			// 	}
+			// 	break;
+
+			case 'maintenance':
+				switch(v){
+					case 'none': $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
+					case 'low' : $('.maintenanceImage').css({'background-image':"url('/images/mainLow.png')"}); break;
+					case 'medium' : $('.maintenanceImage').css({'background-image':"url('/images/mainMedium.png')"}); break;
+					case 'high' : $('.maintenanceImage').css({'background-image':"url('/images/mainHigh.png')"}); break;
+					default: $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
+				}
+				break;
 		}
 	}
 

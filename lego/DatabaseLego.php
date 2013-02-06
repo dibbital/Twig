@@ -2,10 +2,10 @@
 
 //Lego for database connection
 if($_SERVER['SERVER_NAME'] == 'localhost'){
-	$GLOBALS['HOST'] = "localhost";
+	$GLOBALS['HOST'] = "cias.rit.edu";
 	$GLOBALS['DB'] = "twig";
-	$GLOBALS['DB_USER'] = "root";
-	$GLOBALS['DB_PASS'] = "root";
+	$GLOBALS['DB_USER'] = "twig";
+	$GLOBALS['DB_PASS'] = "geoZ3t00dom";
 }else{
 	$GLOBALS['HOST'] = "cias.rit.edu";
 	$GLOBALS['DB'] = "twig";

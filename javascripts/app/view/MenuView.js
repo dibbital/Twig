@@ -23,15 +23,20 @@ var MenuView = Backbone.View.extend({
 		var view = this;
 
 		$("#side_menu").css({'height':$(window).height() - $('#header_global').height() + 'px', 'overflow-y':'scroll'});
+		window.onorientationchange = function(){
+			view.closeTab();
+			//alert(window.orientation + ", " + $(window).height() + ", " + $('#header_global').height());
+			$("#side_menu").css({'height':$(window).height() + 'px', 'overflow-y':'scroll'});
+		}
 
 		var $aboutBtn = view.$el.find('._about');
-		var $backBtn = view.$el.find("._dash");
+		var $dashBtn = view.$el.find("._dash");
 		var $dataBtn = view.$el.find("._database");
 		var $contactBtn = view.$el.find("._contact");
 		var $helpBtn = view.$el.find("._help");
 
 		$aboutBtn.on('click', view.showAbout);
-		$backBtn.on('click', view.backTab);
+		$dashBtn.on('click', view.showDash);
 		$dataBtn.on('click', view.showDatabase);
 		$contactBtn.on('click', view.showContact);
 		$helpBtn.on('click', view.showHelp);
@@ -43,9 +48,13 @@ var MenuView = Backbone.View.extend({
 			view.$el.find('._' + data).addClass('active');
 		});
 
+		App.on('route:change', function(){
+			view.closeTab();
+		});
+
 	},
 
-	'backTab': function (e) {
+	'showDash': function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -58,7 +67,8 @@ var MenuView = Backbone.View.extend({
 
 		setTimeout(function () {
 			Backbone.history.navigate('#', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}, 550);
 	},
@@ -70,7 +80,8 @@ var MenuView = Backbone.View.extend({
 		var view = this;
 		view.closeTab();
 		Backbone.history.navigate('logout', {
-			'trigger': true
+			'trigger': true,
+				'replace': true
 		});
 	},
 
@@ -84,7 +95,8 @@ var MenuView = Backbone.View.extend({
 		view.closeTab();
 		setTimeout(function () {
 			Backbone.history.navigate('search', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}, 550);
 	},
@@ -99,7 +111,8 @@ var MenuView = Backbone.View.extend({
 		view.$el.find('._about').addClass('active');
 		setTimeout(function () {
 			Backbone.history.navigate('about', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}, 550);
 	},
@@ -114,7 +127,8 @@ var MenuView = Backbone.View.extend({
 		view.$el.find('._contact').addClass('active');
 		setTimeout(function () {
 			Backbone.history.navigate('contact', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}, 550);
 	},
@@ -129,7 +143,8 @@ var MenuView = Backbone.View.extend({
 		view.$el.find('._help').addClass('active');
 		setTimeout(function () {
 			Backbone.history.navigate('help', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}, 550);
 	},
@@ -142,6 +157,7 @@ var MenuView = Backbone.View.extend({
 	'closeTab': function () {
 		$('#section_content').removeClass('sideMenuOpened');
 		$('#header_global').removeClass('opened');
+		$('#header_global .button').css('opacity', 1);
 		$('#side_menu').removeClass('sideMenuOpened');
 		$('#header_global .button.left').removeClass('active');
 	}

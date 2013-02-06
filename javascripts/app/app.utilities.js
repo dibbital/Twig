@@ -19,32 +19,38 @@ App.Utilities = (function(window, document) {
 			}
 		},
 
-		'supportsCss3': function(property) {
-			var elem = document.body || document.documentElement,
-				cssStyle = elem.style;
-
-			// No css support detected
-			if (typeof cssStyle === 'undefined') {
-				return false;
-			}
-
-			// Tests for standard property
-			if (typeof cssStyle[property] === 'string') {
+		'supportPlaceholders': function(){
+			log('Backbone : App.Utilities : Placeholders');
+			var i = document.createElement('input');
+			if ('placeholder' in i) {
 				return true;
-			}
+			} else {
+				$('input').each(function(i,v){
+					var $this = $(v);
+					log($this);
 
-			// Tests for vendor specific property
-			var vendors = ['Moz', 'Webkit', 'Khtml', 'O', 'Ms'],
-				len = vendors.length,
-				property = property.charAt(0).toUpperCase() + property.substr(1);
-			while (len--) {
-				if (typeof cssStyle[vendors[len] + property] === 'string') {
-					return true;
-				}
-			}
+					$this.val($this.attr('placeholder'));
+					$this.on('focus', function(e){
+						if($this.val() == $this.attr('placeholder')){
+							$this.val('');	
+						}
+					});
 
-			return false;
+					$this.on('blur', function(e){
+						if($this.val() == ''){
+							$this.val($this.attr('placeholder'));
+						}
+					});
+				});
+				// return false;
+			}
+		},
+		'trim': function(s) { 
+		    s = s.replace(/(^\s*)|(\s*$)/gi,"");
+		    s = s.replace(/[ ]{2,}/gi," "); 
+		    s = s.replace(/\n /,"\n"); return s;
 		}
+		
 	};
 	return self;
 
