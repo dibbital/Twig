@@ -161,4 +161,6 @@ var MenuView = Backbone.View.extend({
 		$('#side_menu').removeClass('sideMenuOpened');
 		$('#header_global .button.left').removeClass('active');
 	}
+
+
 });

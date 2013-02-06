@@ -78,8 +78,12 @@ var SearchView = Backbone.View.extend({
 		var view = this;
 		var $element = e.currentTarget;
 		view.$el.addClass('modal');
+
 		$('#header_global .button.right').fadeOut();
 		$('#header_global .button.left').fadeOut();
+
+		$("#side_menu").css({'pointer-events':'none'});
+		$("#advancedOptions").css({'pointer-events':'none'});
 
 		switch($($element).data('search')){
 			case 'type': $typeSelects = $('#plantType option');
@@ -111,7 +115,12 @@ var SearchView = Backbone.View.extend({
 							
 							$('.selectModal').remove();
 							$('.cancel').remove();
+
 							view.$el.removeClass('modal');
+
+							$("#side_menu").css({'pointer-events':'auto'});
+							$("#advancedOptions").css({'pointer-events':'auto'});
+
 							$('#header_global .button.right').fadeIn();
 							$('#header_global .button.left').fadeIn();
 						});
@@ -144,8 +153,13 @@ var SearchView = Backbone.View.extend({
 
 									$('.selectModal').remove();
 									$('.cancel').remove();
+
 									view.$el.removeClass('modal');
 									view.changeImage('maintenance',$maintenanceLevel);
+
+									$("#side_menu").css({'pointer-events':'auto'});
+									$("#advancedOptions").css({'pointer-events':'auto'});
+
 									$('#header_global .button.right').fadeIn();
 									$('#header_global .button.left').fadeIn();
 								});
@@ -179,8 +193,13 @@ var SearchView = Backbone.View.extend({
 							
 							$('.selectModal').remove();
 							$('.cancel').remove();
+
 							view.changeImage('size',$size);
 							view.$el.removeClass('modal');
+
+							$("#side_menu").css({'pointer-events':'auto'});
+							$("#advancedOptions").css({'pointer-events':'auto'});
+
 							$('#header_global .button.right').fadeIn();
 							$('#header_global .button.left').fadeIn();
 						});
@@ -197,6 +216,8 @@ var SearchView = Backbone.View.extend({
 			$('.selectModal').remove();
 			$(this).remove();
 			view.$el.removeClass('modal');
+			$("#side_menu").css({'pointer-events':'auto'});
+			$("#advancedOptions").css({'pointer-events':'auto'});
 			$('#header_global .button.right').fadeIn();
 			$('#header_global .button.left').fadeIn();
 		});
@@ -273,6 +294,10 @@ var SearchView = Backbone.View.extend({
 				'delay': 0,
 				'duration': '.4s',
 				'callback': function(){
+					//only things selectable is the submit button
+					$("#side_menu").css({'pointer-events':'none'});
+					$("#advancedOptions").css({'pointer-events':'none'});
+
 					//bounce-out animation
 					$('.selectModal .submit').on('click', function(){
 						Walt.animate({
@@ -281,6 +306,10 @@ var SearchView = Backbone.View.extend({
 							'delay': 0,
 							'duration': '.4s',
 							'callback': function(){
+								//make things available again
+								$("#side_menu").css({'pointer-events':'auto'});
+								$("#advancedOptions").css({'pointer-events':'auto'});
+
 								//remove modals and fade back in header buttons
 								$warningEl.remove();
 								view.$el.removeClass('modal');

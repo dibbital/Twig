@@ -981,17 +981,18 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
     left: 0;
     z-index: 200; }
 
-  .modal::after {
-    content: '';
-    display: block;
-    position: fixed;
-    pointer-events: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 200; }
+  .modal {
+    pointer-events: none; }
+    .modal::after {
+      content: '';
+      display: block;
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 200; }
 
   .selectModal {
     top: 12%;
