@@ -1,0 +1,12 @@
+@media screen {
+  /* line 2, ../scss/wphone.scss */
+  * {
+    background: #f00;
+  }
+
+  /* line 3, ../scss/wphone.scss */
+  #header_global .button {
+    position: absolute;
+    top: 0;
+  }
+}

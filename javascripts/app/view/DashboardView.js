@@ -28,6 +28,7 @@ var DashboardView = Backbone.View.extend({
 		view.pageURL = 'templates/dashboard.php';
 		view.$el.addClass('loading').load(view.pageURL, function () {
 			view.$el.removeClass('loading');
+			App.trigger('clear:modals');
 			view.render();
 		});
 		log('Backbone : DashboardView : Initialized');
@@ -48,7 +49,10 @@ var DashboardView = Backbone.View.extend({
 
 		App.trigger('header:change', {
 			'header': App.User.get() + '\'s Dashboard',
-			'subtext': 'Your Plants'
+			'subtext': 'Your Plants',
+			'callback': function(){
+				App.trigger('nav:enable');
+			}
 		});
 
 		Walt.animateEach({
@@ -118,6 +122,8 @@ var DashboardView = Backbone.View.extend({
 
 
 		$plants.not('#addNew').on('click', doubleTapFunction);
+
+		App.trigger('nav:enable');
 
 		log('Backbone : DashboardView : Render');
 	},

@@ -20,11 +20,11 @@ App.Animation = (function (window, document) {
 
 			var $el;
 			// Can pass in jQuery object or DOM element
-			if(typeof params['el'] != 'undefined'){
+			if(typeof params['el'] != 'undefined') {
 				$el = $(params['el']);
-			}else if(typeof params['$el'] != 'undefined'){
+			} else if(typeof params['$el'] != 'undefined') {
 				$el = params['$el'];
-			} 
+			}
 
 			// Have to set the delay/duration explicitly
 			if(typeof params['delay'] !== undefined) {
@@ -60,8 +60,15 @@ App.Animation = (function (window, document) {
 				doneAnimating();
 			});
 
-			// This fires the animation ('.animated' is what triggers it for real);
-			$el.addClass('animated ' + params['transition']);
+
+			if(self.supportsTransitions()) {
+				// This fires the animation ('.animated' is what triggers it for real);
+				$el.addClass('animated ' + params['transition']);
+			} else {
+				$el.trigger('animationend');
+			}
+
+
 		},
 
 
@@ -73,17 +80,17 @@ App.Animation = (function (window, document) {
 		// duration: string, time it takes to complete animation (ex: 2s, .2s, 0.15s)
 		// delay: string, time before anim fires (ex: 2s, .2s, etc);
 		// callback: callback function after animation is done
-		'cssAnimate': function (params){
+		'cssAnimate': function (params) {
 			var wally = this;
 			var anim = {};
 			anim['' + params['prop']] = params['value'];
 
 			var $el;
-			if(typeof params['el'] != 'undefined'){
+			if(typeof params['el'] != 'undefined') {
 				$el = $(params['el']);
-			}else if(typeof params['$el'] != 'undefined'){
+			} else if(typeof params['$el'] != 'undefined') {
 				$el = params['$el'];
-			} 
+			}
 
 			$el.animate(anim, params['duration'], params['callback']);
 		},
@@ -98,10 +105,10 @@ App.Animation = (function (window, document) {
 			var wally = this;
 			params['list'].each(function (i, v) {
 				wally.animate({
-						'el': $(v), 
-						'transition': params['transition'],
-						'delay': (params['delay'] * (i + 1)) + 's',
-						'duration': params['duration']
+					'el': $(v),
+					'transition': params['transition'],
+					'delay': (params['delay'] * (i + 1)) + 's',
+					'duration': params['duration']
 				});
 			});
 
@@ -134,6 +141,25 @@ App.Animation = (function (window, document) {
 				typeof params['callback'] == 'function' ? params['callback']() : 42;
 			}, params['container'].children().length * params['delay'] * 1000);
 
+		},
+
+		'supportsTransitions': function () {
+			var b = document.body || document.documentElement;
+			var s = b.style;
+			var p = 'transition';
+			if(typeof s[p] == 'string') {
+				return true;
+			}
+
+			// Tests for vendor specific prop
+			v = ['Moz', 'Webkit', 'Khtml', 'O', 'ms'],
+			p = p.charAt(0).toUpperCase() + p.substr(1);
+			for(var i = 0; i < v.length; i++) {
+				if(typeof s[v[i] + p] == 'string') {
+					return true;
+				}
+			}
+			return false;
 		}
 	};
 	return self;

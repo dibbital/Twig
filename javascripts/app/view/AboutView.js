@@ -1,8 +1,6 @@
 /**
- * @module Backbone
- * @submodule Backbone.View
- * @class AboutView
- * @constructor
+ * AboutView
+ * Used for the 'About' page
  */
 var AboutView = Backbone.View.extend({
 
@@ -12,8 +10,12 @@ var AboutView = Backbone.View.extend({
 		var view = this;
 		_.bindAll(view);
 
+
+		// Check header
 		App.trigger('header:check', {
 			'callback': function () {
+
+				// Load page
 				view.pageURL = 'templates/about.php';
 				view.$el.addClass('loading').load(view.pageURL, function () {
 					view.$el.removeClass('loading');
@@ -28,11 +30,10 @@ var AboutView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
-
-		App.on('back:button', view.close);
-		App.on('clear:modals', view.close);
+		// Enable the default header buttons
 		App.trigger('nav:enable');
 
+		// Set title
 		App.trigger('header:change', {
 			'header': 'About',
 			'subtext': '',
@@ -42,6 +43,7 @@ var AboutView = Backbone.View.extend({
 		});
 
 
+		// Animate content into view
 		Walt.animateEach({
 			'list': view.$el.children().show(),
 			'transition': 'fadeInUp',
@@ -49,12 +51,6 @@ var AboutView = Backbone.View.extend({
 		});
 
 		log('Backbone : AboutView : Render');
-	},
-
-
-	'close': function (e) {
-		var view = this;
-
 	}
 
 });

@@ -1,11 +1,11 @@
 <?php
 
 //Lego for database connection
-if($_SERVER['SERVER_NAME'] == 'localhost'){
-	$GLOBALS['HOST'] = "cias.rit.edu";
+if($_SERVER['SERVER_NAME'] == 'locaasdflhost'){
+	$GLOBALS['HOST'] = "localhost";
 	$GLOBALS['DB'] = "twig";
-	$GLOBALS['DB_USER'] = "twig";
-	$GLOBALS['DB_PASS'] = "geoZ3t00dom";
+	$GLOBALS['DB_USER'] = "root";
+	$GLOBALS['DB_PASS'] = "root";
 }else{
 	$GLOBALS['HOST'] = "cias.rit.edu";
 	$GLOBALS['DB'] = "twig";
@@ -50,6 +50,39 @@ function newPlant($data){
 
 }
 
+
+function getAveragePlantStats($plantID){
+	if($GLOBALS['CONNECTION'] == null){
+		ConnectDB();
+	}
+
+
+	$info = array();
+
+
+	// Temperature
+	$tempSQL = "SELECT AVG(`value`) FROM (SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`user_plant_stats` WHERE `pid` = '" . $plantID . "' AND `key` LIKE 'temperature' ORDER BY `timestamp` DESC LIMIT 25) AS query";
+	$tempQuery = mysql_query($tempSQL) or die("Error getting temperature: " . mysql_error());
+	$info["temp"] = mysql_result($tempQuery, 0);
+
+	// Light
+	$lightSQL = "SELECT AVG(`value`) FROM (SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`user_plant_stats` WHERE `pid` = '" . $plantID . "' AND `key` LIKE 'light' ORDER BY `timestamp` DESC LIMIT 25) AS query";
+	$lightQuery = mysql_query($lightSQL) or die("Error getting light: " . mysql_error());
+	$info["light"] = mysql_result($lightQuery, 0);
+/*
+	// Moisture
+	$moistSQL = "SELECT * FROM `user_plant_stats` WHERE `pid` = 11 AND `key` LIKE 'moisture' LIMIT 1 ";
+	$moistQuery = mysql_query($moistSQL) or die("Error getting moisture: " . mysql_error());
+
+	while($moistResults = mysql_fetch_assoc($moistQuery)){
+		$key = $moistResults["key"];
+		$val = $moistResults["value"];
+		$info[$key] = $val;
+	}*/
+
+	echo json_encode($info);
+
+}
 
 function getCurrentPlantStats($plantID){
 	if($GLOBALS['CONNECTION'] == null){

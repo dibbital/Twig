@@ -38,11 +38,9 @@ var SearchView = Backbone.View.extend({
 			'header': 'Database',
 			'subtext': 'Search Plants',
 			'callback': function(){
-				//$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
+				$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
 			}
 		});
-
-
 
 		view.$el.find('#advancedOptions').hide();
 
@@ -50,7 +48,7 @@ var SearchView = Backbone.View.extend({
 		var $searchBtn = view.$el.find(".searchButton");
 		$advancedBtn.on('click', view.expandOptions);
 		$searchBtn.on('click', view.finishSearch);
-		//$('#plantName').on('input', function(e){ if($(this).val().length >= 2){  view.finishSearch(e); } });
+		$('#plantName').on('input', function(e){ if($(this).val().length >= 2){  view.finishSearch(e); } });
 
 		var $options = view.$el.find(".option");
 		$options.on("click",view.showSearchModal);
@@ -60,7 +58,7 @@ var SearchView = Backbone.View.extend({
 			'container': view.$el.find('.returnList').show(),
 			'transition': 'fadeInUp',
 			'delay': 0.05,
-			'duration': '0.4s',
+			'duration': '0.4s'
 		});
 		view.selectPlant();
 
@@ -80,7 +78,6 @@ var SearchView = Backbone.View.extend({
 		var view = this;
 		var $element = e.currentTarget;
 		view.$el.addClass('modal');
-
 		$('#header_global .button.right').fadeOut();
 		$('#header_global .button.left').fadeOut();
 
@@ -89,7 +86,7 @@ var SearchView = Backbone.View.extend({
 
 		switch($($element).data('search')){
 			case 'type': $typeSelects = $('#plantType option');
-					$html = "<div class='selectModal'><div data-value='none'>None</div>"
+					$html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>"
 					for(var i = 1; i< $typeSelects.length; i++){
 						$value = $($typeSelects[i]).val();
 						$html += "<div data-value='"+$value+"'>"+$value+"</div>";
@@ -272,7 +269,7 @@ var SearchView = Backbone.View.extend({
 		var $plantMain = $('#plantMaintenance').val();
 		var $plantType = $('#plantType').val();
 
-		view.$urlString = "query.php?a=searchDatabase"
+		view.$urlString = "searchDatabase.php?"
 		//if the user hasn't entered anything in the search field
 		if($plantName == ''){
 

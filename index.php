@@ -46,6 +46,8 @@
 		<link rel="stylesheet" href="stylesheets/plugins/ui-lightness/jquery-ui-1.9.2.custom.css" />
 		<link rel="stylesheet" href="stylesheets/app/print.css" />
 
+
+
 	<!--
 		<script type="text/template" id="example_backbone_template">
 			Test Template
@@ -87,13 +89,15 @@
 					'Debug': true
 				})
 				// Libraries
+				.script('javascripts/lib/jquery.js').wait()
 				.script('javascripts/lib/jquery.min.js').wait()
 				.script('javascripts/lib/underscore.js').wait()
 				.script('javascripts/lib/backbone.js').wait()
 				.script('javascripts/app/router/AppRouter.js').wait()
 				.script('javascripts/plugins/touchable.js').wait()
 				.script('javascripts/plugins/jquery-ui-1.9.2.custom.min.js').wait()
-				// Backbone - Models
+				.script('javascripts/plugins/hammer.js').wait()
+				.script('javascripts/plugins/jquery.hammer.js').wait()
 				// Backbone - Views
 				.script('javascripts/app/view/HeaderView.js').wait()
 				.script('javascripts/app/view/DashboardView.js').wait()
@@ -107,8 +111,11 @@
 				.script('javascripts/app/view/AboutView.js').wait()
 				.script('javascripts/app/view/ContactView.js').wait()
 				.script('javascripts/app/view/IndexView.js').wait()
+				.script('javascripts/app/view/FactsTipsView.js').wait()
+				.script('javascripts/app/view/GlobalNavView.js').wait()
 				.script('javascripts/app/view/SearchView.js').wait()
-				.script('javascripts/app/view/PlantDBView.js').wait()
+				.script('javascripts/app/view/DatabaseEntryView.js').wait()
+				.script('javascripts/app/view/NotificationView.js').wait()
 				// Site-Specific JS - Global
 				.script('javascripts/plugins/jquery.knob.js').wait()
 				.script('javascripts/app/app.utilities.js').wait()
@@ -118,6 +125,11 @@
 				.script('javascripts/app/app.global.js').wait(function() {
 					window.isDebugMode = true;
 					App.Global.init();
+
+					if((navigator.userAgent.match(/Windows Phone/i))){
+						var stylesheet = '<link rel="stylesheet" type="text/css" href="stylesheets/app/wphone.css" media="screen"  />';
+						$('head').append(stylesheet);
+					}
 				});
 		</script>
 

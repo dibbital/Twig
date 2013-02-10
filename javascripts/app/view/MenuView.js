@@ -160,5 +160,5 @@ var MenuView = Backbone.View.extend({
 		$('#header_global .button').css('opacity', 1);
 		$('#side_menu').removeClass('sideMenuOpened');
 		$('#header_global .button.left').removeClass('active');
-	},
+	}
 });

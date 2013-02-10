@@ -63,7 +63,7 @@ function printPlant($data)
 		$img = $data['imgPath'];
 	}
 	echo "
-	<li data-plant-id=\"" . $plantID . "\" data-plant-name=\"" . ($data['latin_name'] ? $data['latin_name'] : $plantType) . "\"><img src=\"" . $img . "\" />";
+	<li data-plant-id=\"" . $plantID . "\" data-plant-name=\"" . ($data['latin_name'] ? $data['latin_name'] : $plantType) . "\"><div class=\"square\"><img src=\"" . $img . "\" /></div>";
 
 	if(empty($name)){
 		echo "<h2>" . $plantType . "</h2>";
@@ -99,6 +99,19 @@ function getPlantData($user, $id){
 			$key = $deepResults["key"];
 			$val = $deepResults["value"];
 			$info[$key] = $val;
+		}
+
+
+		$nextSQL = "SELECT id from `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `id` = (SELECT min(`id`) FROM `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `uid` = '" . $user . "' AND `id` > '" . $info["plantid"] . "') LIMIT 1";
+		$nextQuery = mysql_query($nextSQL) or die("Error getting next: " . mysql_error());
+		while($nextResult = mysql_fetch_assoc($nextQuery)){
+			$info['next'] = $nextResult['id'];
+		}
+
+		$prevSQL = "SELECT id from `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `id` = (SELECT max(`id`) FROM `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `uid` = '" . $user . "' AND `id` < '" . $info["plantid"] . "') LIMIT 1";
+		$prevQuery = mysql_query($prevSQL) or die("Error getting next: " . mysql_error());
+		while($prevResult = mysql_fetch_assoc($prevQuery)){
+			$info['prev'] = $prevResult['id'];
 		}
 
 

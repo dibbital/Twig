@@ -32,6 +32,9 @@ var IndexView = Backbone.View.extend({
 		if(typeof view.dashboardView == 'undefined') {
 			App.trigger('header:check', {
 				'callback': function () {
+					view.globalNavView = new GlobalNavView({
+						'el': '#section_main'
+					});
 					view.dashboardView = new DashboardView({
 						'el': '#section_content'
 					});

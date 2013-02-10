@@ -31,7 +31,10 @@ var SplashView = Backbone.View.extend({
 	'render': function () {
 		var view = this;
 
+		App.Utilities.supportPlaceholders();
+
 		view.$el.addClass('splash');
+		view.$el.closest('#section_main').addClass('splash');
 
 		var $logo = view.$el.find('.logo');
 		var $btnLogin = view.$el.find('#login_btn a');
@@ -113,8 +116,13 @@ var SplashView = Backbone.View.extend({
 					e.preventDefault();
 					e.stopPropagation();
 
-					var userName = view.$el.find('#login_username').val();
-					var passWord = view.$el.find('#login_password').val();
+					var userName = App.Utilities.trim(view.$el.find('#login_username').val());
+					var passWord = App.Utilities.trim(view.$el.find('#login_password').val());
+
+					if(/[^a-zA-Z0-9]/.exec(userName) || passWord == "" || userName == ""){
+						alert("Please use alphanumeric characters to enter a username and password.");
+						return;
+					}
 					var ajaxCall = $.ajax({
 						'url': 'users/login.php',
 						'type': 'POST',
@@ -165,6 +173,19 @@ var SplashView = Backbone.View.extend({
 
 		view.$el.find('.signUp a').on('click', function () {
 			var $form = view.$el.find('#signup');
+
+
+			// Do checks up in here
+			if(/[^a-zA-Z0-9]/.exec(userName) || passWord == "" || userName == ""){
+				alert("Please use alphanumeric characters to enter a username and password.");
+				return;
+			}
+
+			// Report error here
+
+			// return
+
+
 			var ajaxCall = $.ajax({
 				'url': 'users/register.php',
 				'type': 'POST',
@@ -218,6 +239,7 @@ var SplashView = Backbone.View.extend({
 	'close': function () {
 		var view = this;
 		view.$el.removeClass('splash').empty();
+		view.$el.closest('#section_main').removeClass('splash');
 	}
 
 });

@@ -9,8 +9,8 @@ var AppRouter = Backbone.Router.extend({
 	'routes': {
 		'': 'index',
 		'splash': 'splash',
-		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
-		'plantSearch/:pID' : 'plantDBProfile',
+		'plant/:user/:pID': 'plantProfile',
+		'plant/:pID': 'databaseEntry',
 		'add': 'add',
 		'settings': 'settings',
 		'help': 'help',
@@ -23,7 +23,11 @@ var AppRouter = Backbone.Router.extend({
 	initialize: function () {
 		var router = this;
 
-		router.indexView = undefined;
+		router.indexView = new IndexView({
+			'el': '#section_main'
+		});
+		
+		App.trigger('nav:enable');
 
 		// I don't really like this being in the AppRouter - Andy
 		// Params is used for callbacks
@@ -59,14 +63,16 @@ var AppRouter = Backbone.Router.extend({
 		log('Backbone : AppRouter : Initialized');
 	},
 
+
 	'index': function () {
 		var router = this;
 
-		App.trigger('nav:enable');
 
 		router.indexView = new IndexView({
 			'el': '#section_main'
 		});
+
+		App.trigger('nav:enable');
 	},
 
 	'splash': function () {
@@ -87,15 +93,6 @@ var AppRouter = Backbone.Router.extend({
 		});
 	},
 
-	'plantDBProfile': function (pID) {
-		var router = this;
-
-		router.plantDBView = new PlantDBView({
-			'el': '#section_content',
-			'plantID': pID
-		});
-	},
-
 	'add': function () {
 		var router = this;
 		if(router.indexFirst()) {
@@ -105,7 +102,8 @@ var AppRouter = Backbone.Router.extend({
 		} else {
 			log('not indexfirst');
 			Backbone.history.navigate('', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}
 	},
@@ -118,7 +116,8 @@ var AppRouter = Backbone.Router.extend({
 			});
 		} else {
 			Backbone.history.navigate('', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}
 	},
@@ -138,7 +137,8 @@ var AppRouter = Backbone.Router.extend({
 			});
 		} else {
 			Backbone.history.navigate('', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}
 	},
@@ -151,7 +151,8 @@ var AppRouter = Backbone.Router.extend({
 			});
 		} else {
 			Backbone.history.navigate('', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}
 	},
@@ -164,9 +165,19 @@ var AppRouter = Backbone.Router.extend({
 			});
 		} else {
 			Backbone.history.navigate('', {
-				'trigger': true
+				'trigger': true,
+				'replace': true
 			});
 		}
+	},
+
+	'databaseEntry': function(pID) {
+		var router = this;
+
+		router.dbEntryView = new DatabaseEntryView({
+			'el': '#section_content',
+			'plantID': pID
+		});
 	},
 
 	'indexFirst': function () {

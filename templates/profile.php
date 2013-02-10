@@ -10,7 +10,7 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 ?>
 
 <div id="data" data-name="<? echo $plantData['name'] ?>"></div>
-<div class="hero">
+<div id="swipe" class="hero" data-next="<? echo $plantData['next'] ?>" data-prev="<? echo $plantData['prev'] ?>">
 	<? if(isset($plantData['imgPath'])){ ?>
 		<img src="<?php echo $plantData['imgPath']; ?>" />
 	<? }else{ ?>
@@ -35,18 +35,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Temperature</li>
 		</ul>
 
-		<div class="header">
-			<h2>Notifications</h2>
-			<!-- <span>2</span> -->
+		<div id="notificationCenter">
+			
 		</div>
-		<ul class="notifications">
-			<li id="lightNoti">Level Alert - Water requirement not filled</li>
-			<li id="lightNotiInfo">There needs to be more water!</li>
-			<li id="tempNoti">Level Alert - Water requirement not filled</li>
-			<li id="tempNotiInfo">There needs to be more water!</li>
-			<li id="moistureNoti">Level Alert - Water requirement not filled</li>
-			<li id="moistureNoti">There needs to be more water!</li>
-		</ul>
 	</div>
 
 	<!-- Progress -->
@@ -67,6 +58,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 
 		<div class="facts">
 			<h2>Facts &amp; Tips</h2>
+			<ul id="factsNtips">
+				
+			</ul>
 		</div>
 	</div>
 

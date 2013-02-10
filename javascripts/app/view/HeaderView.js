@@ -30,7 +30,6 @@ var HeaderView = Backbone.View.extend({
 		view.buildMenuButton('left');
 		view.buildSettingsButton('right');
 		view.enableButtons();
-		view.createMenu();
 
 		log('Backbone : HeaderView : Render');
 	},
@@ -47,34 +46,34 @@ var HeaderView = Backbone.View.extend({
 		
 
 		App.on('nav:enable', function () {
-			view.$menuBtn.on('click', view.handleMenu);
-			view.$settingsBtn.on('click', view.handleSettings);
-			view.$menuBtn.addClass('menuIcon');
-			view.$settingsBtn.addClass('settingsIcon');
+			view.$menuBtn.unbind().css('opacity', 1).on('click', view.handleMenu);
+			view.$settingsBtn.unbind().css('opacity', 1).on('click', view.handleSettings);
+			view.$menuBtn.attr('class', 'button left').addClass('menuIcon');
+			view.$settingsBtn.attr('class', 'button right').addClass('settingsIcon');
 		});
 		App.on('nav:disable', function () {
-			view.$menuBtn.off('click', view.handleMenu);
-			view.$settingsBtn.off('click', view.handleSettings);
-			view.$menuBtn.removeClass('menuIcon');
-			view.$settingsBtn.removeClass('settingsIcon');
+			view.$menuBtn.unbind();
+			view.$settingsBtn.unbind();
+			view.$menuBtn.attr('class', 'button left');
+			view.$settingsBtn.attr('class', 'button right');
 		});
 
-		App.on('nav:menu:enable', function () {
-			view.$menuBtn.on('click', view.handleMenu);
-			view.$menuBtn.addClass('menuIcon');
+		App.on('nav:left:enable', function () {
+			view.$menuBtn.unbind().css('opacity', 1).on('click', view.handleMenu);
+			view.$menuBtn.attr('class', 'button left').addClass('menuIcon');
 		});
-		App.on('nav:menu:disable', function () {
-			view.$menuBtn.off('click', view.handleMenu);
-			view.$menuBtn.removeClass('menuIcon');
+		App.on('nav:left:disable', function () {
+			view.$menuBtn.unbind();
+			view.$menuBtn.attr('class', 'button left');//.removeClass('menuIcon');
 		});
 
-		App.on('nav:settings:enable', function () {
-			view.$settingsBtn.on('click', view.handleSettings);
-			view.$settingsBtn.addClass('settingsIcon');
+		App.on('nav:right:enable', function () {
+			view.$settingsBtn.unbind().css('opacity', 1).on('click', view.handleSettings);
+			view.$settingsBtn.attr('class', 'button right').addClass('settingsIcon');
 		});
-		App.on('nav:settings:disable', function () {
-			view.$settingsBtn.off('click', view.handleSettings);
-			view.$settingsBtn.removeClass('settingsIcon');
+		App.on('nav:right:disable', function () {
+			view.$settingsBtn.unbind();
+			view.$settingsBtn.attr('class', 'button left');//removeClass('settingsIcon');
 		});
 
 		App.trigger('nav:enable');
@@ -122,57 +121,6 @@ var HeaderView = Backbone.View.extend({
 		}
 	},
 
-	'createMenu': function(){
-		var view = this;
-		if(typeof view.$menuView == "undefined") {
-			var $sideEl = $('<div id="side_menu"></div>');
-			$sideEl.insertAfter($('#header_global')); //.prepend($sideEl);
-			view.$menuView = new MenuView({
-				'el': '#side_menu'
-			});
-		}
-	},
-
-	'handleMenu': function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		var view = this;
-		if(typeof view.$menuView == "undefined") {
-			view.createMenu();
-		}
-
-		if(!view.sidebarIsOpen) {
-			view.openSidebar();
-			view.$menuBtn.addClass('active');
-		} else {
-			view.closeSidebar();
-			view.$menuBtn.removeClass('active');
-		}
-	},
-
-	'openSidebar': function () {
-		var view = this,
-			$content = $('#section_content'),
-			$header = $('#header_global');
-
-		$content.addClass('sideMenuOpened');
-		$header.addClass('opened');
-
-		view.sidebarIsOpen = true;
-	},
-
-	'closeSidebar': function () {
-		var view = this,
-			$content = $('#section_content'),
-			$header = $('#header_global');
-
-		$content.removeClass('sideMenuOpened');
-		$header.removeClass('opened');
-
-		view.sidebarIsOpen = false;
-	},
-
 	'changeTitle': function (params) {
 		var view = this;
 		var header = params['header'];
@@ -217,6 +165,15 @@ var HeaderView = Backbone.View.extend({
 			}
 		});
 
+	},
+
+	'handleMenu': function(e){
+		var view = this;
+
+		e.preventDefault();
+		e.stopPropagation();
+
+		App.trigger('gnav:trigger');
 	},
 
 	'hideHeader': function () {

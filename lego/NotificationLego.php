@@ -8,35 +8,49 @@ if($GLOBALS['CONNECTION'] == null)
 	ConnectDB();
 }
 
-function getPlantRightValues($plantID)
+function getOptimalSettings($plantID)
 {
-	if($GLOBALS['CONNECTION'] == null)
-	{
+	if($GLOBALS['CONNECTION'] == null){
 		ConnectDB();
 	}
 
 	$info = array();
 
 
-	// light
-	$lightRightSQL = "SELECT * FROM `plants` WHERE `pid` = '" . $plantID . "' AND `key` LIKE 'Shade' LIMIT 1 ";
-	$lightRightQuery = mysql_query($lightRightSQL) or die("Error getting light: " . mysql_error());
+	// convert user plant id to plant type id
+	$getQuery = "SELECT `type` FROM `" . $GLOBALS['DB'] . "`.`user_plants` WHERE `id` = '" . $plantID . "' LIMIT 1";
+	$getSQL = mysql_query($getQuery) or die("Error getting plants: " . mysql_error());
+	while($result = mysql_fetch_assoc($getSQL)){
+		$plantType = $result["type"];
+	}
 
-	while($lightRightResults = mysql_fetch_assoc($lightRightQuery))
+	// light
+	$optLightSQL = "SELECT `value` FROM `plants` WHERE `pid` = '" . $plantType . "' AND `key` LIKE 'shade' LIMIT 1 ";
+	$optLightQuery = mysql_query($optLightSQL) or die("Error getting light: " . mysql_error());
+
+	while($optLightResults = mysql_fetch_assoc($optLightQuery))
 	{
-		$key = $lightRightResults["key"];
-		$val = $lightRightResults["value"];
-		$info["lightRight"] = $val;
+		$info["light"] = $optLightResults["value"];
 	}
 
 	// Temp
-	$tempRightSQL = "SELECT * FROM `plants` WHERE `pid` = '". $plantID ."' AND `key` LIKE 'hardyness' LIMIT 1 ";
-	$tempRightQuery = mysql_query($tempRightSQL) or die("Error getting light: " . mysql_error());
+	$optTempSQL = "SELECT `value` FROM `plants` WHERE `pid` = '". $plantType ."' AND `key` LIKE 'hardyness' LIMIT 1 ";
+	$optTempQuery = mysql_query($optTempSQL) or die("Error getting temp: " . mysql_error());
 
-	while($tempRightResults = mysql_fetch_assoc($tempRightQuery)){
-		$key = $tempRightResults["key"];
-		$val = $tempRightResults["value"];
-		$info["tempRight"] = $val;
+	while($optTempResults = mysql_fetch_assoc($optTempQuery))
+	{
+		$info["temp"] = $optTempResults["value"];
+	}
+
+
+
+	// Water
+	$optMoistureSQL = "SELECT `value` FROM `plants` WHERE `pid` = '". $plantType ."' AND `key` LIKE 'moisture' LIMIT 1 ";
+	$optMoistureQuery = mysql_query($optMoistureSQL) or die("Error getting temp: " . mysql_error());
+
+	while($optMoistureResults = mysql_fetch_assoc($optMoistureQuery))
+	{
+		$info["moisture"] = $optMoistureResults["value"];
 	}
 
 	// Moisture

@@ -1,9 +1,15 @@
-<?php 
+<?
 
-	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
-	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/PlantLego.php");
+// Sidebar search page
+error_reporting(E_ALL);
+ ini_set("display_errors", 1);
+
+require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/../lego/PlantLego.php");
 
 ?>
+
+
 
 <div id="search">
 	<div class="searchButton"></div>

@@ -17,16 +17,18 @@ var NotificationView = Backbone.View.extend(
 		view.plantID = options.plantID;
 
 
-		App.trigger('header:check', {
-			'callback': function () {
-				view.pageURL = 'templates/profile.php?uid=' + App.User.getID() + '&plantID=' + view.plantID;
-				view.$el.load(view.pageURL, function () {
-					view.render();
-				});
-			}
-		});
+		// Fires when all values have been loaded
+		view.on('got:optimal:stats', view.compareStats);
+		// Fires after current values are found
+		view.on('got:current:stats', view.getOptimalStats);
 
-		view.render();
+		view.notificationCount = 0;
+
+		view.pageURL = 'templates/notifications.php';
+		view.$el.addClass('loading').load(view.pageURL, function () {
+			view.$el.removeClass('loading');
+			view.update();
+		});
 
 		log('Backbone : NotificationView : Initialized');
 	},
@@ -35,177 +37,111 @@ var NotificationView = Backbone.View.extend(
 	'render': function () 
 	{
 		var view = this;
-		view.updateNotifcations();
+
+		log('')
+
+		log('Backbone : NotificationView : Render');
 	},
 
 
-	'updateNotifcations': function ()
+	'update': function ()
 	{
+		log('Backbone : NotificationView : Update');
+		var view = this;
 		//get last gauge #s from db
 		var $call = $.ajax(
 		{
-			'url': 'query.php?a=currentStats&plantID=' + view.plantID
+			'url': 'query.php?a=recentStats&plantID=' + view.plantID
 		}).done(function (response) 
 		{
-			log('getActGuages', view.plantID, response);
+			log('Backbone : NotificationView : Update : Response', response);
 			var jsonified = $.parseJSON(response);
 			//var $actMoisture = jsonified['moisture'];
-			var $actLight = parseInt(jsonified['light']) / 100;
-			var $actTemp = jsonified['light'];
+			view.$currentLight = parseInt(jsonified['light']) / 100;
+			view.$currentTemp = jsonified['temp'];
+			view.trigger('got:current:stats');
 		});
-		
-		//get correct guage values 
-		var $call = $.ajax(
-		{
-			'url': 'query.php?a=PlantRightValues&plantID=' + view.plantID
-		}).done(function (response) 
-		{
-			log('getRightVals', view.plantID, response);
-			var jsonified = $.parseJSON(response);
-			//var $rightMoisture = jsonified['moisture'];
-			var $rightLight = $.jsonified['lightRight'];
-			var $rightTemp = jsonified['light'];
-		});
+	},
 
-		//moisture 
-		/*WE don't have this sensor set up yet*/	                            
-
-
-		//light
-		//set the correct values to the names 
-		if($rightLight == 'SN') //some shade -second least amount
-		{
-			$rightLightMax = '2.4';
-			$rightLightMin = '2';
-		}
-		else if($rightLight == 'N') //none -least amount
-		{
-			$rightLightMax = '3';
-			$rightLightMin = '2.5';
-		}
-		else if ($rightLight == 'S') //shade -middle amount
-		{
-			$rightLightMax = '1.9';
-			$rightLightMin = '1.4';
-		}
-		else if ($rightLight == 'FS') //full shade?
-		{
-			$rightLightMin = '0.9';
-			$rightLightMax = '1.3;'
-		}
-		else if ($rightLight == 'FSN') //most full shade 
-		{
-			$rightLightMin = '0.3';
-			$rightLightMax = '0.8';
-		}
-
-		//check to see if the real values are near the right values & spit out results
-		if($actLight < $rightLightMin || $actLight > $rightLightMax) //if the actual moisture is less than the minimun value or the actual moisture is greater than the max value then bad
-		{
-			//badddddddd 
-			$('#lightNoti').attr('value', 'The light values are bad!');
-			//create a variable to create the ! above
-			
-			if($actLight < $rightLightMin) //less than min value
+	'getOptimalStats': function()
+	{
+		log('getOptimalStats');
+			var view = this;
+			//get correct guage values 
+			var $call = $.ajax(
 			{
-				$('#lightNotiInfo').attr('value', 'Your plant needs more light!');
-			}
-			else($actLight < $rightLightMax) //higher than max value
+				'url': 'query.php?a=getOptimalSettings&plantID=' + view.plantID
+			}).done(function (response) 
 			{
-				$('#lightNotiInfo').attr('value', 'Your plant needs less light!');
-			}
-		}
-		else if($actLight >= $rightLightMin && $actLight <= $rightLightMax) //if the actual moisture is greater than and equal to the moisture min or the actual moisture is less than or equal to the max value the good 
-		{
-			//goodddddd
-			$('#lightNoti').attr('value', 'The light values are good!');
-		}
-		else($actLight == '0' || $actLight == 'NULL')
-		{
-			//light not working
-			$('#lightNoti').attr('value', 'The light sensor might not be working properly.');
+				log('getOptimalStats', view.plantID, response);
+				var jsonified = $.parseJSON(response);
+				//var $rightMoisture = jsonified['moisture'];
+				view.$primeLight = jsonified['light'];
+				view.$primeTemp = jsonified['temp'];
+				view.$primeMoisture = jsonified['moisture'];
+			});
+
+			view.trigger('got:optimal:stats');
+	},
+
+	
+	{
+		var view = this;
+
+
+		var luxInterval = 10;
+
+
+
+		// N - none
+		// SN - some shade
+		// S - moderate shade
+		// FSN - 'most full shade'
+		// FS - full shade
+		var lightLevels = ['N', 'SN', 'S', 'FSN', 'FS'];
+		view.$primeLightLevel = (luxInterval / 5) * lightLevels.indexOf(view.$primeLight);
+		// if(view.$primeLightLevel < 0){ view.$primeLightLevel = 0; }
+
+		var curLight = view.$currentLight;
+		var primeLight = view.$primeLightLevel;
+		var primeLightMax = primeLight + luxInterval;
+
+		if(curLight >= primeLight && curLight <= primeLightMax){
+			log('light good!');
+		}else if(curLight <= primeLight && curLight <= primeLightMax){
+			log('light too low');
+			view.notificationCount += 1;
+			view.$el.append($('<li>Your plant needs more sunlight.</li>'));
+		}else if(curLight >= primeLight && curLight >= primeLightMax){
+			log('light too much');
+			view.notificationCount += 1;
+			view.$el.append($('<li>Your plant is getting too much sunlight.</li>'));
+		}else{
+			log('uh', curLight, primeLight, primeLightMax, luxInterval);
 		}
 
 
-		//temp
-		/*after we get the values set them to values we can use*/
-		if($rightTemp == '1')
-		{
-			$rightTempMin = '-60';
-			$rightTempMax = '-10';
-		}
-		if($rightTemp == '2')
-		{
-			$rightTempMin = '-50';
-			$rightTempMax = '0'; 
-		}
-		if($rightTemp == '3')
-		{
-			$rightTempMin = '-40';
-			$rightTempMax = '10';
-		}
-		if($rightTemp == '4')
-		{
-			$rightTempMin = '-30';
-			$rightTempMax = '20';
-		}
-		if($rightTemp == '5')
-		{
-			$rightTempMin = '-20';
-			$rightTempMax = '30';
-		}
-		if($rightTemp == '6')
-		{
-			$rightTempMin = '-10';
-			$rightTempMax = '40';
-		}
-		if($rightTemp == '7')
-		{
-			$rightTempMin = '0';
-			$rightTempMax = '50';
-		}
-		if($rightTemp == '8')
-		{
-			$rightTempMin = '10';
-			$rightTempMax = '60';
-		}
-		if($rightTemp == '9')
-		{
-			$rightTempMin = '20'; 
-			$rightTempMax = '70';
-		}
-		if($rightTemp == '10')
-		{
-			$rightTempMin = '30';
-			$rightTempMax = '80';
-		}
+		if(view.notificationCount >` 0){
+			if(view.$el.find('#note_count').length <= 0){
+				view.$el.find('.header').append($('<span id="note_count"></span>'));
+			}
 
-		//check the actual values to the right values and spit out info
-		if($actTemp < $rightTempMin || $actTemp > $rightTempMax) //if actual temp is less than the min right temp or greater than the max right temp
-		{
-			//badddddddd 
-			$('#tempNoti').attr('value', 'The temperature values are bad!');
-			//create a variable to create the ! above
-			
-			if($actTemp < $rightTempMin) //less than min value
-			{
-				$('#tempNotiInfo').attr('value', 'Your plant needs a higher temperature!');
-			}
-			else($actTemp < $rightTempMax) //higher than max value
-			{
-				$('#tempNotiInfo').attr('value', 'Your plant needs a lower temperature!');
-			}
-		}//close bad if
-		else if($actTemp >= $rightTempMin && $actTemp <= $rightTempMax) //if the actual moisture is greater than and equal to the moisture min or the actual moisture is less than or equal to the max value the good 
-		{
-			//goodddddd
-			$('#tempNoti').attr('value', 'The temperature values are good!');
+			view.$el.find('#note_count').text(view.notificationCount);
 		}
-		else($actTemp == '0' || $actTemp == 'NULL')
-		{
-			//temp not working
-			$('#tempNoti').attr('value', 'The temperature sensor might not be working properly.');
-		}
+		// switch($view.primeTemp){
+
+		// }
+
+
+		// switch($view.primeMoisture){
+		// 	// DM
+		// 	// DMWe
+		// 	// M
+		// 	// Dry Soil  Moist Soil  Wet or Boggy Soil  Water Plants  Well-drained  Tolerates Drought 
+		// 	// case 
+
+		// }
+
 	}
 
 });

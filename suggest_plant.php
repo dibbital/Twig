@@ -11,7 +11,7 @@ if ( !isset($_REQUEST['term']) )
 // mysql_select_db('dibbital');
  
 // query the database table for zip codes that match 'term'
-$rs = mysql_query("SELECT * FROM `plants` WHERE (`key` = 'common_name' OR `key` = 'latin_name') AND (`value` LIKE '". mysql_real_escape_string($_REQUEST['term']) ."%') ORDER BY `value` ASC LIMIT 0, 10");
+$rs = mysql_query("SELECT * FROM `plants` WHERE (`key` = 'common_name' ) AND (`value` LIKE '%". mysql_real_escape_string($_REQUEST['term']) ."%') ORDER BY `value` ASC LIMIT 0, 10");
 
 	// SELECT id, key, value FROM plants WHERE key = "common_name" AND value LIKE "'. mysql_real_escape_string($_REQUEST['term']) .'%" order by key asc limit 0,10', $dblink);
  

@@ -57,20 +57,12 @@ App.Utilities = (function(window, document) {
 })(this, this.document);
 
 
-window.log = function() {
-	if (window.isDebugMode) {
-		log.history = log.history || []; // store logs to an array for reference
-		log.history.push(arguments);
-		if (this.console) {
-			console.log(Array.prototype.slice.call(arguments));
-		}
-		if (typeof App !== 'undefined' && typeof App.trigger === 'function') {
-			App.trigger('log', arguments);
-		}
-	} else {
-		log.history = log.history || []; // store logs to an array for reference
-		log.history.push(arguments);
-	}
+window.log = function(){
+  log.history = log.history || [];   // store logs to an array for reference
+  log.history.push(arguments);
+  if(this.console){
+    console.log( Array.prototype.slice.call(arguments) );
+  }
 };
 
 String.prototype.replaceAll = function(str1, str2, ignore)
@@ -78,18 +70,35 @@ String.prototype.replaceAll = function(str1, str2, ignore)
    return this.replace(new RegExp(str1.replace(/([\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, function(c){return "\\" + c;}), "g"+(ignore?"i":"")), str2);
 };
 
-$(document).ready(function() {
-	if (!window.isDebugMode) {
-		$(document).keyup(function(e) {
-			if (e.keyCode === 192 || e.keyCode === 19) {
-				if (window.console) {
-					log.history = log.history || []; // store logs to an array for reference
-					for (var i = 0, len = log.history.length; i < len; i++) {
-						console.log(Array.prototype.slice.call(log.history[i]));
-					}
-				}
-			}
-			log.history = [];
-		});
-	}
-});
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+        "use strict";
+        if (this == null) {
+            throw new TypeError();
+        }
+        var t = Object(this);
+        var len = t.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        var n = 0;
+        if (arguments.length > 1) {
+            n = Number(arguments[1]);
+            if (n != n) { // shortcut for verifying if it's NaN
+                n = 0;
+            } else if (n != 0 && n != Infinity && n != -Infinity) {
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+            }
+        }
+        if (n >= len) {
+            return -1;
+        }
+        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
+            if (k in t && t[k] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    }
+}

@@ -22,7 +22,7 @@ var AddPlantView = Backbone.View.extend({
 
 
 		// Header Check
-			// bug: this provides the title bar, however no IndexView is created
+		// bug: this provides the title bar, however no IndexView is created
 		App.trigger('header:check', {
 			'callback': function () {
 				view.pageURL = 'templates/addplant.php';
@@ -40,6 +40,9 @@ var AddPlantView = Backbone.View.extend({
 
 	'render': function () {
 		var view = this;
+
+		
+		App.Utilities.supportPlaceholders();
 
 		App.on('back:button clear:modals', view.close);
 
@@ -83,10 +86,16 @@ var AddPlantView = Backbone.View.extend({
 			$('#header_global .button.left').removeClass('close').off('click', view.leftHeaderButtonFunction);
 		});
 
-		App.trigger('nav:disable');
-		// Don't really like this direct header management, woops
-		$('#header_global .button.right').fadeOut();
-		view.trigger('custom:left');
+		Walt.animate({
+			'$el': $('#header_global .button.right'),
+			'transition': 'fadeOutDown',
+			'duration': '.4s',
+			'callback': function () {
+				App.trigger('nav:left:disable');
+				view.trigger('custom:left');
+				$('#header_global .button.right').hide();
+			}
+		});
 
 		App.trigger('header:change', {
 			'header': 'New Plant',
@@ -133,7 +142,7 @@ var AddPlantView = Backbone.View.extend({
 
 
 		// Function to find default photos
-			// This should be a model
+		// This should be a model
 		$('#findDefault').on('click', function (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -238,8 +247,8 @@ var AddPlantView = Backbone.View.extend({
 
 
 	// #TODO: update submission form to figure out/record age
-		//   Can just be an estimated offset ? Save in plant_stuff and
-		// adjust age display according later? Or something.
+	//   Can just be an estimated offset ? Save in plant_stuff and
+	// adjust age display according later? Or something.
 
 	'submitForm': function (e) {
 		var view = this;
@@ -250,6 +259,10 @@ var AddPlantView = Backbone.View.extend({
 		var nickname = $form.find('#nickname').val();
 		var plantType = $form.find('#plantType').val();
 		var device = $form.find('#device').val();
+
+		if(nickname == "" || plantType == "") {
+			return;
+		}
 
 		var data = JSON.stringify({
 			'name': nickname,
@@ -262,6 +275,7 @@ var AddPlantView = Backbone.View.extend({
 		$.ajax({
 			'url': 'query.php?a=newPlant&data=' + data
 		}).done(function (response) {
+			log('response', response);
 			var data = JSON.parse(response);
 			if(data['return'] == 'success') {
 				view.close({});
@@ -287,11 +301,23 @@ var AddPlantView = Backbone.View.extend({
 				view.$el.remove();
 			}
 		});
-
-		$('#header_global .button.right').removeClass('active').fadeIn();
+		// $('#header_global .button.right').removeClass('active').fadeIn();
 		view.trigger('default:left');
+
 		App.trigger('nav:enable');
-		Backbone.history.navigate('');
+
+		Walt.animate({
+			'$el': $('#header_global .button.right').removeClass('active').show(),
+			'transition': 'fadeInUp',
+			'duration': '.4s'
+		});
+
+		App.trigger('dashboard:reset');
+
+		Backbone.history.navigate('', {
+			'trigger': true,
+			'replace': true
+		});
 	}
 
 });

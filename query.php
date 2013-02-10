@@ -8,6 +8,7 @@ require_once(realpath( dirname( __FILE__ ) ) . "/lego/DatabaseLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/UserCakeLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/UploadLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/PlantLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/lego/NotificationLego.php");
 ConnectDB();
 switch($_REQUEST['a']){
 	case 'newPlant':
@@ -22,6 +23,9 @@ switch($_REQUEST['a']){
 		break;
 	case 'silentUpload':
 		upload($_FILES['plantPhoto']);
+		break;
+	case 'recentStats':
+		getAveragePlantStats($_REQUEST['plantID']);
 		break;
 	case 'currentStats':
 		getCurrentPlantStats($_REQUEST['plantID']);
@@ -52,6 +56,12 @@ switch($_REQUEST['a']){
 		break;
 	case 'getScientificName':
 		getScientificName($_REQUEST['pid']);
+		break;
+	case 'deletePlant':
+		deletePlant($_REQUEST['uid'], $_REQUEST['pid']);
+		break;
+	case 'getOptimalSettings':
+		getOptimalSettings($_REQUEST['plantID']);
 		break;
 	default:
 		var_dump($_REQUEST);

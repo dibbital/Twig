@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Signika:400,700,600,300);
+
+@font-face {
+    font-family: 'BariolRegular';
+    src: url(Bariol_Regular.otf);
+    font-weight:400;
+}
+
+@font-face {
+    font-family: 'BariolLight';
+    src: url(Bariol_Light.otf);
+    font-weight:300;
+}
+
+@font-face {
+    font-family: 'BariolThin';
+    src: url(Bariol_Thin.otf);
+    font-weight:100;
+}
+
+@font-face {
+    font-family: 'BariolBold';
+    src: url(Bariol_Bold.otf);
+    font-weight:700;
+}
