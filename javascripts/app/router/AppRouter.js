@@ -10,6 +10,7 @@ var AppRouter = Backbone.Router.extend({
 		'': 'index',
 		'splash': 'splash',
 		'plant/:user/:pID': 'plantProfile', //  #plant/Andy/123,
+		'plantSearch/:pID' : 'plantDBProfile',
 		'add': 'add',
 		'settings': 'settings',
 		'help': 'help',
@@ -82,6 +83,15 @@ var AppRouter = Backbone.Router.extend({
 		router.profileView = new ProfileView({
 			'el': '#section_content',
 			'userID': user,
+			'plantID': pID
+		});
+	},
+
+	'plantDBProfile': function (pID) {
+		var router = this;
+
+		router.plantDBView = new PlantDBView({
+			'el': '#section_content',
 			'plantID': pID
 		});
 	},

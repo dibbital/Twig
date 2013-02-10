@@ -39,6 +39,17 @@ switch($_REQUEST['a']){
 		copy($_REQUEST['fileUrl'], realpath( dirname( __FILE__ ) ).'/plants/' . $_REQUEST['fileName']);
 		echo ('/plants/' . $_REQUEST['fileName']);
 		break;
+	case 'paginateAllPlants':
+		$page = $_REQUEST['page'];
+		echo getAllPlants($page);
+		break;
+	case 'searchDatabase':
+		$page = $_REQUEST['page'];
+		echo searchDatabase($page);
+		break;
+	case 'getCommonName':
+		getCommonName($_REQUEST['pid']);
+		break;
 	case 'getScientificName':
 		getScientificName($_REQUEST['pid']);
 		break;

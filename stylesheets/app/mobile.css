@@ -790,22 +790,37 @@
       position: relative;
       top: -25%; }
 
-  .profileNav {
+  .profileNav, .plantDBNav {
     height: 29px;
     margin-top: -29px;
     position: relative;
     width: 100%; }
-    .profileNav li {
+    .profileNav li, .plantDBNav li {
       background: #FFF;
-      border-radius: 3px 3px 0 0;
       float: left;
       height: 100%;
       margin-right: 10px;
       padding: 5px;
       text-align: center;
       width: 25%; }
+      .profileNav li a, .plantDBNav li a {
+        text-decoration: none;
+        color: #4f4f4f; }
+    .profileNav .active, .plantDBNav .active {
+      background-color: #4f4f4f; }
+      .profileNav .active a, .plantDBNav .active a {
+        color: #fff; }
 
-  .profileContent > div.active {
+  .plantDBNav li {
+    width: 25%;
+    background: rgba(255, 255, 255, 0.6);
+    float: left;
+    height: 100%;
+    margin-right: 0px;
+    padding-top: 9px;
+    text-align: center; }
+
+  .profileContent > div.active, .plantDBContent > div.active {
     display: block;
     position: relative;
     z-index: 200; }
@@ -1062,4 +1077,157 @@ input { position: absolute !important; left: 20% !important; top: 17% !important
   .ui-autocomplete {
     height: 200px;
     overflow-y: scroll;
-    overflow-x: hidden; } }
+    overflow-x: hidden; }
+
+  /*PlantDB profile*/
+  .plantDBContent > div {
+    display: none; }
+
+  #habitat .overview, #stages .overview, #info .overview {
+    list-style: none; }
+    #habitat .overview > div, #stages .overview > div, #info .overview > div {
+      height: 100px; }
+    #habitat .overview .main, #stages .overview .main, #info .overview .main {
+      width: 57%;
+      float: left; }
+      #habitat .overview .main div, #stages .overview .main div, #info .overview .main div {
+        width: 100%;
+        height: 100%;
+        background-color: #9fb939;
+        padding: 8px 0px 0px 8px; }
+        #habitat .overview .main div h1, #stages .overview .main div h1, #info .overview .main div h1 {
+          color: #fff;
+          font-size: 28pt;
+          font-weight: bold;
+          letter-spacing: -.05em;
+          margin-bottom: -3px; }
+        #habitat .overview .main div h2, #stages .overview .main div h2, #info .overview .main div h2 {
+          color: #4f4f4f;
+          font-size: 15pt;
+          margin-left: 2px; }
+          #habitat .overview .main div h2 strong, #stages .overview .main div h2 strong, #info .overview .main div h2 strong {
+            font-weight: bold; }
+    #habitat .overview .side, #stages .overview .side, #info .overview .side {
+      width: 43%;
+      float: right;
+      overflow: hidden;
+      background: #ecf1d7; }
+      #habitat .overview .side li, #stages .overview .side li, #info .overview .side li {
+        padding: 0 0 13px 69%;
+        height: 33.5px;
+        line-height: 33.3px; }
+      #habitat .overview .side h2, #stages .overview .side h2, #info .overview .side h2 {
+        color: #4f4f4f; }
+      #habitat .overview .side .stats, #stages .overview .side .stats, #info .overview .side .stats {
+        padding: 12px 0 0 5px; }
+        #habitat .overview .side .stats .growHeight, #habitat .overview .side .stats .growthRate, #stages .overview .side .stats .growHeight, #stages .overview .side .stats .growthRate, #info .overview .side .stats .growHeight, #info .overview .side .stats .growthRate {
+          margin-bottom: 3px; }
+          #habitat .overview .side .stats .growHeight h2, #habitat .overview .side .stats .growthRate h2, #stages .overview .side .stats .growHeight h2, #stages .overview .side .stats .growthRate h2, #info .overview .side .stats .growHeight h2, #info .overview .side .stats .growthRate h2 {
+            padding: 10px 0 13px 37%;
+            line-height: 13px;
+            font-size: 13px; }
+            #habitat .overview .side .stats .growHeight h2 strong, #habitat .overview .side .stats .growthRate h2 strong, #stages .overview .side .stats .growHeight h2 strong, #stages .overview .side .stats .growthRate h2 strong, #info .overview .side .stats .growHeight h2 strong, #info .overview .side .stats .growthRate h2 strong {
+              font-weight: bold; }
+        #habitat .overview .side .stats .growHeight:before, #stages .overview .side .stats .growHeight:before, #info .overview .side .stats .growHeight:before {
+          background: url("../../images/sprite.symbols.png") no-repeat center center;
+          background-position: 0px -73px; }
+        #habitat .overview .side .stats .growthRate:before, #stages .overview .side .stats .growthRate:before, #info .overview .side .stats .growthRate:before {
+          background: url("../../images/sprite.symbols.png") no-repeat center center;
+          background-position: 0px -97px; }
+      #habitat .overview .side .light, #stages .overview .side .light, #info .overview .side .light {
+        background-color: #f8c589; }
+        #habitat .overview .side .light:before, #stages .overview .side .light:before, #info .overview .side .light:before {
+          background: url("../../images/sprite.symbols.png") no-repeat center center;
+          background-position: 0px -25px; }
+      #habitat .overview .side .moisture, #stages .overview .side .moisture, #info .overview .side .moisture {
+        background-color: #ace0fb; }
+        #habitat .overview .side .moisture:before, #stages .overview .side .moisture:before, #info .overview .side .moisture:before {
+          background: url("../../images/sprite.symbols.png") no-repeat center center;
+          background-position: 0px 0px; }
+      #habitat .overview .side .temp, #stages .overview .side .temp, #info .overview .side .temp {
+        background-color: #fba08e; }
+        #habitat .overview .side .temp:before, #stages .overview .side .temp:before, #info .overview .side .temp:before {
+          background: url("../../images/sprite.symbols.png") no-repeat center center;
+          background-position: 0px -48px; }
+      #habitat .overview .side .stats .growHeight:before, #habitat .overview .side .stats .growthRate:before, #habitat .overview .side .temp:before, #habitat .overview .side .light:before, #habitat .overview .side .moisture:before, #stages .overview .side .stats .growHeight:before, #stages .overview .side .stats .growthRate:before, #stages .overview .side .temp:before, #stages .overview .side .light:before, #stages .overview .side .moisture:before, #info .overview .side .stats .growHeight:before, #info .overview .side .stats .growthRate:before, #info .overview .side .temp:before, #info .overview .side .light:before, #info .overview .side .moisture:before {
+        display: block;
+        background-size: 80%;
+        content: '';
+        height: 26px;
+        opacity: 0.8;
+        width: 31px;
+        position: absolute;
+        left: 7%;
+        top: 14%; }
+  #habitat .content, #stages .content, #info .content {
+    clear: both;
+    padding: 12px 5px; }
+    #habitat .content div, #stages .content div, #info .content div {
+      margin-bottom: 12px; }
+    #habitat .content p, #stages .content p, #info .content p {
+      font-size: 11pt;
+      margin-left: 4px; }
+    #habitat .content .lightInfo h3:before, #stages .content .lightInfo h3:before, #info .content .lightInfo h3:before {
+      background: url("../../images/sprite.symbols.png") no-repeat center center;
+      background-position: 1px -27px; }
+    #habitat .content .moistureInfo h3:before, #stages .content .moistureInfo h3:before, #info .content .moistureInfo h3:before {
+      background: url("../../images/sprite.symbols.png") no-repeat center center;
+      background-position: 1px 1px; }
+    #habitat .content .tempInfo h3:before, #stages .content .tempInfo h3:before, #info .content .tempInfo h3:before {
+      background: url("../../images/sprite.symbols.png") no-repeat center center;
+      background-position: 1px -55px; }
+    #habitat .content .lightInfo h3, #habitat .content .moistureInfo h3, #habitat .content .tempInfo h3, #stages .content .lightInfo h3, #stages .content .moistureInfo h3, #stages .content .tempInfo h3, #info .content .lightInfo h3, #info .content .moistureInfo h3, #info .content .tempInfo h3 {
+      padding: 0px 0px 9px 39px;
+      font-size: 16pt;
+      line-height: 33px;
+      font-weight: bold; }
+    #habitat .content .lightInfo h3:before, #habitat .content .moistureInfo h3:before, #habitat .content .tempInfo h3:before, #stages .content .lightInfo h3:before, #stages .content .moistureInfo h3:before, #stages .content .tempInfo h3:before, #info .content .lightInfo h3:before, #info .content .moistureInfo h3:before, #info .content .tempInfo h3:before {
+      display: block;
+      background-size: 96%;
+      content: '';
+      height: 31px;
+      opacity: 0.6;
+      width: 31px;
+      position: absolute;
+      left: 0; }
+    #habitat .content .info, #stages .content .info, #info .content .info {
+      list-style: none;
+      margin-top: -10px; }
+      #habitat .content .info li .label, #stages .content .info li .label, #info .content .info li .label {
+        color: #4f4f4f;
+        font-weight: bold;
+        height: auto;
+        padding: 4% 0;
+        font-size: 18px;
+        text-indent: 8px;
+        margin-left: -5px; }
+      #habitat .content .info li .fold, #stages .content .info li .fold, #info .content .info li .fold {
+        border-bottom: 1px solid #bebebe;
+        width: 103%;
+        overflow: hidden;
+        margin-top: -2px; }
+      #habitat .content .info li > div, #stages .content .info li > div, #info .content .info li > div {
+        display: none; }
+      #habitat .content .info li .sub, #stages .content .info li .sub, #info .content .info li .sub {
+        width: 103%;
+        border-bottom: 1px solid #bebebe;
+        margin: 0 0 0 -5px;
+        padding: 9px; }
+      #habitat .content .info li .active, #stages .content .info li .active, #info .content .info li .active {
+        display: block; }
+      #habitat .content .info li .label:after, #stages .content .info li .label:after, #info .content .info li .label:after {
+        display: block;
+        background: url("../../images/arrow.png") no-repeat center center;
+        content: '';
+        height: 31px;
+        opacity: 0.5;
+        width: 31px;
+        position: absolute;
+        right: 2%;
+        top: 21%; }
+      #habitat .content .info li .active.label:after, #stages .content .info li .active.label:after, #info .content .info li .active.label:after {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg); } }

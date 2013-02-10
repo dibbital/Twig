@@ -108,6 +108,7 @@
 				.script('javascripts/app/view/ContactView.js').wait()
 				.script('javascripts/app/view/IndexView.js').wait()
 				.script('javascripts/app/view/SearchView.js').wait()
+				.script('javascripts/app/view/PlantDBView.js').wait()
 				// Site-Specific JS - Global
 				.script('javascripts/plugins/jquery.knob.js').wait()
 				.script('javascripts/app/app.utilities.js').wait()

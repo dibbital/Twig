@@ -38,9 +38,11 @@ var SearchView = Backbone.View.extend({
 			'header': 'Database',
 			'subtext': 'Search Plants',
 			'callback': function(){
-				$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
+				//$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
 			}
 		});
+
+
 
 		view.$el.find('#advancedOptions').hide();
 
@@ -48,7 +50,7 @@ var SearchView = Backbone.View.extend({
 		var $searchBtn = view.$el.find(".searchButton");
 		$advancedBtn.on('click', view.expandOptions);
 		$searchBtn.on('click', view.finishSearch);
-		$('#plantName').on('input', function(e){ if($(this).val().length >= 2){  view.finishSearch(e); } });
+		//$('#plantName').on('input', function(e){ if($(this).val().length >= 2){  view.finishSearch(e); } });
 
 		var $options = view.$el.find(".option");
 		$options.on("click",view.showSearchModal);
@@ -270,7 +272,7 @@ var SearchView = Backbone.View.extend({
 		var $plantMain = $('#plantMaintenance').val();
 		var $plantType = $('#plantType').val();
 
-		view.$urlString = "searchDatabase.php?"
+		view.$urlString = "query.php?a=searchDatabase"
 		//if the user hasn't entered anything in the search field
 		if($plantName == ''){
 
@@ -323,7 +325,7 @@ var SearchView = Backbone.View.extend({
 		}else{
 
 			//set url parameter of the search field
-			view.$urlString += "plantName=" + $plantName;
+			view.$urlString += "&plantName=" + $plantName;
 
 			//if type is selected, add to url string
 			if($plantType != '-'){
@@ -385,7 +387,7 @@ var SearchView = Backbone.View.extend({
 				},
 
 				error: function(error){
-					view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>");
+					view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>" + error.responseText);
 					view.$el.find("#plantResults").removeClass('loading');
 				}
 			}).done(function(){
@@ -439,7 +441,7 @@ var SearchView = Backbone.View.extend({
 				});
 			}else{
 				$.ajax({
-					url: '/paginateAllPlants.php?page='+view.$page,
+					url: 'query.php?a=paginateAllPlants&page='+view.$page,
 					success: function(data){
 						$('.returnList li.loader').remove();
 						$('.returnList').append(data);
@@ -459,6 +461,7 @@ var SearchView = Backbone.View.extend({
 		view.$el.find('.returnList li').on('click', function(e){
 					e.preventDefault();
 					e.stopPropagation();
+					var elem = $('#section_content').children();
 					$plantID = $(this).data('plant-id');
 					Walt.animate({
 						'el': this,
@@ -466,11 +469,11 @@ var SearchView = Backbone.View.extend({
 						'delay':0,
 						'duration':'.5s',
 						'callback': function(){
-							
-							console.log($plantID);
-							// Backbone.history.navigate('#plantSearch/' + $plantID, {
-							// 	'trigger': true
-							// });
+							$(elem).css('visibility','hidden');
+							//console.log($plantID);
+							Backbone.history.navigate('#plantSearch/' + $plantID, {
+								'trigger': true
+							});
 						}				
 					});
 					// Walt.animateEach({

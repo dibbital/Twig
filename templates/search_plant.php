@@ -1,4 +1,10 @@
-<?php include('../getAllPlants.php'); ?>
+<?php 
+
+	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
+	require_once(realpath( dirname( __FILE__ ) ) . "/../lego/PlantLego.php");
+
+?>
+
 <div id="search">
 	<div class="searchButton"></div>
 	<div class="searchForm">
