@@ -382,7 +382,7 @@ function getAllPlants($page){
 		$string = array_unique($string);
 		$string = implode(". ",$string);
 
-		if($string == '')$string = "Well fcuk....";
+		if($string == '')$string = "No light reported.";
 
 		//echo $plant;
 		return $string;

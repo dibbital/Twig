@@ -1,7 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
 @media screen {
-  /* line 8, ../scss/mobile2.scss */
   html,
   body,
   #section_main {
@@ -10,22 +9,16 @@
     font-size: 10px;
     height: 100%;
     overflow: hidden;
-    width: 100%;
-  }
+    width: 100%; }
 
-  /* line 16, ../scss/mobile2.scss */
   select, input, button, textarea, button {
-    font-family: 'Ubuntu';
-  }
+    font-family: 'Ubuntu'; }
 
-  /* line 21, ../scss/mobile2.scss */
   h1,
   h2,
   h3 {
-    font-family: 'Asap';
-  }
+    font-family: 'Asap'; }
 
-  /* line 24, ../scss/mobile2.scss */
   #header_global {
     background: #eee;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
@@ -34,61 +27,45 @@
     overflow: hidden;
     position: relative;
     width: 100%;
-    z-index: 100;
-  }
-  /* line 33, ../scss/mobile2.scss */
-  #header_global .button {
-    -moz-transition: background-color .5s ease;
-    -o-transition: background-color .5s ease;
-    -webkit-transition: background-color .5s ease;
-    background: rgba(0, 0, 0, 0.06);
-    border-left: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 3px;
-    border-right: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.9);
-    color: transparent;
-    height: 37px;
-    position: absolute;
-    top: 3px;
-    transition: background-color .5s ease;
-    width: 37px;
-  }
-  /* line 49, ../scss/mobile2.scss */
-  #header_global .button.active {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
-  /* line 52, ../scss/mobile2.scss */
-  #header_global .button.right {
-    right: 5px;
-  }
-  /* line 55, ../scss/mobile2.scss */
-  #header_global .button.right.dashboard {
-    background: url(../../images/dashboard.png) no-repeat;
-    background-position: 50% 50%;
-    background-size: 89% auto;
-  }
-  /* line 60, ../scss/mobile2.scss */
-  #header_global .button.left {
-    left: 5px;
-  }
-  /* line 63, ../scss/mobile2.scss */
-  #header_global h2 {
-    color: #333;
-    font-size: 2em;
-    line-height: 1.54em;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-  }
-  /* line 70, ../scss/mobile2.scss */
-  #header_global h3 {
-    color: #333;
-    font-size: 1.3em;
-    line-height: .5em;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
-  }
+    z-index: 100; }
+    #header_global .button {
+      -moz-transition: background-color .5s ease;
+      -o-transition: background-color .5s ease;
+      -webkit-transition: background-color .5s ease;
+      background: rgba(0, 0, 0, 0.06);
+      border-left: 1px solid rgba(0, 0, 0, 0.07);
+      border-radius: 3px;
+      border-right: 1px solid rgba(0, 0, 0, 0.07);
+      box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.9);
+      color: transparent;
+      height: 37px;
+      position: absolute;
+      top: 3px;
+      transition: background-color .5s ease;
+      width: 37px; }
+    #header_global .button.active {
+      background-color: rgba(0, 0, 0, 0.3); }
+    #header_global .button.right {
+      right: 5px; }
+    #header_global .button.right.dashboard {
+      background: url(../../images/dashboard.png) no-repeat;
+      background-position: 50% 50%;
+      background-size: 89% auto; }
+    #header_global .button.left {
+      left: 5px; }
+    #header_global h2 {
+      color: #333;
+      font-size: 2em;
+      line-height: 1.54em;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
+    #header_global h3 {
+      color: #333;
+      font-size: 1.3em;
+      line-height: .5em;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9); }
 
-  /* line 78, ../scss/mobile2.scss */
   #section_content {
     -moz-transition: left .5s ease;
     -o-transition: left .5s ease;
@@ -100,19 +77,15 @@
     padding-bottom: 44px;
     position: relative;
     transition: left .5s ease;
-    width: 100%;
-  }
-  /* line 90, ../scss/mobile2.scss */
-  #section_content.splash {
-    background: url(../../images/grass_bg.jpg) no-repeat;
-    background-size: 100% auto;
-    background-position: center top;
-    height: 100%;
-    padding: 5%;
-    width: 100%;
-  }
+    width: 100%; }
+    #section_content.splash {
+      background: url(../../images/grass_bg.jpg) no-repeat;
+      background-size: 100% auto;
+      background-position: center top;
+      height: 100%;
+      padding: 5%;
+      width: 100%; }
 
-  /* line 100, ../scss/mobile2.scss */
   .splash .logo {
     background: url(../../images/logo.png) no-repeat;
     background-size: 100% auto;
@@ -124,9 +97,7 @@
     max-width: 429px;
     position: relative;
     top: 5%;
-    width: 80%;
-  }
-  /* line 113, ../scss/mobile2.scss */
+    width: 80%; }
   .splash .blurb {
     background: #2e2e2e;
     background: rgba(46, 46, 46, 0.4);
@@ -138,39 +109,27 @@
     width: 100%;
     -moz-transition: height .5s ease;
     -o-transition: height .5s ease;
-    -webkit-transition: height .5s ease;
-  }
-  /* line 126, ../scss/mobile2.scss */
+    -webkit-transition: height .5s ease; }
   .splash h2 {
     color: #FFF;
     font-size: 3em;
-    font-weight: 700;
-  }
-  /* line 131, ../scss/mobile2.scss */
+    font-weight: 700; }
   .splash p {
     color: #FFF;
     font-size: 1.8em;
-    font-weight: 100;
-  }
-  /* line 136, ../scss/mobile2.scss */
+    font-weight: 100; }
   .splash .menu {
     bottom: 10%;
     position: absolute;
-    width: 90%;
-  }
-  /* line 142, ../scss/mobile2.scss */
+    width: 90%; }
   .splash #signup .facebookBtn {
-    height: 20px;
-  }
-  /* line 144, ../scss/mobile2.scss */
-  .splash #signup .facebookBtn a {
-    background: #526EA6;
-    text-transform: lowercase;
-    color: white;
-    font-weight: 800;
-    width: 100%;
-  }
-  /* line 152, ../scss/mobile2.scss */
+    height: 20px; }
+    .splash #signup .facebookBtn a {
+      background: #526EA6;
+      text-transform: lowercase;
+      color: white;
+      font-weight: 800;
+      width: 100%; }
   .splash #signup li {
     clear: both;
     display: block;
@@ -178,49 +137,35 @@
     width: 100%;
     margin-bottom: 10px;
     border-radius: 5px;
-    font-weight: 100;
-  }
-  /* line 160, ../scss/mobile2.scss */
-  .splash #signup li a {
-    width: 100%;
-  }
-  /* line 163, ../scss/mobile2.scss */
-  .splash #signup li input {
-    width: 100%;
-    height: 100%;
-    border: none;
-    font-size: 1.8em;
-    text-indent: 3%;
-  }
-  /* line 170, ../scss/mobile2.scss */
-  .splash #signup li.cancel {
-    clear: none;
-    font-size: 1.2em;
-    float: left;
-    width: 49%;
-  }
-  /* line 175, ../scss/mobile2.scss */
-  .splash #signup li.cancel a {
-    color: #fff;
-    background: #c53e3e;
-    width: 100%;
-  }
-  /* line 181, ../scss/mobile2.scss */
-  .splash #signup li.signUp {
-    clear: none;
-    font-size: 1.2em;
-    color: #fff;
-    float: right;
-    width: 49%;
-  }
-  /* line 187, ../scss/mobile2.scss */
-  .splash #signup li.signUp a {
-    color: #fff;
-    background: #8bc53e;
-    width: 100%;
-  }
+    font-weight: 100; }
+    .splash #signup li a {
+      width: 100%; }
+    .splash #signup li input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      font-size: 1.8em;
+      text-indent: 3%; }
+    .splash #signup li.cancel {
+      clear: none;
+      font-size: 1.2em;
+      float: left;
+      width: 49%; }
+      .splash #signup li.cancel a {
+        color: #fff;
+        background: #c53e3e;
+        width: 100%; }
+    .splash #signup li.signUp {
+      clear: none;
+      font-size: 1.2em;
+      color: #fff;
+      float: right;
+      width: 49%; }
+      .splash #signup li.signUp a {
+        color: #fff;
+        background: #8bc53e;
+        width: 100%; }
 
-  /* line 196, ../scss/mobile2.scss */
   .menu li a, #signup li a {
     background: #181818;
     background: rgba(24, 24, 24, 0.6);
@@ -236,269 +181,199 @@
     text-align: center;
     text-decoration: none;
     min-width: 100px;
-    width: 46%;
-  }
+    width: 46%; }
 
-  /* line 213, ../scss/mobile2.scss */
   .dashboard {
     height: 100%;
     overflow: scroll;
     padding: 20px 5% 0;
     position: relative;
     width: 100%;
-    z-index: 50;
-  }
-  /* line 220, ../scss/mobile2.scss */
-  .dashboard li {
-    float: left;
-    height: 144px;
-    margin: 1%;
-    position: relative;
-    width: 48%;
-    z-index: 50;
-  }
-  /* line 228, ../scss/mobile2.scss */
-  .dashboard #addNew {
-    background: #f10000;
-    border-radius: 6px;
-    height: 100px;
-    opacity: 0.7;
-    width: 100px;
-  }
-  /* line 235, ../scss/mobile2.scss */
-  .dashboard #addNew a {
-    color: transparent;
-    display: block;
-    height: 100%;
-    position: relative;
-    width: 100%;
-  }
-  /* line 242, ../scss/mobile2.scss */
-  .dashboard #addNew a:after {
-    color: #FFF;
-    content: '+';
-    display: block;
-    font-size: 12em;
-    font-weight: 900;
-    height: 100%;
-    line-height: .7em;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-  }
-  /* line 254, ../scss/mobile2.scss */
-  .dashboard img {
-    clear: both;
-    display: block;
-    max-width: 100px;
-    position: relative;
-  }
-  /* line 260, ../scss/mobile2.scss */
-  .dashboard li:after {
-    background: #FFF;
-    content: '';
-    display: block;
-    height: 100px;
-    left: 0;
-    opacity: 0.01;
-    position: absolute;
-    top: 0;
-    width: 100px;
-  }
-  /* line 271, ../scss/mobile2.scss */
-  .dashboard h2 {
-    font-size: 2em;
-    font-weight: 700;
-  }
-  /* line 275, ../scss/mobile2.scss */
-  .dashboard h3 {
-    font-size: 1.3em;
-  }
-  /* line 278, ../scss/mobile2.scss */
-  .dashboard .status {
-    background: red;
-    border-radius: 100%;
-    color: transparent;
-    height: 20px;
-    left: 87px;
-    position: absolute;
-    top: -5px;
-    width: 20px;
-  }
-  /* line 288, ../scss/mobile2.scss */
-  .dashboard .good.status {
-    background: rgba(0, 255, 0, 0.8);
-  }
-  /* line 291, ../scss/mobile2.scss */
-  .dashboard .meh.status {
-    background: rgba(255, 255, 0, 0.8);
-  }
-  /* line 294, ../scss/mobile2.scss */
-  .dashboard .poor.status {
-    background: rgba(255, 0, 0, 0.8);
-  }
+    z-index: 50; }
+    .dashboard li {
+      float: left;
+      height: 144px;
+      margin: 1%;
+      position: relative;
+      width: 48%;
+      z-index: 50; }
+    .dashboard #addNew {
+      background: #f10000;
+      border-radius: 6px;
+      height: 100px;
+      opacity: 0.7;
+      width: 100px; }
+    .dashboard #addNew a {
+      color: transparent;
+      display: block;
+      height: 100%;
+      position: relative;
+      width: 100%; }
+    .dashboard #addNew a:after {
+      color: #FFF;
+      content: '+';
+      display: block;
+      font-size: 12em;
+      font-weight: 900;
+      height: 100%;
+      line-height: .7em;
+      position: absolute;
+      text-align: center;
+      width: 100%; }
+    .dashboard img {
+      clear: both;
+      display: block;
+      max-width: 100px;
+      position: relative; }
+    .dashboard li:after {
+      background: #FFF;
+      content: '';
+      display: block;
+      height: 100px;
+      left: 0;
+      opacity: 0.01;
+      position: absolute;
+      top: 0;
+      width: 100px; }
+    .dashboard h2 {
+      font-size: 2em;
+      font-weight: 700; }
+    .dashboard h3 {
+      font-size: 1.3em; }
+    .dashboard .status {
+      background: red;
+      border-radius: 100%;
+      color: transparent;
+      height: 20px;
+      left: 87px;
+      position: absolute;
+      top: -5px;
+      width: 20px; }
+    .dashboard .good.status {
+      background: rgba(0, 255, 0, 0.8); }
+    .dashboard .meh.status {
+      background: rgba(255, 255, 0, 0.8); }
+    .dashboard .poor.status {
+      background: rgba(255, 0, 0, 0.8); }
 
-  /* line 298, ../scss/mobile2.scss */
   .addPlant {
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
     position: absolute;
     top: 44px;
-    width: 100%;
-  }
+    width: 100%; }
 
-  /* line 305, ../scss/mobile2.scss */
   #section_main {
     overflow-x: hidden;
-    overflow-y: scroll;
-  }
+    overflow-y: scroll; }
 
-  /* line 309, ../scss/mobile2.scss */
   #section_content.sideMenuOpened {
     border-left: 2px solid rgba(0, 0, 0, 0.3);
-    left: 80%;
-  }
+    left: 80%; }
 
-  /* line 313, ../scss/mobile2.scss */
   .hero {
     height: 150px;
     overflow: hidden;
-    width: 100%;
-  }
-  /* line 317, ../scss/mobile2.scss */
-  .hero img {
-    height: auto;
-    width: 100%;
-  }
+    width: 100%; }
+    .hero img {
+      height: auto;
+      width: 100%; }
 
-  /* line 322, ../scss/mobile2.scss */
   .profileNav {
     height: 29px;
     margin-top: -29px;
     position: relative;
-    width: 100%;
-  }
-  /* line 327, ../scss/mobile2.scss */
-  .profileNav li {
-    background: #FFF;
-    border-radius: 3px 3px 0 0;
-    float: left;
-    height: 100%;
-    margin-right: 10px;
-    padding: 5px;
-    text-align: center;
-    width: 25%;
-  }
+    width: 100%; }
+    .profileNav li {
+      background: #FFF;
+      border-radius: 3px 3px 0 0;
+      float: left;
+      height: 100%;
+      margin-right: 10px;
+      padding: 5px;
+      text-align: center;
+      width: 25%; }
 
-  /* line 338, ../scss/mobile2.scss */
   .profileContent > div.active {
     display: block;
     position: relative;
-    z-index: 200;
-  }
+    z-index: 200; }
 
-  /* line 343, ../scss/mobile2.scss */
   .guages {
     height: 150px;
-    text-align: center;
-  }
-  /* line 346, ../scss/mobile2.scss */
-  .guages img {
-    display: block;
-    height: auto;
-    margin: 0 auto;
-    max-width: 150px;
-    width: 100%;
-  }
-  /* line 353, ../scss/mobile2.scss */
-  .guages li {
-    float: left;
-    width: 33%;
-  }
+    text-align: center; }
+    .guages img {
+      display: block;
+      height: auto;
+      margin: 0 auto;
+      max-width: 150px;
+      width: 100%; }
+    .guages li {
+      float: left;
+      width: 33%; }
 
-  /* line 358, ../scss/mobile2.scss */
   .header {
     background: rgba(0, 0, 0, 0.3);
     clear: both;
     font-size: 1.8em;
     padding: .5% 5%;
-    width: 100%;
-  }
-  /* line 364, ../scss/mobile2.scss */
-  .header h2 {
-    display: inline;
-  }
-  /* line 367, ../scss/mobile2.scss */
-  .header span {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 100%;
-    color: #FFF;
-    float: right;
-    height: 24px;
-    line-height: 1.5em;
-    margin-top: -1px;
-    text-align: center;
-    width: 24px;
-  }
+    width: 100%; }
+    .header h2 {
+      display: inline; }
+    .header span {
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 100%;
+      color: #FFF;
+      float: right;
+      height: 24px;
+      line-height: 1.5em;
+      margin-top: -1px;
+      text-align: center;
+      width: 24px; }
 
-  /* line 379, ../scss/mobile2.scss */
   .notifications {
     width: 100% li;
-    width-border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    width-font-size: 1.4em;
-    width-line-height: 2em;
-    width-padding: 0 5%;
-    width-position: relative;
-    width-width: 100%;
-  }
-  /* line 388, ../scss/mobile2.scss */
-  .notifications li:before {
-    background: url(../../images/drop.png) no-repeat;
-    content: '';
-    display: inline-block;
-    height: 30px;
-    left: 16px;
-    position: relative;
-    top: 13px;
-    width: 37px;
-  }
+      width-border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      width-font-size: 1.4em;
+      width-line-height: 2em;
+      width-padding: 0 5%;
+      width-position: relative;
+      width-width: 100%; }
+    .notifications li:before {
+      background: url(../../images/drop.png) no-repeat;
+      content: '';
+      display: inline-block;
+      height: 30px;
+      left: 16px;
+      position: relative;
+      top: 13px;
+      width: 37px; }
 
-  /* line 400, ../scss/mobile2.scss */
   .facts h2,
   .stage h2 {
-    font-size: 2em;
-  }
+    font-size: 2em; }
 
-  /* line 403, ../scss/mobile2.scss */
   .sprouting {
     padding: 0 7%;
-    position: relative;
-  }
-  /* line 406, ../scss/mobile2.scss */
-  .sprouting p {
-    float: right;
-    font-size: 1.6em;
-    margin-top: -36px;
-    width: 60%;
-  }
-  /* line 412, ../scss/mobile2.scss */
-  .sprouting:before {
-    content: '2';
-    display: inline;
-    float: left;
-    font-size: 4em;
-    font-weight: 700;
-    left: -5px;
-    position: relative;
-    top: -3px;
-  }
+    position: relative; }
+    .sprouting p {
+      float: right;
+      font-size: 1.6em;
+      margin-top: -36px;
+      width: 60%; }
+    .sprouting:before {
+      content: '2';
+      display: inline;
+      float: left;
+      font-size: 4em;
+      font-weight: 700;
+      left: -5px;
+      position: relative;
+      top: -3px; }
 
-  /* line 423, ../scss/mobile2.scss */
   .stage h3 {
-    font-size: 1.4em;
-  }
+    font-size: 1.4em; }
 
-  /* line 426, ../scss/mobile2.scss */
   .stageProgress {
     background: url(../../images/progress.png) no-repeat;
     background-size: 100% auto;
@@ -506,10 +381,8 @@
     color: transparent;
     height: 100px;
     margin: 30px 0;
-    width: 100%;
-  }
+    width: 100%; }
 
-  /* line 435, ../scss/mobile2.scss */
   .button {
     -webkit-box-sizing: border-box;
     background: #CCC;
@@ -517,43 +390,31 @@
     box-sizing: border-box;
     height: 71px;
     margin: 3%;
-    overflow: hidden;
-  }
-  /* line 443, ../scss/mobile2.scss */
-  .button a {
-    display: block;
-    font-size: 3em;
-    height: 100%;
-    line-height: 1.9em;
-    text-align: center;
-    width: 100%;
-  }
+    overflow: hidden; }
+    .button a {
+      display: block;
+      font-size: 3em;
+      height: 100%;
+      line-height: 1.9em;
+      text-align: center;
+      width: 100%; }
 
-  /* line 452, ../scss/mobile2.scss */
   .faq {
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
-  }
-  /* line 454, ../scss/mobile2.scss */
-  .faq .faq li {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    font-size: 1.4em;
-    line-height: 3em;
-    min-height: 34px;
-    padding: 0 3%;
-  }
+    border-top: 1px solid rgba(0, 0, 0, 0.3); }
+    .faq .faq li {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      font-size: 1.4em;
+      line-height: 3em;
+      min-height: 34px;
+      padding: 0 3%; }
 
-  /* line 466, ../scss/mobile2.scss */
   #footer_global,
   .splash #login,
   .splash .blurb.login,
   .splash #signup,
   .profileContent > div {
-    display: none;
-  }
+    display: none; }
 
-  /* line 470, ../scss/mobile2.scss */
   ::selection,
   ::-moz-selection {
-    background: transparent;
-  }
-}
+    background: transparent; } }

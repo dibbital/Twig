@@ -85,7 +85,7 @@ var NotificationView = Backbone.View.extend(
 	},
 
 	
-	{
+	'compareStats': function(){
 		var view = this;
 
 
@@ -121,7 +121,7 @@ var NotificationView = Backbone.View.extend(
 		}
 
 
-		if(view.notificationCount >` 0){
+		if(view.notificationCount > 0){
 			if(view.$el.find('#note_count').length <= 0){
 				view.$el.find('.header').append($('<span id="note_count"></span>'));
 			}

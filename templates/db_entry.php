@@ -3,80 +3,102 @@
 // Plant profile page
 
 require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DatabaseLego.php");
-require_once(realpath( dirname( __FILE__ ) ) . "/../lego/DashboardLego.php");
-require_once(realpath( dirname( __FILE__ ) ) . "/../users/models/config.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/../lego/PlantLego.php");
 
-$plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
+$pid = $_REQUEST['plantID'];
+
 ?>
 
-<div id="data" data-name="<? echo $plantData['name'] ?>"></div>
+<div id="data" data-common="<?php echo getCommonName($pid) ?>" data-latin="<?php echo getScientificName($pid) ?>"</div>
 <div class="hero">
-	<? if(isset($plantData['imgPath'])){ ?>
+	<!--<?php if(isset($plantData['imgPath'])){ ?>
 		<img src="<?php echo $plantData['imgPath']; ?>" />
-	<? }else{ ?>
+	<?php }else{ ?>-->
 	 	<img src="<?php echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
-	<? } ?>
+	<!--<?php } ?>-->
 </div>
 
-<ul class="profileNav">
-	<li><a href="#" data-section="state">State</a></li>
-	<li><a href="#" data-section="progress">Progress</a></li>
-	<li><a href="#" data-section="help">Help?</a></li>
+<ul class="plantDBNav">
+	<li><a href="#" data-section="habitat">Habitat</a></li>
+	<li><a href="#" data-section="stages">Stages</a></li>
+	<li><a href="#" data-section="info">Info</a></li>
+	<li><a href="#" data-section="buy">Buy</a></li>
 </ul>
 
-<div class="profileContent">
+<div class="plantDBContent">
 
 
 	<!-- State -->
-	<div id="state" class="active">
-		<ul class="guages">
-			<li><input id="waterGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Water Levels</li>
-			<li><input id="lightGuage" type="text" class="dial" data-min="0" data-max="10" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Light Levels</li>
-			<li><input id="tempGuage" type="text" class="dial" data-min="0" data-max="100" value="0" data-width="100" data-readOnly=true data-displayPrevious=true data-transparent="true">Temperature</li>
-		</ul>
-
-		<div class="header">
-			<h2>Notifications</h2>
-			<!-- <span>2</span> -->
+	<div id="habitat" class="active">
+		<div class="overview">
+			<div class='main'>
+				<div>
+					<h1>Habitat</h1>
+					<h2>For <strong><?php echo getCommonName($pid) ?></strong></h2>
+				</div>
+			</div>
+			<div class='side'>
+				<ul class='divs'>
+					<li class='moisture'>High</li>
+					<li class='light'><?php echo getLightValue($pid) ?></li>
+					<li class='temp'><?php echo getTempValue($pid) ?></li>
+				</ul>
+			</div>
 		</div>
-		<ul class="notifications">
-			<li>Level Alert - Water requirement not filled</li>
-			<li>Level Alert - Water requirement not filled</li>
-		</ul>
+
+		<div class='content'>
+			<div class="lightInfo">
+				<h3>Light</h3>
+				<p><?php echo getDetails($pid, 'light')?></p>
+			</div>
+
+			<div class="moistureInfo">
+				<h3>Moisture</h3>
+				<p><?php echo getDetails($pid, 'moisture') ?></p>
+			</div>
+
+			<div class="tempInfo">
+				<h3>Temperature</h3>
+				<p><?php echo getDetails($pid, 'temp') ?></p>
+			</div>
+		</div>
 	</div>
 
 	<!-- Progress -->
-	<div id="progress">
-		<div class="stage">
-			<div class="sprouting">
-				<h2>Sprouting</h2>
-				<h3>Week 3-4</h3>
-				<p>Sprouting is an important part in a plants life cycle. Buds begin to sprout as the plant prepares to flower.</p>
+	<div id="stages">
+		<div class="overview">
+			<div class='main'>
+				<div>
+					<h1>Sprouting</h1>
+					<h2>Stage 2 of 2</h2>
+				</div>
 			</div>
-			<ul class="stageProgress">
-				<li><h2>1</h2><span>wks.</span></li>
-				<li><h2>2</h2><span>1.5</span></li>
-				<li><h2>3</h2><span>3.5</span></li>
-				<li><h2>4</h2><span>4.5</span></li>
-			</ul>
+			<div class='side'>
+				<div class='stats'>
+					<div class='growHeight'><?php echo getHeightInfo($pid) ?></div>
+					<div class='growthRate'><?php echo getGrowthRate($pid) ?></div>
+				</div>
+			</div>
 		</div>
 
-		<div class="facts">
-			<h2>Facts &amp; Tips</h2>
-			<ul id="factsNtips">
-				
+		<div class="content">
+			<p><?php echo getSeedPropagation($pid)?></p>
+		</div>
+	</div>
+
+	<div id="info">
+		<div class='content'>
+			<ul class='info'>
+				<li data-name='origins'><h2 class='label fold'>Origins</h2><div class='sub'>a</div></li>
+				<li data-name='history'><h2 class='label fold'>History</h2><div class='sub'><h3>s</h3></div></li>
+				<li data-name='facts'><h2 class='label fold'>Facts</h2><div class='sub'>d<div></li>
+				<li data-name='diet'><h2 class='label fold'>Diet</h2><div class='sub'>f</div></li>
 			</ul>
 		</div>
 	</div>
 
-	<!-- Help -->
-	<div id="help">
+	<div id="buy">
 		<div class="button"><a href="#">Tutorial</a></div>
-		<ul class="faq">
-			<li>Sensor not responding?</li>
-			<li>Plant looking dead?</li>
-			<li>Plant not growing?</li>
-		</ul>
 	</div>
 
 </div>

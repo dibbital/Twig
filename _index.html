@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]><html lang="en" class="ie7 nojs"><![endif]-->
+<!--[if IE 8 ]><html lang="en" class="ie8 nojs"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="ie9 nojs"><![endif]-->
+<!--[if gt IE 9]><!--><html lang="en" class="nojs"><!--<![endif]-->
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+		<meta property="og:site_name" content="" />
+		<meta property="og:title" content="" />
+		<meta property="og:description" content="" />
+		<meta property="og:url" content="" />
+		<meta property="og:image" content="" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+
+		<title></title>
+
+		<link rel="shortcut icon" href="images/favicon.ico" />
+
+		<script>document.documentElement.className = document.documentElement.className.replace('nojs', '');</script>
+
+		<link rel="stylesheet" href="stylesheets/reset.css" />
+		<link rel="stylesheet" href="stylesheets/app/app.css" />
+		<link rel="stylesheet" href="stylesheets/app/mobile.css" />
+		<link rel="stylesheet" href="stylesheets/plugins/animate.css" />
+		<link rel="stylesheet" href="stylesheets/app/print.css" />
+
+	<!--
+		<script type="text/template" id="example_backbone_template">
+			Test Template
+		</script>
+	-->
+
+	</head>
+	<body>
+		<!-- BEGIN: section_main -->
+		<div id="section_main">
+			<div id="mouseLoader"></div>
+			<noscript>
+				<p>Javascript is currently disabled. Please <a href="http://www.google.com/support/bin/answer.py?answer=23852" target="_blank">enable javascript</a> for the optimal experience!</p>
+			</noscript>
+
+			<div id="header_global">
+				<h2 class="title">Dashboard</h2>
+				<h3 class="description">Your Plants</h2>
+			</div>
+
+			<div id="section_content">
+
+
+
+			</div>
+
+			<div id="footer_global"></div>
+
+		</div>
+		<!-- END: section_main -->
+
+		<script src="javascripts/lib/LAB-debug.min.js"></script>
+		<script>
+			$LAB
+				.setOptions({
+					'Debug': true
+				})
+				// Libraries
+				.script('javascripts/lib/jquery.min.js').wait()
+				.script('javascripts/lib/underscore.js').wait()
+				.script('javascripts/lib/backbone.js').wait()
+				.script('javascripts/app/router/AppRouter.js').wait()
+				.script('javascripts/plugins/touchable.js').wait()
+				// Backbone - Models
+				// Backbone - Views
+				.script('javascripts/app/view/HeaderView.js').wait()
+				.script('javascripts/app/view/DashboardView.js').wait()
+				.script('javascripts/app/view/SplashView.js').wait()
+				.script('javascripts/app/view/ProfileView.js').wait()
+				.script('javascripts/app/view/AddPlantView.js').wait()
+				.script('javascripts/app/view/IndexView.js').wait()
+				// Site-Specific JS - Global
+				.script('javascripts/app/app.utilities.js').wait()
+				.script('javascripts/app/app.animation.js').wait()
+				// Page-Specific JS
+				.script('javascripts/app/app.global.js').wait(function() {
+					window.isDebugMode = true;
+					App.Global.init();
+				});
+		</script>
+
+	</body>
+</html>

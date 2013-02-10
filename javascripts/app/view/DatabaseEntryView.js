@@ -7,7 +7,8 @@
 var DatabaseEntryView = Backbone.View.extend({
 
 	'events': {
-		'click .profileNav a': 'handleNav'
+		'click .plantDBNav li': 'handleNav',
+		'click .content .info li': 'switchSection'
 	},
 
 	'initialize': function (options) {
@@ -20,9 +21,11 @@ var DatabaseEntryView = Backbone.View.extend({
 
 		App.trigger('header:check', {
 			'callback': function () {
-				view.pageURL = 'templates/db_entry.php?uid=' + App.User.getID() + '&plantID=' + view.plantID;
-				view.$el.load(view.pageURL, function () {
+				view.pageURL = 'templates/db_entry.php?plantID=' + view.plantID;
+				view.$el.addClass('loading').load(view.pageURL, function () {
+					view.$el.removeClass('loading');
 					view.render();
+
 				});
 			}
 		});
@@ -36,31 +39,24 @@ var DatabaseEntryView = Backbone.View.extend({
 		var view = this;
 
 		App.trigger('header:change', {
-			'header': 'Plant Profile',
-			'subtext': $('#data').attr('data-name'),
+			'header': $('#data').attr('data-common'),
+			'subtext': $('#data').attr('data-latin'),
 			'callback': function () {
-				// App.trigger('nav:right:disable');
-				$('#header_global .button.right').attr('class', 'button right').addClass('backToDash').unbind().on('click', function () {
-					Backbone.history.navigate('#search', {'trigger': true});
-					App.trigger('nav:enable');
-					clearInterval(view.updateInterval);
+				$('#header_global .button.right').on('click', function () {
+					Backbone.history.navigate('search', {'trigger': true});
+					//$('#header_global .button.right').removeClass('backToDash');
+					//App.trigger('nav:enable');
 				});
 			}
 		});
 
-
-
-		view.factsNtipsView = new FactsTipsView({
-			'el': '#factsNtips',
-			'pid': view.plantID,
-			'uid': App.User.currentUser['userID']
-		});
+		$('.plantDBNav li').eq(0).addClass('active');
 
 		var $hero = view.$el.find('.hero').hide();
-		var $guages = view.$el.find('.guages li').hide();
-		var $profileNav = view.$el.find('.profileNav li').hide();
-		var $header = view.$el.find('.header').hide();
-		var $notes = view.$el.find('.notifications').hide();
+		var $dbNav = view.$el.find('.plantDBNav li').hide();
+		var $overview = view.$el.find('.overview').hide();
+		var $stats = view.$el.find('.side .divs').hide();
+		var $notes = view.$el.find('.content').hide();
 
 
 		// I dub thee:
@@ -71,26 +67,26 @@ var DatabaseEntryView = Backbone.View.extend({
 			'duration': '.7s',
 			'callback': function () {
 				Walt.animateEach({
-					'list': $profileNav.show(),
+					'list': $dbNav.show(),
 					'transition': 'fadeInUp',
 					'delay': .05,
 					'duration': '.3s',
 					'callback': function () {
 						Walt.animateEach({
-							'list': $guages.show(),
-							'transition': 'bounceIn',
+							'list': $overview.show(),
+							'transition': 'fadeInLeft',
 							'delay': .1,
 							'duration': '.5s',
 							'callback': function () {
 								Walt.animateEachChild({
-									'container': $header.fadeIn(),
-									'transition': 'fadeInLeft',
-									'delay': .1,
+									'container': $stats.fadeIn(),
+									'transition': 'fadeInLeftBig',
+									'delay': .05,
 									'duration': '.4s',
 									'callback': function () {
 										Walt.animateEachChild({
 											'container': $notes.show(),
-											'transition': 'fadeInLeft',
+											'transition': 'fadeInUp',
 											'delay': .1,
 											'duration': '.4s'
 										});
@@ -103,6 +99,7 @@ var DatabaseEntryView = Backbone.View.extend({
 			}
 		});
 
+
 		log('Backbone : DatabaseEntryView : Render');
 	},
 
@@ -113,10 +110,30 @@ var DatabaseEntryView = Backbone.View.extend({
 		var view = this;
 
 		var $target = $(e.currentTarget);
-		var newSection = $target.attr('data-section');
+		var newSection = $target.find('a').attr('data-section');
 
-		view.$el.find('.profileContent > .active').removeClass('active');
-		view.$el.find('.profileContent #' + newSection).addClass('active');
+		view.$el.find('.plantDBContent > .active').removeClass('active');
+		view.$el.find('.plantDBNav > .active').removeClass('active');
+		view.$el.find('.plantDBContent #' + newSection).addClass('active');
+
+		$($target).addClass('active');
+	},
+
+	'switchSection' : function(e){
+		e.preventDefault();
+		e.stopPropagation();
+
+		var view = this;
+		var $target = $(e.currentTarget);
+		
+		if($($target).find('.sub').hasClass('active')){
+			$($target).find('h2').removeClass('active');
+			$($target).find('.sub').removeClass('active');
+		}else{
+			view.$el.find('.content .info li .sub').removeClass('active');
+			$($target).find('.sub').addClass('active');
+			$($target).find('h2').addClass('active');
+		}
 	}
 
 });

@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule (.*) https://phpmyadmin.cias.rit.edu$1 [R=301]

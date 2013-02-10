@@ -468,7 +468,7 @@ var SearchView = Backbone.View.extend({
 						'callback': function(){
 							$(elem).css('visibility','hidden');
 							//console.log($plantID);
-							Backbone.history.navigate('#plantSearch/' + $plantID, {
+							Backbone.history.navigate('plant/' + $plantID, {
 								'trigger': true
 							});
 						}				
