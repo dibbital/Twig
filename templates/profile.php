@@ -42,18 +42,9 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 
 	<!-- Progress -->
 	<div id="progress">
+		
 		<div class="stage">
-			<div class="sprouting">
-				<h2>Sprouting</h2>
-				<h3>Week 3-4</h3>
-				<p>Sprouting is an important part in a plants life cycle. Buds begin to sprout as the plant prepares to flower.</p>
-			</div>
-			<ul class="stageProgress">
-				<li><h2>1</h2><span>wks.</span></li>
-				<li><h2>2</h2><span>1.5</span></li>
-				<li><h2>3</h2><span>3.5</span></li>
-				<li><h2>4</h2><span>4.5</span></li>
-			</ul>
+			<h2>Light Levels<h2>
 		</div>
 
 		<div class="facts">

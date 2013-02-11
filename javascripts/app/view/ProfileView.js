@@ -155,6 +155,9 @@ var ProfileView = Backbone.View.extend({
 		view.$el.find('.dial').knob();
 		view.startUpdateTimers();
 
+		Pablo.init();
+		Pablo.updateData();
+
 		log('Backbone : ProfileView : Render');
 	},
 
@@ -222,6 +225,10 @@ var ProfileView = Backbone.View.extend({
 
 		view.$el.find('.profileContent > .active').removeClass('active');
 		view.$el.find('.profileContent #' + newSection).addClass('active');
+
+		if(newSection == 'progress'){
+			Pablo.redraw();
+		}
 	},
 
 	'updateGuages': function () {

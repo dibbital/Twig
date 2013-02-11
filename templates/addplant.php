@@ -10,9 +10,10 @@
 	<li><input type="hidden" id="plantType"></input></li>
 	<!-- <li><div class="button" id="notSure"><a href="#">Not sure?</a></div></li> -->
 	<li><input type="text" id="device" placeholder="Twig Device ID" id="device"></input></li>
-	<li><label class="left">Seedling</label> <label class="right">Mature</label></li>
-	<li><span class="seed">Seed</span><span class="mid">Pre-Mature</span><span class="mature">Mature</span>
+	<!--<li><label class="left">Seedling</label> <label class="right">Mature</label></li>
+	 <li><span class="seed">Seed</span><span class="mid">Pre-Mature</span><span class="mature">Mature</span>
 		<input type="range" min="0" max="5" step="1" value="0" id="plant_age" name="plant_age"></input>
+	</li> -->
 	
 </ul>
 <form action="query.php" method="post" target="frameLoader" id="uploadForm" name="uploadForm" enctype="multipart/form-data">

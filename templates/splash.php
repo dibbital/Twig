@@ -30,10 +30,10 @@
 	<li><input type="password" name="password" id="login_password" placeholder="Password"></input></li>
 </form>
 	
-	<li class="cancel">
+	<li class="back btn">
 		<a href="#">Cancel</a>
 	</li>
-	<li class="login">
+	<li class="login btn">
 		<a href="#" id="loginBtn">log in here</a>
 	</li>
 </ul>
@@ -47,6 +47,6 @@
 	<li><input type="password" name="passwordc" id="passwordc" placeholder="Confirm Password"></input></li>
 	<li><input type="text" name="email" id="email" placeholder="E-mail"></input></li>
 </form>
-	<li class="cancel"><a href="#">Cancel</a></li>
-	<li class="signUp"><a href="#">Sign Up</a></li>
+	<li class="back btn"><a href="#">Cancel</a></li>
+	<li class="signUp btn"><a href="#">Sign Up</a></li>
 </ul>

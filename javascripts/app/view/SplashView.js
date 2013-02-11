@@ -106,7 +106,7 @@ var SplashView = Backbone.View.extend({
 					'delay': .2
 				});
 
-				$loginMenu.find('.cancel a').on('click', function () {
+				$loginMenu.find('.back a').on('click', function () {
 					view.$el.find('#login').fadeOut();
 					view.$el.find('.main').fadeIn();
 					view.$el.find('#main').fadeIn();
@@ -228,7 +228,7 @@ var SplashView = Backbone.View.extend({
 			});
 		});
 
-		view.$el.find('.cancel a').on('click', function () {
+		view.$el.find('.back a').on('click', function () {
 
 			view.$el.find('#signup').fadeOut();
 			view.$el.find('.main').fadeIn();

@@ -121,6 +121,7 @@
 				.script('javascripts/app/app.utilities.js').wait()
 				.script('javascripts/app/app.user.js').wait()
 				.script('javascripts/app/app.animation.js').wait()
+				.script('javascripts/app/app.graph.js').wait()
 				// Page-Specific JS
 				.script('javascripts/app/app.global.js').wait(function() {
 					window.isDebugMode = true;

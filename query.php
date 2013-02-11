@@ -63,6 +63,18 @@ switch($_REQUEST['a']){
 	case 'getOptimalSettings':
 		getOptimalSettings($_REQUEST['plantID']);
 		break;
+	case 'getStatsHistory':
+		$info = array();
+		$i = 0;
+		$query = mysql_query("SELECT `key`, `value`, `timestamp` FROM `user_plant_stats` WHERE (`pid` = 3 AND `key` = 'light' AND `id` % 9 = 0) ORDER BY `timestamp` DESC") or die('error querying:' . mysql_error()); // 
+		while($result = mysql_fetch_assoc($query)){
+			$info[$i]['key'] = $result['key'];
+			$info[$i]['value'] = $result['value'];
+			$info[$i]['timestamp'] = $result['timestamp'];
+			$i += 1;
+		}
+		echo json_encode($info);
+		break;
 	default:
 		var_dump($_REQUEST);
 		break;
