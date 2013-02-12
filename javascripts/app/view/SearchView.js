@@ -539,7 +539,7 @@ var SearchView = Backbone.View.extend({
 		var $html = "";
 		//if the user is almost at the bottom of the modal, and the count is one less than the totat
 		//amount of select divs (we never made a div for the 0 index :P)
-		if(modal.offsetHeight + modal.scrollTop >= modal.scrollHeight - 100 && view.$count < view.$totalTypes - 1){
+		if(modal.offsetHeight + modal.scrollTop >= modal.scrollHeight / 2 && view.$count < view.$totalTypes - 1){
 			
 			//load in the next 5 types
 			for(var i = offset; i < offset + 6; i++){
