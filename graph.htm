@@ -1,0 +1,639 @@
+<html>
+<head>
+
+		<meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+	<style type="text/css">/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+@media screen {
+
+	*{-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; }
+	
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.8.1
+*/
+body{font:13px/1.231 arial,helvetica,clean,sans-serif;*font-size:small;*font:x-small;}select,input,button,textarea,button{font:99% arial,helvetica,clean,sans-serif;}table{font-size:inherit;font:100%;}pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%;}
+/*
+font sizes
+px  %
+10	77
+11	85
+12	93
+13	100
+14	108
+15	116
+16	123.1
+17	131
+18	138.5
+19	146.5
+20	153.9
+21	161.6
+22	167
+23	174
+24	182
+25	189
+26	197
+*/
+
+body, html{
+height: 100%;
+width: 100%:
+}
+
+}
+</style>
+</head>
+
+<body style="margin: 2%;">
+
+</body>
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="javascripts/plugins/hammer.js"></script>
+<script src="javascripts/plugins/jquery.hammer.js"></script>
+<script>
+$(document.body).ready(function(){
+	
+ // var pabs = new Pablo();
+
+ Pablo.init();
+ // Pablo.drawGrid();
+	
+
+});
+</script>
+
+<script>
+var Pablo = Pablo || {};
+
+Pablo = (function (window, document) {
+
+	var self = {
+
+		'init': function () {
+			var pablo = self;
+			pablo.unitsShown = 35;
+			pablo.MAX_VIEW = 100;
+			pablo.MIN_VIEW = 10;
+			pablo.yAxisMax = 5;
+			pablo.yAxisMin = 0;
+
+
+
+			$(document.body).append($('<canvas id="graph"></canvas>'));
+			$(document.body).append($('<input type="range" id="dateAdjust" min="' + pablo.MIN_VIEW + '" max="' + pablo.MAX_VIEW + '" value="' + pablo.unitsShown + '" step="1" style="width: 100%;" />'))
+
+
+			pablo.$graph = $('#graph');
+			pablo.graph = pablo.$graph[0];
+			pablo.context = pablo.graph.getContext('2d');
+			pablo.graph.width = parseInt(pablo.$graph.parent().width());
+			pablo.graph.height = parseInt(pablo.$graph.parent().height()) * 0.7;
+			$(window).on('resize', function () {
+				pablo.clear();
+				pablo.redraw();
+			});
+			pablo.modFactor = 1;
+
+
+			$(document.body).append($('<a href="#" id="btnPrev" style="margin-left:20%;display:block;width:100px;height:40px;border:1px solid black;">Prev</a>'));
+			$(document.body).append($('<a href="#" id="btnNext" style="margin-left:20%;display:block;width:100px;height:40px;border:1px solid black;">Next</a>'));
+
+
+
+
+			pablo.series = [];
+
+			
+
+
+			$('#dateAdjust').on('change', pablo.adjustSlider);
+
+			$('#btnNext').on('click', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				pablo.next();
+			});
+
+			$('#btnPrev').on('click', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				pablo.prev();
+			});
+
+			pablo.transformTicker = 0;
+
+			pablo.$graph.hammer().on("swipe", function(e) {
+				e.preventDefault();
+				var dir = "";
+				if(e.direction == 'right'){
+					pablo.prev();
+				}else if(e.direction == 'left'){
+					pablo.next();
+				}
+			}).on('transform', function(e){
+				e.preventDefault();
+				e.stopPropagation();
+
+				var $dateSlider = $('#dateAdjust');
+				var value = parseInt($dateSlider.val());
+				if(e.scale < 1){
+					pablo.transformTicker++;
+					// if(pablo.transformTicker % 3 == 0){
+						$('#dateAdjust').val(value + 1).trigger('change');
+					// }
+				}else if(e.scale >= 1){
+					pablo.transformTicker++;
+					// if(pablo.transformTicker % 3 == 0){
+						// alert(value);
+						$('#dateAdjust').val(value - 1).trigger('change');
+					// }
+				}
+			});
+
+			if (window.devicePixelRatio > 1) {
+				var hidefCanvasWidth = pablo.graph.width;
+				var hidefCanvasHeight = pablo.graph.height;
+				var hidefCanvasCssWidth = hidefCanvasWidth + 'px';
+				var hidefCanvasCssHeight = hidefCanvasHeight + 'px';
+			
+				pablo.$graph.attr('width',hidefCanvasWidth * window.devicePixelRatio);
+				pablo.$graph.attr('height',hidefCanvasHeight * window.devicePixelRatio);
+				pablo.$graph.css('width', hidefCanvasCssWidth);
+				pablo.$graph.css('height', hidefCanvasCssHeight);
+				pablo.context.scale(window.devicePixelRatio, window.devicePixelRatio);  
+			  }
+
+			pablo.updateData();
+
+		},
+		'drawGrid': function (cntxt) {
+			var pablo = self;
+
+			var $graph = pablo.$graph;
+			var graph = pablo.graph;
+			var context = cntxt || pablo.context;
+
+
+			var graphWidth = graph.width;
+			pablo.graphWSegments = graphWidth / pablo.unitsShown;
+			graphWSegments = pablo.graphWSegments;
+
+			var graphHeight = graph.height;
+			pablo.graphHSegments = graphHeight / 10;
+			graphHSegments = pablo.graphHSegments;
+
+			var curX = 0;
+			for(var i = 0; i <= pablo.unitsShown; i++) {
+
+				context.strokeStyle = '#bebebe';
+
+				pablo.modFactor = 1;
+				MAX_VIEW = pablo.MAX_VIEW;
+
+				var tier1 = MAX_VIEW * .3;
+				var tier2 = MAX_VIEW * .65;
+				var tier3 = MAX_VIEW * .85;
+
+				if(pablo.unitsShown >= tier1 && pablo.unitsShown < tier2) {
+					pablo.modFactor = 2;
+				} else if(pablo.unitsShown >= tier2 && pablo.unitsShown < tier3) {
+					pablo.modFactor = 4;
+				} else if(pablo.unitsShown >= tier3) {
+					pablo.modFactor = 8;
+				}
+
+				context.lineWidth = 0.5;
+				context.beginPath();
+				curX = i * (graphWSegments);
+				context.moveTo(curX, 0);
+				context.lineTo(curX, graphHeight);
+				context.closePath();
+				if(i % pablo.modFactor == 0) {
+					context.strokeStyle = 'rgba(190,190,190,0.9)';
+					context.stroke();
+				} else {
+					context.strokeStyle = 'rgba(190,190,190,0.3)';
+					context.stroke();
+				}
+			}
+
+			var curY = 0;
+			for(var j = 0; j <= 10; j++) {
+				var grad = context.createLinearGradient(0, 0, 0, graphHeight);
+				grad.addColorStop(0, "rgba(0,0,0,0)");
+				grad.addColorStop(0.05, "rgba(0,0,0,.1)");
+				grad.addColorStop(0.5, "rgba(0,0,0,1)");
+				grad.addColorStop(0.95, "rgba(0,0,0,.1)");
+				grad.addColorStop(1, "rgba(0,0,0,0)");
+
+				context.strokeStyle = grad;
+
+				context.lineWidth = 0.5;
+				context.beginPath();
+				curY = j * (graphHSegments);
+				context.moveTo(0, curY);
+				context.lineTo(graphWidth, curY);
+				context.closePath();
+				context.strokeStyle = 'rgba(0,0,0, 0.1)';
+				context.stroke();
+			}
+
+			return pablo;
+
+		},
+
+		'clear': function () {
+			var pablo = self;
+
+			pablo.context.clearRect(0, 0, pablo.graph.width, pablo.graph.height);
+
+			return pablo.context;
+		},
+
+		'offscreenCanvas': function () {
+			var pablo = self;
+
+			var $theCanvas = $('#graph');
+			var $dummy = $('<canvas></canvas>');
+			var dummyCanvas = $dummy[0];
+			dummyCanvas.height = $theCanvas[0].height;
+			dummyCanvas.width = $theCanvas[0].width;
+			return dummyCanvas;
+		},
+
+		'redraw': function (animate, forward) {
+			var pablo = self;
+
+			animate = animate || false;
+			forward = forward || false;
+
+
+			pablo.getMinYwithinRange(pablo.series[0]);
+			pablo.getMaxYwithinRange(pablo.series[0]);
+
+			var oldCanvas = $('#graph')[0].toDataURL("image/png");
+			var img = new Image();
+			img.src = oldCanvas;
+
+			if(animate) {
+				var hiddenCanvas = pablo.offscreenCanvas();
+				var hiddenContext = hiddenCanvas.getContext('2d');
+				pablo.drawGrid(hiddenContext).drawAllLines(hiddenContext);
+
+				var newCanvas = hiddenCanvas.toDataURL("image/png");
+				var newImg = new Image();
+				newImg.src = newCanvas;
+			}
+
+			img.onload = function () {
+				pablo.context.drawImage(img, 0, 0);
+				$('#graph')[0].width = pablo.$graph.parent().width();
+				if(animate) {
+					var x = 0;
+					var inc = 0.01;
+					if(!forward) {
+						inc = -0.01;
+					}
+
+					window.thisInterval = setInterval(function () {
+						pablo.clear().drawImage(img, x, 0);
+						if(forward) {
+							pablo.context.drawImage(newImg, x + pablo.graph.width, 0);
+						} else {
+							pablo.context.drawImage(newImg, x - pablo.graph.width, 0);
+						}
+
+						x -= inc;
+						inc += inc;
+						if(inc >= 15) {
+							inc = 15;
+						} else if(inc <= -15) {
+							inc = -15;
+							// inc *= -0.9;
+						}
+						if(forward && (x <= -1 * pablo.graph.width)) {
+							pablo.context.drawImage(newImg, -1 * pablo.graph.width, 0);
+							clearInterval(window.thisInterval);
+							pablo.redraw();
+						} else if(!forward && (x >= pablo.graph.width)) {
+							pablo.context.drawImage(newImg, pablo.graph.width, 0);
+							clearInterval(window.thisInterval);
+							pablo.redraw();
+						}
+					}, 10);
+				} else {
+					pablo.drawGrid().drawAllLines();
+				}
+			}
+		},
+
+		'drawSeeker': function () {
+			var pablo = self;
+
+
+		},
+
+		'drawLine': function (data, cntxt) {
+			var pablo = self;
+			var lastX = null;
+			var lastY = null;
+
+			var context = cntxt || pablo.context;
+
+			var dateCounter = 0;
+
+			for(var i = pablo.startDate, j = 0; i >= pablo.startDate - pablo.unitsShown; i--, j++) {
+				if(i < 0) {
+					pablo.unitsShown = j;
+					pablo.redraw();
+					break;
+				}
+				var value = data[i]['value'] / 100;
+
+				var valDif = value - pablo.yAxisMin;
+				var relDif = valDif / (pablo.yAxisMax - pablo.yAxisMin);
+
+				var relative = value / pablo.yAxisMax;
+				var yPoint = ((relDif) * pablo.graph.height); // + ((value / (pablo.yAxisMax-pablo.yAxisMin))*pablo.graphHSegments));//( * pablo.graphHSegments) + pablo.yAxisMin;
+				var xPoint = j * pablo.graphWSegments;
+
+
+				context.beginPath();
+
+
+				context.shadowOffsetX = 0; // Sets the shadow offset x, positive number is right
+				context.shadowOffsetY = 1; // Sets the shadow offset y, positive number is down
+				context.shadowBlur = 0; // Sets the shadow blur size
+				context.shadowColor = 'rgba(0, 0, 0, 0.6)'; // Sets the shadow color
+				// if(i == pablo.startDate - pablo.unitsShown - 1){
+				// 	
+				// 	log('wtf');
+				// 	context.lineTo(xPoint, yPoint);
+				// }else{
+				// 	log('omg');
+				context.moveTo(xPoint, yPoint);
+				context.lineTo(lastX, lastY);
+				// }
+				context.closePath();
+				context.stroke();
+				context.strokeStyle = 'rgba(0,0,0,1)';
+
+				context.beginPath();
+				if(true) {
+					var gradient = context.createLinearGradient(0, 0, 210, 363);
+					gradient.addColorStop(0, "rgb(253, 185, 105)");
+					gradient.addColorStop(0.5, "rgb(253, 185, 105)");
+					gradient.addColorStop(0.53, "rgb(242, 147, 35)");
+					gradient.addColorStop(1, "rgb(242, 147, 35)");
+					context.fillStyle = gradient;
+				}
+
+				if(lastX == null) {
+						context.arc(xPoint, yPoint, 7, 0, 2 * Math.PI, true);
+						context.beginPath();
+						context.rect(0, pablo.graph.height-50, pablo.graphWSegments * 1.5 * pablo.modFactor, 50);
+						context.fillStyle = '#83a725';
+						context.fill();
+						context.closePath();
+
+
+						context.fillStyle = '#fff';
+						context.font = '13px bold';
+						context.textBaseline = 'middle';
+						context.fillText('Jun', (pablo.graphWSegments * 1.5 / 2), pablo.graph.height-25);
+				} else {
+					if((j - 1) % pablo.modFactor == 0) {
+						context.arc(lastX, lastY, 7, 0, 2 * Math.PI, true);
+						context.fill();
+
+						context.beginPath();
+						context.rect(xPoint+((pablo.graphWSegments* pablo.modFactor)/2), pablo.graph.height-50, pablo.graphWSegments * pablo.modFactor, 50);
+						if(dateCounter%2 != 0){
+							context.fillStyle = '#8c8c8c';
+						}else{
+							context.fillStyle = '#a7a7a7';
+						}
+						dateCounter += 1;
+						context.fill();
+						context.closePath();
+
+						if(j > 1){
+							context.fillStyle = '#fff';
+							context.font = '13px';
+							context.textBaseline = 'middle';
+							var tickerDate = pablo.series[0][i]['timestamp'];
+							tickerDate = new Date(tickerDate);
+							context.fillText(tickerDate.getMinutes(), j*pablo.graphWSegments, pablo.graph.height-25);
+						}
+					} else {
+						context.fillStyle = "#bebebe";
+						context.arc(lastX, lastY, 3, 0, 2 * Math.PI, true);
+						context.fill();
+					}
+				}
+
+
+				context.closePath();
+
+
+				lastX = xPoint;
+				lastY = yPoint;
+
+
+			}
+			// }
+		},
+
+		'drawAllLines': function (cntxt) {
+			var pablo = self;
+
+			// log('drawAllLines', pablo.series, pablo.series.length);
+			for(var i = 0; i < pablo.series.length; i++) {
+				// log('drawing', pablo.series[i]);
+				pablo.drawLine(pablo.series[i], cntxt);
+			}
+		},
+
+		'setStartDate': function (date) {
+			var pablo = self;
+
+			pablo.startDate = date;
+		},
+
+		'getStartingDate': function () {
+			var pablo = self;
+			return pablo.startDate;
+		},
+
+		'getMinYwithinRange': function (data) {
+			var pablo = self;
+
+
+			var minY = 99999999999999999; //pablo.yAxisMax;
+			for(var i = 0; i < pablo.series.length; i++) {
+				for(var k = pablo.startDate, j = 0; k >= pablo.startDate - (pablo.unitsShown); k--, j++) {
+					if((data[k]['value'] / 100) < minY) {
+						minY = (data[k]['value'] / 100);
+					}
+				}
+			}
+
+			pablo.yAxisMin = minY - 0.01; //Math.round(minY + 0.5);
+			return minY;
+
+		},
+
+
+		'getMaxYwithinRange': function (data) {
+			var pablo = self;
+
+
+			var maxY = 0; //pablo.yAxisMax;
+			for(var i = 0; i < pablo.series.length; i++) {
+				for(var k = pablo.startDate, j = 0; k >= pablo.startDate - (pablo.unitsShown); k--, j++) {
+					if((data[k]['value'] / 100) > maxY) {
+						maxY = (data[k]['value'] / 100);
+					}
+				}
+			}
+
+			pablo.yAxisMax = maxY + 0.01; //Math.round(maxY + 0.5);
+			return maxY;
+
+		},
+
+		'adjustSlider': function (e) {
+			var pablo = self;
+
+
+			pablo.unitsShown = parseInt($(e.currentTarget).val());
+				
+			if(pablo.unitsShown > pablo.MAX_VIEW){
+				pablo.unitsShown = pablo.MAX_VIEW;
+				$(e.currentTarget).val(pablo.MAX_VIEW);
+			}
+
+			pablo.redraw();
+		},
+
+		'next': function () {
+			var pablo = self;
+
+			if(pablo.getStartingDate() - pablo.unitsShown >= 0) {
+				pablo.setStartDate(pablo.getStartingDate() - pablo.unitsShown);
+				pablo.redraw(true, true);
+			}
+		},
+
+		'prev': function () {
+			var pablo = self;
+			if(pablo.getStartingDate() + pablo.unitsShown <= pablo.series[0].length - 1) {
+				pablo.setStartDate(pablo.getStartingDate() + pablo.unitsShown);
+				pablo.redraw(true, false);
+			}
+		},
+
+		'updateData': function () {
+			var pablo = self;
+			var maxY = pablo.yAxisMax;
+
+			$.ajax({
+				'url': 'query.php?a=getStatsHistory'
+			}).done(function (res) {
+				var importedSeries = $.parseJSON(res);
+
+				var date = new Date(importedSeries[0]['timestamp']);
+				log(importedSeries[0], date, date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear());
+
+
+				var date = new Date(importedSeries[importedSeries.length - 1]['timestamp']);
+				log(importedSeries[importedSeries.length - 1], date, date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear());
+
+				pablo.series.push(importedSeries);
+				pablo.setStartDate(importedSeries.length - 1);
+
+				pablo.redraw();
+
+
+			});
+		}
+
+	};
+	return self;
+
+})(this, this.document);
+
+window.log = function(){
+  log.history = log.history || [];   // store logs to an array for reference
+  log.history.push(arguments);
+  if(this.console){
+	console.log( Array.prototype.slice.call(arguments) );
+  }
+};
+
+Object.size = function(obj) {
+	var size = 0, key;
+	for (key in obj) {
+		if (obj.hasOwnProperty(key)) size++;
+	}
+	return size;
+};
+</script>
+</html>

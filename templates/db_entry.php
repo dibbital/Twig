@@ -89,10 +89,10 @@ $pid = $_REQUEST['plantID'];
 	<div id="info">
 		<div class='content'>
 			<ul class='info'>
-				<li data-name='origins'><h2 class='label fold'>Origins</h2><div class='sub'>a</div></li>
-				<li data-name='history'><h2 class='label fold'>History</h2><div class='sub'><h3>s</h3></div></li>
-				<li data-name='facts'><h2 class='label fold'>Facts</h2><div class='sub'>d<div></li>
-				<li data-name='diet'><h2 class='label fold'>Diet</h2><div class='sub'>f</div></li>
+				<li data-name='origins'><h2 class='label fold'>Natural Habitat</h2><div class='sub'><?php echo getNaturalRegion($pid) ?></div></li>
+				<li data-name='history'><h2 class='label fold'>Common Uses</h2><div class='sub'><?php echo getUses($pid) ?></div></li>
+				<li data-name='facts'><h2 class='label fold'>Medicinal Properties</h2><div class='sub'><?php echo getMedicinalUses($pid) ?><div></li>
+				<li data-name='diet'><h2 class='label fold'>Known Hazards</h2><div class='sub'><?php echo getKnownHazards($pid) ?></div></li>
 			</ul>
 		</div>
 	</div>

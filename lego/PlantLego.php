@@ -302,6 +302,7 @@ function getAllPlants($page){
 			$key = str_replace("_", " ", $key);
 			if($value != "None known")
 			{
+				$value = stripBrackets($value);
 				echo "<li><span>$key</span> - $value</li>";
 			}
 		}
@@ -334,17 +335,12 @@ function getAllPlants($page){
 		$string = array();
 
 		foreach($details as $haystack){
-			$pattern = "/\[(\d+)\]|\[(\d+),\s(\d+)\]/";
-			$replacement = '';
 			switch($type){
-				case 'light': $searchWords = array('sunny','light','lit');
+				case 'light': $searchWords = array('sunny','sun','light', 'well lit');
 							  foreach($searchWords as $needle){
 							  	//echo $haystack;
 							  	if(strpos($haystack,$needle) !== false){
-							  		// preg_match('/\\[(\d+)\\]/', $haystack, $matches);
-							  		// print_r($matches);
-
-							  		$haystack = preg_replace($pattern, $replacement, $haystack, -1);
+							  		$haystack = stripBrackets($haystack);
 							  		array_push($string, $haystack);
 							  	}
 							  }
@@ -354,11 +350,8 @@ function getAllPlants($page){
 				case 'moisture': $searchWords = array('moist','moisture','soil','pH');
 							  foreach($searchWords as $needle){
 							  	if(strpos($haystack,$needle) !== false){
-							  		// preg_match('/\[(\d+)\]/', $haystack, $matches);
-							  		// print_r($matches);
-
-							  		$haystack = preg_replace($pattern, $replacement, $haystack, -1);
-							  		array_push($string,$haystack);
+							  		$haystack = stripBrackets($haystack);
+							  		array_push($string, $haystack);
 							  	}
 							  }
 
@@ -367,11 +360,8 @@ function getAllPlants($page){
 				case 'temp': $searchWords = array('temperature','temperatures','climate','climates','hardy','hardiness','hardyness');
 							  foreach($searchWords as $needle){
 							  	if(strpos($haystack,$needle) !== false){
-							  		// preg_match('/\[(\d+)\]/', $haystack, $matches);
-							  		// print_r($matches);
-
-							  		$haystack = preg_replace($pattern, $replacement, $haystack, -1);
-							  		array_push($string,$haystack);
+									$haystack = stripBrackets($haystack);
+							  		array_push($string, $haystack);
 							  	}
 							  }
 
@@ -382,7 +372,7 @@ function getAllPlants($page){
 		$string = array_unique($string);
 		$string = implode(". ",$string);
 
-		if($string == '')$string = "No light reported.";
+		if($string == '')$string = "No information";
 
 		//echo $plant;
 		return $string;
@@ -499,17 +489,100 @@ function getAllPlants($page){
 
 		$value = "";
 
-		$query = mysql_query("SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` LIKE 'propagation_1' LIMIT 1");
+		$query = mysql_query("SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` = 'propagation_1'");
 		while($results = mysql_fetch_assoc($query)){
 			$value = $results["value"];
 		}
 
-		$pattern = "/\[(\d+)\]|\[(\d+),\s(\d+)\]|\[[A-Z]\]/i";
-		$replacement = '';
-
-		$value = preg_replace($pattern,$replacement,$value);
+		$value = stripBrackets($value);
+		$value = preg_replace("/Seed - /","",$value);
+		$value = ucfirst($value);
 
 		return $value;
+	}
+
+	function getNaturalRegion($pid){
+		if($GLOBALS['CONNECTION'] == null){
+			ConnectDB();
+		}
+
+		$value = "";
+
+		$query = mysql_query("SELECT `key`,`value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` = 'range'");
+		while($results = mysql_fetch_assoc($query)){
+			$value = $results['value'];
+		}
+
+		$replacements = array('Northeast','Northwest','Southeast','Southwest','North','South','East','West');
+		$patterns = array('/N\.E\./','/N\.W\./','/S\.E\./','/S\.W\./','/N\./','/S\./','/E\./','/W\./');
+
+		$value = preg_replace($patterns, $replacements, $value);
+		$value = stripBrackets($value);
+
+		return "<p>$value</p>";
+	}
+
+	function getUses($pid){
+		if($GLOBALS['CONNECTION'] == null){
+			ConnectDB();
+		}
+
+		$value = "";
+
+		$query = mysql_query("SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` = 'uses_notes'");
+		while($results = mysql_fetch_assoc($query)){
+			$value = $results["value"];
+		}
+
+		$value = stripBrackets($value);
+
+		return "<p>$value</p>";
+	}
+
+	function getMedicinalUses($pid){
+		if($GLOBALS['CONNECTION'] == null){
+			ConnectDB();
+		}
+
+		$value = "";
+
+		$query = mysql_query("SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` = 'medicinal'");
+		while($results = mysql_fetch_assoc($query)){
+			$value = $results["value"];
+		}
+
+		$value = stripBrackets($value);
+
+		return "<p>$value</p>";
+	}
+
+	function getKnownHazards($pid){
+		if($GLOBALS['CONNECTION'] == null){
+			ConnectDB();
+		}
+
+		$value = "";
+
+		$query = mysql_query("SELECT `value` FROM `" . $GLOBALS['DB'] . "`.`plants` WHERE `pid` = $pid AND `key` = 'known_hazards'");
+		while($results = mysql_fetch_assoc($query)){
+			$value = $results["value"];
+		}
+
+		$value = stripBrackets($value);
+		return "<p>$value</p>";
+	}
+
+	function stripBrackets($string){
+
+		$pattern = "/\[(\d+)\]|\[(\d+)+[,\s(\d+)]+\]|\[[A-Z]\]/i";
+		$replacement = '';
+
+		$string = preg_replace($pattern,$replacement,$string,-1);
+
+		return $string;
+	}
+
+	function createParagraphs($string){
 	}
 
 

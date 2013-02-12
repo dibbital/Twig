@@ -9,13 +9,13 @@ require_once(realpath( dirname( __FILE__ ) ) . "/../users/models/config.php");
 $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 ?>
 
-<div id="data" data-name="<? echo $plantData['name'] ?>"></div>
-<div id="swipe" class="hero" data-next="<? echo $plantData['next'] ?>" data-prev="<? echo $plantData['prev'] ?>">
-	<? if(isset($plantData['imgPath'])){ ?>
+<div id="data" data-name="<?php echo $plantData['name'] ?>"></div>
+<div id="swipe" class="hero" data-next="<?php echo $plantData['next'] ?>" data-prev="<?php echo $plantData['prev'] ?>">
+	<?php if(isset($plantData['imgPath'])){ ?>
 		<img src="<?php echo $plantData['imgPath']; ?>" />
-	<? }else{ ?>
+	<?php }else{ ?>
 	 	<img src="<?php echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
-	<? } ?>
+	<?php } ?>
 </div>
 
 <ul class="profileNav">

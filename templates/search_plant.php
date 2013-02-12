@@ -1,4 +1,4 @@
-<?
+<?php
 
 // Sidebar search page
 error_reporting(E_ALL);

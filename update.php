@@ -28,7 +28,16 @@ mysql_query($lightSQL) or die('Died writing light ' . mysql_error());
 $tempSQL = "INSERT INTO `" . $GLOBALS['DB'] . "`.`user_plant_stats` (`pid`, `key`, `value`, `timestamp`) VALUES ('" . $plantID . "', 'temperature', '" . $temp . "', CURRENT_TIMESTAMP);";
 mysql_query($tempSQL) or die('Died writing temp ' . mysql_error());
 
+// $connection = mysql_connect("50.63.108.149","dibbital","Hunter2!") or die("Couldn't connect");
+// mysql_select_db("dibbital", $connection) or die('no db');
 
-// Check status here
+// $temp = $_REQUEST['temp'];
+// $light = $_REQUEST['light'];
+
+// $tempSql = 'UPDATE `dibbital`.`stats` SET `value` = \'' . $temp . '\' WHERE `stats`.`id` = 0 AND `stats`.`pid` = 1 AND `stats`.`key` = \'temp\' LIMIT 1;';
+// $tempQuery = mysql_query($tempSql) or die("Error updating temp");
+
+// $tempSql = 'UPDATE `dibbital`.`stats` SET `value` = \'' . $light . '\' WHERE `stats`.`id` = 0 AND `stats`.`pid` = 1 AND `stats`.`key` = \'light\' LIMIT 1;';
+// $tempQuery = mysql_query($tempSql) or die("Error updating light");
 
 // ?>

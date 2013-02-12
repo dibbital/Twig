@@ -11,11 +11,11 @@ $plantData = getPlantData($_REQUEST['uid'], $_REQUEST['plantID']);
 
 <div id="data" data-name="<? echo $plantData['name'] ?>"></div>
 <div class="hero">
-	<? if(isset($plantData['imgPath'])){ ?>
+	<?php if(isset($plantData['imgPath'])){ ?>
 		<img src="<?php echo $plantData['imgPath']; ?>" />
-	<? }else{ ?>
+	<?php }else{ ?>
 	 	<img src="<?php echo("http://lorempixel.com/" . rand(500,700) . "/" . rand(300,500) . "/nature/"); ?>" />
-	<? } ?>
+	<?php } ?>
 </div>
 
 <ul class="profileNav">

@@ -1,7 +1,7 @@
 /**
  * @module Backbone
  * @submodule Backbone.View
- * @class DatabaseEntryView
+ * @class ProfileView
  * @constructor
  */
 var DatabaseEntryView = Backbone.View.extend({
@@ -32,7 +32,7 @@ var DatabaseEntryView = Backbone.View.extend({
 
 		view.render();
 
-		log('Backbone : DatabaseEntryView : Initialized');
+		log('Backbone : ProfileView : Initialized');
 	},
 
 	'render': function () {
@@ -60,7 +60,7 @@ var DatabaseEntryView = Backbone.View.extend({
 
 
 		// I dub thee:
-		// Mt. Callback!
+		// Mt. Callback! -part deux-
 		Walt.animate({
 			'$el': $hero.show(),
 			'transition': 'fadeInLeft',
@@ -100,7 +100,7 @@ var DatabaseEntryView = Backbone.View.extend({
 		});
 
 
-		log('Backbone : DatabaseEntryView : Render');
+		log('Backbone : ProfileView : Render');
 	},
 
 	'handleNav': function (e) {

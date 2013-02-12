@@ -38,9 +38,11 @@ var SearchView = Backbone.View.extend({
 			'header': 'Database',
 			'subtext': 'Search Plants',
 			'callback': function(){
-				$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
+				//$('#header_global .button.right').attr('class', 'button right').addClass('backToDash');
 			}
 		});
+
+
 
 		view.$el.find('#advancedOptions').hide();
 
@@ -58,7 +60,7 @@ var SearchView = Backbone.View.extend({
 			'container': view.$el.find('.returnList').show(),
 			'transition': 'fadeInUp',
 			'delay': 0.05,
-			'duration': '0.4s'
+			'duration': '0.4s',
 		});
 		view.selectPlant();
 
@@ -78,6 +80,7 @@ var SearchView = Backbone.View.extend({
 		var view = this;
 		var $element = e.currentTarget;
 		view.$el.addClass('modal');
+
 		$('#header_global .button.right').fadeOut();
 		$('#header_global .button.left').fadeOut();
 
@@ -86,7 +89,7 @@ var SearchView = Backbone.View.extend({
 
 		switch($($element).data('search')){
 			case 'type': $typeSelects = $('#plantType option');
-					$html = "<div class='selectModal'><div data-value='none' class='cancel'>Cancel</div>"
+					$html = "<div class='selectModal'><div data-value='none'>None</div>"
 					for(var i = 1; i< $typeSelects.length; i++){
 						$value = $($typeSelects[i]).val();
 						$html += "<div data-value='"+$value+"'>"+$value+"</div>";
@@ -269,7 +272,7 @@ var SearchView = Backbone.View.extend({
 		var $plantMain = $('#plantMaintenance').val();
 		var $plantType = $('#plantType').val();
 
-		view.$urlString = "searchDatabase.php?"
+		view.$urlString = "query.php?a=searchDatabase"
 		//if the user hasn't entered anything in the search field
 		if($plantName == ''){
 
@@ -384,8 +387,8 @@ var SearchView = Backbone.View.extend({
 				},
 
 				error: function(error){
-					view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>" + error.responseText);
-					view.$el.find("#plantResults").removeClass('loading');
+					//view.$el.find(".returnList").html("<h2>Error connecting to database. Please check your connection</h2>" + error.responseText);
+					//view.$el.find("#plantResults").removeClass('loading');
 				}
 			}).done(function(){
 				view.$el.find("#plantResults").removeClass('loading');
@@ -468,7 +471,7 @@ var SearchView = Backbone.View.extend({
 						'callback': function(){
 							$(elem).css('visibility','hidden');
 							//console.log($plantID);
-							Backbone.history.navigate('plant/' + $plantID, {
+							Backbone.history.navigate('#plant/' + $plantID, {
 								'trigger': true
 							});
 						}				

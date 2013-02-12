@@ -1,0 +1,1532 @@
+@import url(http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic);
+@media screen {
+  /* line 9, ../scss/mobile.scss */
+  *:not(html) {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* line 16, ../scss/mobile.scss */
+  html,
+  body,
+  #section_main {
+    -webkit-font-smoothing: antialiased;
+    background: #FBFBFB;
+    color: #4e4e4e;
+    font-family: 'Asap';
+    font-size: 10px;
+    height: 110%;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  /* line 19, ../scss/mobile.scss */
+  #section_main {
+    position: relative;
+    padding-top: 48px;
+  }
+  /* line 20, ../scss/mobile.scss */
+  #section_main.splash {
+    padding-top: 0px;
+  }
+
+  /* line 22, ../scss/mobile.scss */
+  select, input, button, textarea, button {
+    font-family: 'Asap';
+  }
+
+  /* line 24, ../scss/mobile.scss */
+  h1,
+  h2 {
+    font-family: 'Asap';
+  }
+
+  /* line 26, ../scss/mobile.scss */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* line 28, ../scss/mobile.scss */
+  .status {
+    text-indent: -9999px;
+  }
+
+  /* line 31, ../scss/mobile.scss */
+  .modafied #settings {
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+  }
+
+  /* line 34, ../scss/mobile.scss */
+  .dim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  /* line 45, ../scss/mobile.scss */
+  .button.red {
+    background: #c53e3e;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.4);
+  }
+
+  /* line 54, ../scss/mobile.scss */
+  #header_global {
+    background: #fff;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+    display: none;
+    height: 48px;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 500;
+  }
+  /* line 57, ../scss/mobile.scss */
+  #header_global .button {
+    background: #ffffff;
+    background: -moz-linear-gradient(top, white 0%, #f3f3f3 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, #f3f3f3));
+    background: -webkit-linear-gradient(top, white 0%, #f3f3f3 100%);
+    background: -o-linear-gradient(top, white 0%, #f3f3f3 100%);
+    background: -ms-linear-gradient(top, white 0%, #f3f3f3 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 );
+    position: relative;
+    transition: background-color .5s ease, opacity 0.4s ease;
+    -moz-transition: background-color .5s ease, opacity 0.4s ease;
+    -o-transition: background-color .5s ease, opacity 0.4s ease;
+    -webkit-transition: background-color .5s ease, opacity 0.4s ease;
+    border-left: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 3px;
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 -1px 1px rgba(0, 0, 0, 0.04);
+    color: transparent;
+    height: 37px;
+    position: absolute;
+    top: 3px;
+    transition: background-color .5s ease;
+    width: 37px;
+  }
+  /* line 70, ../scss/mobile.scss */
+  #header_global .button.active {
+    background: #f3f3f3;
+    background: -moz-linear-gradient(top, #f3f3f3 0%, white 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, white));
+    background: -webkit-linear-gradient(top, #f3f3f3 0%, white 100%);
+    background: -o-linear-gradient(top, #f3f3f3 0%, white 100%);
+    background: -ms-linear-gradient(top, #f3f3f3 0%, white 100%);
+    background: linear-gradient(to bottom, #f3f3f3 0%, #ffffff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 );
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3), 0 1px 0 rgba(0, 0, 0, 0.04);
+  }
+  /* line 83, ../scss/mobile.scss */
+  #header_global .button.menuIcon::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("../../images/btn.menu.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+  }
+  /* line 84, ../scss/mobile.scss */
+  #header_global .button.settingsIcon::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url("../../images/btn.settings.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 85%;
+  }
+  /* line 86, ../scss/mobile.scss */
+  #header_global .button.right {
+    right: 5px;
+  }
+  /* line 87, ../scss/mobile.scss */
+  #header_global .button.right.backToDash {
+    background: url(../../images/dashboard.png) no-repeat;
+    background-position: 50% 50%;
+    background-size: 89% auto;
+  }
+  /* line 88, ../scss/mobile.scss */
+  #header_global .button.left {
+    left: 5px;
+  }
+  /* line 89, ../scss/mobile.scss */
+  #header_global h2 {
+    color: #87A708;
+    font-size: 2.2em;
+    line-height: 1.54em;
+    text-align: center;
+    text-transform: capitalize;
+    text-shadow: 0 -0.9px 0 #799607;
+    font-weight: bold;
+  }
+  /* line 90, ../scss/mobile.scss */
+  #header_global h3 {
+    color: #333;
+    font-size: 1.3em;
+    line-height: .5em;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
+    font-weight: 100;
+  }
+
+  /* line 93, ../scss/mobile.scss */
+  #section_content {
+    -moz-transition: left .5s ease, border-left .5s ease;
+    -o-transition: left .5s ease, border-left .5s ease;
+    -webkit-transition: left .5s ease, border-left .5s ease;
+    background: #fbfbfb;
+    height: 100%;
+    left: 0;
+    border-left: 0px solid rgba(0, 0, 0, 0);
+    overflow: scroll;
+    /* padding-bottom: 100px; */
+    position: relative;
+    transition: left .5s ease;
+    width: 100%;
+    z-index: 5;
+    opacity: 1;
+  }
+  /* line 94, ../scss/mobile.scss */
+  #section_content.splash {
+    background: url(../../images/grass_bg.jpg) no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+    height: 100%;
+    padding: 5%;
+    width: 100%;
+  }
+
+  /* line 97, ../scss/mobile.scss */
+  span.value {
+    float: right;
+  }
+
+  /* line 100, ../scss/mobile.scss */
+  .splash .logo {
+    background: url(../../images/logo.png) no-repeat;
+    background-size: 100% auto;
+    color: transparent;
+    display: block;
+    height: 164px;
+    margin: 0 auto;
+    max-width: 390px;
+    position: relative;
+    top: 4%;
+    width: 67%;
+  }
+  /* line 101, ../scss/mobile.scss */
+  .splash .blurb {
+    background: #2e2e2e;
+    background: rgba(46, 46, 46, 0.4);
+    bottom: 30%;
+    left: 0;
+    padding: 6% 10%;
+    height: auto;
+    width: 100%;
+    -moz-transition: height .5s ease;
+    -o-transition: height .5s ease;
+    -webkit-transition: height .5s ease;
+  }
+  /* line 102, ../scss/mobile.scss */
+  .splash h2 {
+    color: #FFF;
+    font-size: 3em;
+    font-weight: 700;
+  }
+  /* line 103, ../scss/mobile.scss */
+  .splash p {
+    color: #FFF;
+    font-size: 1.8em;
+    font-weight: 100;
+  }
+  /* line 104, ../scss/mobile.scss */
+  .splash .menu {
+    bottom: 15%;
+    width: 80%;
+    left: 10%;
+  }
+  /* line 107, ../scss/mobile.scss */
+  .splash .menu li a {
+    background: #181818;
+    background: rgba(24, 24, 24, 0.6);
+    border-radius: 10px;
+    color: #dadada;
+    display: block;
+    float: left;
+    font-size: 1.8em;
+    font-weight: 700;
+    min-height: 42px;
+    line-height: 2.2em;
+    margin-right: 4%;
+    text-align: center;
+    text-decoration: none;
+    min-width: 100px;
+    width: 46%;
+  }
+  /* line 115, ../scss/mobile.scss */
+  .splash #login li {
+    clear: both;
+    display: block;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: 100;
+    /*a{ width: 100%; }*/
+  }
+  /* line 116, ../scss/mobile.scss */
+  .splash #login li.cancel {
+    clear: none;
+    width: 50%;
+    float: left;
+  }
+  /* line 116, ../scss/mobile.scss */
+  .splash #login li.cancel a {
+    color: #fff;
+    background: #c53e3e;
+  }
+  /* line 117, ../scss/mobile.scss */
+  .splash #login li.login {
+    clear: none;
+    width: 50%;
+    float: left;
+  }
+  /* line 119, ../scss/mobile.scss */
+  .splash #login li input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: 1.8em;
+    text-indent: 3%;
+  }
+  /* line 125, ../scss/mobile.scss */
+  .splash #signup .facebookBtn {
+    height: 20px;
+  }
+  /* line 127, ../scss/mobile.scss */
+  .splash #signup .facebookBtn a {
+    background: #526EA6;
+    text-transform: lowercase;
+    color: white;
+    font-weight: 800;
+    width: 100%;
+  }
+  /* line 130, ../scss/mobile.scss */
+  .splash #signup li {
+    clear: both;
+    display: block;
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: 100;
+  }
+  /* line 131, ../scss/mobile.scss */
+  .splash #signup li a {
+    width: 100%;
+  }
+  /* line 132, ../scss/mobile.scss */
+  .splash #signup li input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-weight: 100;
+    font-size: 1.8em;
+    text-indent: 3%;
+  }
+  /* line 133, ../scss/mobile.scss */
+  .splash #signup li.cancel {
+    clear: none;
+    font-size: 1.2em;
+    float: left;
+    width: 49%;
+  }
+  /* line 138, ../scss/mobile.scss */
+  .splash #signup li.cancel a {
+    color: #fff;
+    background: #c53e3e;
+    width: 100%;
+  }
+  /* line 140, ../scss/mobile.scss */
+  .splash #signup li.signUp {
+    clear: none;
+    font-size: 1.2em;
+    color: #fff;
+    float: right;
+    width: 49%;
+  }
+  /* line 146, ../scss/mobile.scss */
+  .splash #signup li.signUp a {
+    color: #fff;
+    background: #8bc53e;
+    width: 100%;
+  }
+
+  /* line 153, ../scss/mobile.scss */
+  .confirm {
+    position: fixed;
+    top: 10%;
+    padding: 0 5%;
+    text-align: center;
+    font-size: 22px;
+    width: 100%;
+  }
+  /* line 161, ../scss/mobile.scss */
+  .confirm .btnContainer {
+    margin-top: 20px;
+  }
+  /* line 163, ../scss/mobile.scss */
+  .confirm .btnContainer .button {
+    cursor: pointer;
+    width: 44%;
+    float: left;
+    line-height: 2.5em;
+    height: 55px;
+  }
+  /* line 172, ../scss/mobile.scss */
+  .confirm p span {
+    display: block;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #c53e3e;
+  }
+  /* line 179, ../scss/mobile.scss */
+  .confirm em {
+    display: block;
+    padding: 8px 0;
+    font-variant: small-caps;
+    text-transform: lowercase;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+
+  /* line 189, ../scss/mobile.scss */
+  #settings {
+    -webkit-transition: .4s -webkit-filter ease;
+    -webkit-filter: blur(0px);
+    transition: .4s filter ease;
+    filter: blur(0px);
+  }
+  /* line 195, ../scss/mobile.scss */
+  #settings .sub {
+    height: 0;
+    overflow: hidden;
+    transition: .4s height ease;
+    -webkit-transition: .4s height ease;
+  }
+  /* line 196, ../scss/mobile.scss */
+  #settings .open .sub {
+    height: 240px;
+  }
+
+  /* line 198, ../scss/mobile.scss */
+  .addPlant > div {
+    overflow: scroll;
+    height: 100%;
+  }
+
+  /* line 199, ../scss/mobile.scss */
+  .addPlant {
+    background-color: #fbfbfb;
+    height: 100%;
+    position: absolute;
+    top: 44px;
+    width: 100%;
+    overflow: scroll;
+    z-index: 90;
+    padding: 4% 1% 50%;
+  }
+  /* line 209, ../scss/mobile.scss */
+  .addPlant input {
+    width: 100%;
+    height: 39px;
+    font-size: 1.8em;
+    text-indent: 3%;
+    font-weight: 100;
+    border: 1px solid #D8D8D8;
+    border-radius: 3px;
+    margin-bottom: 11px;
+    position: relative;
+    box-shadow: 0px 0px 2px rgba(14, 14, 11, 0.1);
+  }
+  /* line 218, ../scss/mobile.scss */
+  .addPlant #imgThumb {
+    z-index: 100;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  /* line 224, ../scss/mobile.scss */
+  .addPlant .name.button {
+    color: #fff;
+    font-weight: bold;
+    height: auto;
+    padding: 2% 0;
+    line-height: 2em;
+    font-size: 18px;
+    text-indent: 8px;
+  }
+  /* line 234, ../scss/mobile.scss */
+  .addPlant .name.button:after {
+    display: block;
+    content: '';
+    width: 50px;
+    height: 50px;
+    background: url("../../images/arrow.png") no-repeat center center;
+    position: absolute;
+    top: 50%;
+    margin-top: -25px;
+    right: 0%;
+    transition: .4s all ease;
+    -webkit-transition: .4s all ease;
+  }
+  /* line 249, ../scss/mobile.scss */
+  .addPlant .open .name.button:after {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    right: 1%;
+  }
+  /* line 255, ../scss/mobile.scss */
+  .addPlant ul.sub li {
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: auto;
+    margin: 3%;
+    font-size: 16px;
+    padding: 9px 5px;
+    overflow: hidden;
+    border: 1px solid #c0c0c0;
+    text-indent: 3px;
+  }
+  /* line 267, ../scss/mobile.scss */
+  .addPlant h2 {
+    text-indent: 3%;
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #A0A0A0;
+  }
+  /* line 271, ../scss/mobile.scss */
+  .addPlant input[type=file] {
+    position: relative;
+    z-index: 20;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+  }
+  /* line 278, ../scss/mobile.scss */
+  .addPlant input[type=file].nope:after {
+    display: none;
+  }
+  /* line 281, ../scss/mobile.scss */
+  .addPlant input[type=file]:after {
+    content: '';
+    display: none;
+    height: 100%;
+    width: 100%;
+    background: #fbfbfb url("../../images/camera.png") no-repeat center center;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    border: 2px dashed rgba(143, 141, 141, 0.5);
+    border-radius: 20px;
+  }
+  /* line 295, ../scss/mobile.scss */
+  .addPlant input[type=file].loader:after {
+    background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat;
+  }
+  /* line 299, ../scss/mobile.scss */
+  .addPlant #newPlantForm li {
+    clear: both;
+  }
+  /* line 301, ../scss/mobile.scss */
+  .addPlant #newPlantForm li span {
+    display: block;
+    text-indent: -9999px;
+    overflow: hidden;
+    height: 70px;
+    width: 33%;
+    float: left;
+    margin-bottom: -10px;
+  }
+  /* line 311, ../scss/mobile.scss */
+  .addPlant #newPlantForm li label.left {
+    float: left;
+  }
+  /* line 312, ../scss/mobile.scss */
+  .addPlant #newPlantForm li label.right {
+    float: right;
+  }
+  /* line 314, ../scss/mobile.scss */
+  .addPlant #newPlantForm li span.seed {
+    background: url("../../images/sprites.age.png") no-repeat;
+    background-position: left top;
+    /*width: 50px;*/
+  }
+  /* line 320, ../scss/mobile.scss */
+  .addPlant #newPlantForm li span.mid {
+    background: url("../../images/sprites.age.png") no-repeat;
+    background-position: center center;
+    /*width: 50px;*/
+  }
+  /* line 326, ../scss/mobile.scss */
+  .addPlant #newPlantForm li span.mature {
+    background: url("../../images/sprites.age.png") no-repeat;
+    background-position: right bottom;
+    /*width: 44px;*/
+  }
+  /* line 333, ../scss/mobile.scss */
+  .addPlant input[type="range"] {
+    -webkit-appearance: none !important;
+    border-radius: 50px;
+    height: 10px;
+    background: #c3c3c3;
+    /* url('../../images/bg.slider.png'); */
+    background-size: auto 100%;
+  }
+  /* line 341, ../scss/mobile.scss */
+  .addPlant input[type="range"]::-webkit-slider-thumb {
+    height: 30px;
+    width: 30px;
+    display: block;
+    background: #4f4f4f;
+    /* url('../../images/btn.slider.png'); */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+    -webkit-appearance: none !important;
+  }
+  /* line 345, ../scss/mobile.scss */
+  .addPlant #defaultPhotosContainer {
+    width: 100%;
+    height: 180px;
+    padding: 10px 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  /* line 352, ../scss/mobile.scss */
+  .addPlant #defaultPhotosContainer .grabbed {
+    max-height: 100%;
+    margin-right: 15px;
+    border: 0px solid #a1b05d;
+    transition: 0.5s -webkit-filter ease, 0.5s filter ease, 0.5s border ease;
+    -webkit-transition: 0.5s -webkit-filter ease, 0.5s filter ease, 0.5s border ease;
+  }
+  /* line 361, ../scss/mobile.scss */
+  .addPlant #defaultPhotosContainer .selected {
+    border: 5px solid #a1b05d;
+    height: 100%;
+    box-shadow: 0px 0px 5px rgba(161, 176, 93, 0.6), 0px 0px 8px rgba(161, 176, 93, 0.3), 0px 0px 10px rgba(161, 176, 93, 0.1), 0px 0px 5px rgba(161, 176, 93, 0.6), 0px 0px 8px rgba(161, 176, 93, 0.3), 0px 0px 10px rgba(161, 176, 93, 0.1);
+  }
+
+  /* line 373, ../scss/mobile.scss */
+  li.cancel {
+    clear: none;
+    font-size: 1.2em;
+    float: left;
+    width: 49%;
+  }
+  /* line 378, ../scss/mobile.scss */
+  li.cancel a {
+    color: #fff;
+    background: #c53e3e;
+  }
+
+  /* line 381, ../scss/mobile.scss */
+  .dashboard {
+    height: 100%;
+    overflow: scroll;
+    padding: 20px 5% 0;
+    position: relative;
+    width: 100%;
+    z-index: 50;
+  }
+  /* line 384, ../scss/mobile.scss */
+  .dashboard li {
+    float: left;
+    height: 175px;
+    position: relative;
+    width: 48%;
+    z-index: 50;
+  }
+  /* line 385, ../scss/mobile.scss */
+  .dashboard li#addNew {
+    background: #8bc53e;
+    border-radius: 6px;
+    height: 100px;
+    width: 100px;
+  }
+  /* line 386, ../scss/mobile.scss */
+  .dashboard li#addNew a {
+    color: transparent;
+    display: block;
+    height: 100%;
+    position: relative;
+    width: 100%;
+  }
+  /* line 387, ../scss/mobile.scss */
+  .dashboard li#addNew a:after {
+    color: #FFF;
+    content: '+';
+    display: block;
+    font-size: 12em;
+    font-weight: 900;
+    height: 100%;
+    line-height: .45em;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+  /* line 390, ../scss/mobile.scss */
+  .dashboard .square {
+    overflow: hidden;
+    clear: both;
+    display: block;
+    max-width: 103px;
+    max-height: 103px;
+    position: relative;
+    border-radius: 3px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  }
+  /* line 391, ../scss/mobile.scss */
+  .dashboard .square img {
+    display: block;
+    height: 100%;
+    width: auto;
+    border-radius: 3px;
+    position: relative;
+    left: -25%;
+  }
+  /* line 399, ../scss/mobile.scss */
+  .dashboard li:after {
+    background: #FFF;
+    content: '';
+    display: block;
+    height: 100px;
+    left: 0;
+    opacity: 0.01;
+    position: absolute;
+    top: 0;
+    width: 100px;
+  }
+  /* line 400, ../scss/mobile.scss */
+  .dashboard h2 {
+    font-size: 2em;
+    font-weight: 700;
+  }
+  /* line 401, ../scss/mobile.scss */
+  .dashboard h3 {
+    font-size: 1.3em;
+  }
+  /* line 402, ../scss/mobile.scss */
+  .dashboard .status {
+    background: red;
+    border-radius: 100%;
+    color: transparent;
+    height: 20px;
+    left: 87px;
+    position: absolute;
+    top: -5px;
+    width: 20px;
+  }
+  /* line 403, ../scss/mobile.scss */
+  .dashboard .good.status {
+    background: rgba(0, 255, 0, 0.8);
+  }
+  /* line 404, ../scss/mobile.scss */
+  .dashboard .meh.status {
+    background: rgba(255, 255, 0, 0.8);
+  }
+  /* line 405, ../scss/mobile.scss */
+  .dashboard .poor.status {
+    background: rgba(255, 0, 0, 0.8);
+  }
+
+  /* line 408, ../scss/mobile.scss */
+  #side_menu {
+    z-index: 5;
+    width: 80%;
+    background: #fbfbfb;
+    position: absolute;
+    left: 0;
+    -moz-transition: left .4s;
+    -o-transition: left .4s;
+    -webkit-transition: left .4s;
+    transition: left .4s;
+  }
+  /* line 417, ../scss/mobile.scss */
+  #side_menu ul {
+    list-style: none;
+  }
+  /* line 418, ../scss/mobile.scss */
+  #side_menu li {
+    float: left;
+    width: 100%;
+    height: 50px;
+    width: 100%;
+    font-size: 21px;
+    border-bottom: 1px solid #bebebe;
+    line-height: 2em;
+    position: relative;
+    background-repeat: no-repeat;
+  }
+  /* line 420, ../scss/mobile.scss */
+  #side_menu li a {
+    text-decoration: none;
+    color: #4e4e4e;
+    margin-left: 60px;
+  }
+  /* line 421, ../scss/mobile.scss */
+  #side_menu li.active {
+    background: #d8e2b2;
+  }
+  /* line 421, ../scss/mobile.scss */
+  #side_menu li.active a {
+    color: #000;
+  }
+  /* line 422, ../scss/mobile.scss */
+  #side_menu li._logout {
+    border-bottom: none;
+  }
+  /* line 424, ../scss/mobile.scss */
+  #side_menu li._dash:before {
+    background-image: url("../../images/sprites.gnav.png");
+    background-position: 0px 8px;
+  }
+  /* line 425, ../scss/mobile.scss */
+  #side_menu li._database:before {
+    background-image: url("../../images/sprites.gnav.png");
+    background-position: 0px -46px;
+  }
+  /* line 426, ../scss/mobile.scss */
+  #side_menu li._help:before {
+    background-image: url("../../images/sprites.gnav.png");
+    background-position: 0px -99px;
+  }
+  /* line 427, ../scss/mobile.scss */
+  #side_menu li._about:before {
+    background-image: url("../../images/sprites.gnav.png");
+    background-position: 0px -153px;
+  }
+  /* line 428, ../scss/mobile.scss */
+  #side_menu li._contact:before {
+    background-image: url("../../images/sprites.gnav.png");
+    background-position: 0px -209px;
+  }
+  /* line 429, ../scss/mobile.scss */
+  #side_menu li._logout:before {
+    border-bottom: none;
+    background-image: none;
+    background-position: 0px 0px;
+  }
+  /* line 432, ../scss/mobile.scss */
+  #side_menu li:before {
+    display: block;
+    background-size: 100% auto;
+    content: '';
+    height: 49px;
+    opacity: 0.6;
+    width: 50px;
+    border-bottom: 1px solid #bebebe;
+    position: absolute;
+    left: 0;
+  }
+  /* line 434, ../scss/mobile.scss */
+  #side_menu li.active:before {
+    background-color: #b8cb63;
+    opacity: 1;
+  }
+
+  /* line 438, ../scss/mobile.scss */
+  #side_menu.sideMenuOpened {
+    z-index: 0;
+    left: 0px;
+  }
+
+  /* line 439, ../scss/mobile.scss */
+  #search, #results {
+    width: 100%;
+    float: left;
+    background: #fbfbfb;
+  }
+
+  /* line 440, ../scss/mobile.scss */
+  #search {
+    height: 62px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    padding: 11px;
+    border-bottom: 1px solid #ccc;
+  }
+  /* line 442, ../scss/mobile.scss */
+  #search div {
+    float: left;
+  }
+  /* line 443, ../scss/mobile.scss */
+  #search div.searchForm > input, #search .searchButton, #search .advancedButton {
+    -moz-transition: background-color .5s ease;
+    -o-transition: background-color .5s ease;
+    -webkit-transition: background-color .5s ease;
+    transition: background-color .5s ease;
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+  }
+  /* line 444, ../scss/mobile.scss */
+  #search .searchButton {
+    position: absolute;
+    left: 4%;
+    z-index: 1;
+    background: #abc152;
+    background-image: linear-gradient(left top, #bbcd62 50%, #abc152 50%);
+    background-image: -o-linear-gradient(left top, #bbcd62 50%, #abc152 50%);
+    background-image: -moz-linear-gradient(left top, #bbcd62 50%, #abc152 50%);
+    background-image: -webkit-linear-gradient(left top, #bbcd62 50%, #abc152 50%);
+    background-image: -ms-linear-gradient(left top, #bbcd62 50%, #abc152 50%);
+  }
+  /* line 454, ../scss/mobile.scss */
+  #search .searchButton::after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: url("/images/search.png") no-repeat center center;
+    background-size: 50%;
+  }
+  /* line 463, ../scss/mobile.scss */
+  #search .advancedButton {
+    position: absolute;
+    right: 1%;
+    background: #dbdbdb;
+    background-image: linear-gradient(left top, #e6e6e6 50%, #dbdbdb 50%);
+    background-image: -o-linear-gradient(left top, #e6e6e6 50%, #dbdbdb 50%);
+    background-image: -moz-linear-gradient(left top, #e6e6e6 50%, #dbdbdb 50%);
+    background-image: -webkit-linear-gradient(left top, #e6e6e6 50%, #dbdbdb 50%);
+    background-image: -ms-linear-gradient(left top, #e6e6e6 50%, #dbdbdb 50%);
+  }
+  /* line 472, ../scss/mobile.scss */
+  #search .advancedButton::after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: url("/images/arrow.png") no-repeat center center;
+    background-size: 50%;
+  }
+  /* line 481, ../scss/mobile.scss */
+  #search .advancedButton.active {
+    background: #838383;
+    background-image: linear-gradient(left top, #888888 50%, #838383 50%);
+    background-image: -o-linear-gradient(left top, #888888 50%, #838383 50%);
+    background-image: -moz-linear-gradient(left top, #888888 50%, #838383 50%);
+    background-image: -webkit-linear-gradient(left top, #888888 50%, #838383 50%);
+    background-image: -ms-linear-gradient(left top, #888888 50%, #838383 50%);
+  }
+  /* line 488, ../scss/mobile.scss */
+  #search .advancedButton.active::after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: url("/images/arrowOut.png") no-repeat center center;
+    background-size: 50%;
+  }
+  /* line 497, ../scss/mobile.scss */
+  #search .searchForm {
+    width: 100%;
+    margin: 0 6px;
+  }
+  /* line 498, ../scss/mobile.scss */
+  #search .searchForm input {
+    width: 67%;
+    height: 39px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: 2px solid #d6d6d6;
+    padding: 0 4%;
+    background: #fbfbfb;
+  }
+  /* line 499, ../scss/mobile.scss */
+  #search .searchForm .error {
+    background: #c53e3e;
+  }
+
+  /* line 503, ../scss/mobile.scss */
+  #results {
+    font: 'Asap';
+    width: 100%;
+    height: 68%;
+  }
+  /* line 504, ../scss/mobile.scss */
+  #results #advancedOptions {
+    width: 85%;
+    height: 110%;
+    position: absolute;
+    margin: auto 0 auto auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -moz-transition: left .5s;
+    -o-transition: left .5s;
+    -webkit-transition: left .5s;
+    transition: left .5s;
+    left: 65%;
+  }
+  /* line 505, ../scss/mobile.scss */
+  #results #advancedOptions .option {
+    display: block;
+    clear: both;
+    margin: -1% 0;
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+  }
+  /* line 506, ../scss/mobile.scss */
+  #results #advancedOptions .option select {
+    visibility: hidden;
+  }
+  /* line 507, ../scss/mobile.scss */
+  #results #advancedOptions .option:active {
+    background-color: #a1b05d;
+  }
+  /* line 508, ../scss/mobile.scss */
+  #results #advancedOptions .option h2 {
+    font-size: 16pt;
+    font-weight: bold;
+    color: #545454;
+  }
+  /* line 509, ../scss/mobile.scss */
+  #results #advancedOptions .option h3 {
+    font-size: 12pt;
+    color: #a6a6a6;
+  }
+  /* line 510, ../scss/mobile.scss */
+  #results #advancedOptions .option .left {
+    margin: auto auto -34px 0;
+    position: relative;
+    top: 42px;
+    left: 4%;
+  }
+  /* line 511, ../scss/mobile.scss */
+  #results #advancedOptions .option .right {
+    margin: auto 0 -20px auto;
+  }
+  /* line 512, ../scss/mobile.scss */
+  #results #advancedOptions .option .typeImage, #results #advancedOptions .option .sizeImage, #results #advancedOptions .option .maintenanceImage {
+    width: 118px;
+    height: 118px;
+    position: relative;
+    top: -22px;
+    left: 7px;
+  }
+  /* line 513, ../scss/mobile.scss */
+  #results #advancedOptions .option .sizeImage {
+    background: url("/images/small.png") no-repeat center center;
+    background-size: 65%;
+  }
+  /* line 514, ../scss/mobile.scss */
+  #results #advancedOptions .option .typeImage {
+    background: url("/images/type.png") no-repeat center center;
+    background-size: 65%;
+  }
+  /* line 515, ../scss/mobile.scss */
+  #results #advancedOptions .option .maintenanceImage {
+    background: url("/images/maintenance.png") no-repeat center center;
+    background-size: 65%;
+  }
+  /* line 519, ../scss/mobile.scss */
+  #results #advancedOptions.advancedOptionsOpened {
+    left: 15%;
+  }
+  /* line 520, ../scss/mobile.scss */
+  #results #plantResults {
+    width: 110%;
+    height: 104%;
+    margin-bottom: 8px;
+  }
+
+  /* line 522, ../scss/mobile.scss */
+  #plantResults {
+    -moz-transition: left .5s ease;
+    -o-transition: left .5s ease;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition: left .5s ease;
+    left: 0;
+    position: relative;
+    transition: left .5s ease;
+    width: 100%;
+    background: #fbfbfb;
+  }
+
+  /* line 523, ../scss/mobile.scss */
+  #plantResults.advancedOptionsOpened {
+    border-right: 2px solid rgba(0, 0, 0, 0.3);
+    left: -94%;
+  }
+
+  /* line 525, ../scss/mobile.scss */
+  .returnList {
+    font: 'Asap';
+    height: 100%;
+    overflow: scroll;
+    padding: 7px 2%;
+    position: relative;
+    width: 100%;
+    z-index: 50;
+  }
+
+    /*New stuff*/
+   .returnList > li div.ajaxLoader {
+      width: 94%;
+      height: 61%; 
+
+  }
+  /* line 526, ../scss/mobile.scss */
+  .returnList li {
+    float: left;
+    height: 139px;
+    margin: 1%;
+    position: relative;
+    width: 31%;
+    z-index: 50;
+  }
+  /* line 527, ../scss/mobile.scss */
+  .returnList img {
+    clear: both;
+    display: block;
+    max-width: 83px;
+    position: relative;
+    border-radius: 4px;
+    border: 1px solid #000;
+    margin-bottom: 5px;
+  }
+  /* line 528, ../scss/mobile.scss */
+  .returnList li:after {
+    background: #FFF;
+    content: '';
+    display: block;
+    height: 100px;
+    left: 0;
+    opacity: 0.01;
+    position: absolute;
+    top: 0;
+    width: 100px;
+  }
+  /* line 529, ../scss/mobile.scss */
+  .returnList h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #3f3f3f;
+  }
+  /* line 530, ../scss/mobile.scss */
+  .returnList h3 {
+    font-size: 1em;
+    color: #545454;
+  }
+
+  /* line 536, ../scss/mobile.scss */
+  #section_content.sideMenuOpened {
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+    left: 80%;
+  }
+
+  /* line 537, ../scss/mobile.scss */
+  .hero {
+    height: 150px;
+    overflow: hidden;
+    width: 100%;
+  }
+  /* line 538, ../scss/mobile.scss */
+  .hero img {
+    height: auto;
+    width: 100%;
+    position: relative;
+    top: -25%;
+  }
+
+  /* line 541, ../scss/mobile.scss */
+  .profileNav {
+    height: 29px;
+    margin-top: -29px;
+    position: relative;
+    width: 100%;
+  }
+  /* line 542, ../scss/mobile.scss */
+  .profileNav li {
+    background: #FFF;
+    border-radius: 3px 3px 0 0;
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+    padding: 5px;
+    text-align: center;
+    width: 25%;
+  }
+
+  /* line 546, ../scss/mobile.scss */
+  #factsNtips li {
+    margin: 0 2% 20px 2%;
+    font-size: 1.7em;
+    transition: 1s height ease;
+    -webkit-transition: 1s height ease;
+    height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* line 557, ../scss/mobile.scss */
+  #factsNtips li.open {
+    height: 500px;
+    white-space: normal;
+  }
+
+  /* line 563, ../scss/mobile.scss */
+  #factsNtips span {
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  /* line 567, ../scss/mobile.scss */
+  .profileContent > div.active {
+    display: block;
+    position: relative;
+    z-index: 200;
+  }
+
+  /* line 569, ../scss/mobile.scss */
+  .guages {
+    height: 138px;
+    padding-top: 12px;
+    text-align: center;
+    width: 101%;
+  }
+  /* line 570, ../scss/mobile.scss */
+  .guages div {
+    margin: 0 auto;
+                     /*
+input { position: absolute !important; left: 20% !important; top: 17% !important; margin: 0 !important; }
+*/
+  }
+  /* line 573, ../scss/mobile.scss */
+  .guages img {
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 150px;
+    width: 100%;
+  }
+  /* line 574, ../scss/mobile.scss */
+  .guages li {
+    float: left;
+    width: 33%;
+    position: relative;
+  }
+
+  /* line 577, ../scss/mobile.scss */
+  .guages > li {
+    height: 46px;
+  }
+
+  /* line 579, ../scss/mobile.scss */
+  .header {
+    background: rgba(0, 0, 0, 0.3);
+    clear: both;
+    font-size: 1.8em;
+    padding: .5% 5%;
+    width: 100%;
+  }
+  /* line 580, ../scss/mobile.scss */
+  .header h2 {
+    display: inline;
+  }
+  /* line 581, ../scss/mobile.scss */
+  .header span {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 100%;
+    color: #FFF;
+    float: right;
+    height: 24px;
+    line-height: 1.5em;
+    margin-top: -1px;
+    text-align: center;
+    width: 24px;
+  }
+
+  /* line 583, ../scss/mobile.scss */
+  .notifications {
+    width: 100% li;
+    width-border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    width-font-size: 1.4em;
+    width-line-height: 2em;
+    width-padding: 0 5%;
+    width-position: relative;
+    width-width: 100%;
+  }
+  /* line 585, ../scss/mobile.scss */
+  .notifications li:before {
+    background: url(../../images/drop.png) no-repeat;
+    content: '';
+    display: inline-block;
+    height: 30px;
+    left: 16px;
+    position: relative;
+    top: 13px;
+    width: 37px;
+  }
+
+  /* line 589, ../scss/mobile.scss */
+  .facts h2,
+  .stage h2 {
+    font-size: 2em;
+  }
+
+  /* line 591, ../scss/mobile.scss */
+  .sprouting {
+    padding: 0 7%;
+    position: relative;
+  }
+  /* line 592, ../scss/mobile.scss */
+  .sprouting p {
+    float: right;
+    font-size: 1.6em;
+    margin-top: -36px;
+    width: 60%;
+  }
+  /* line 593, ../scss/mobile.scss */
+  .sprouting:before {
+    content: '2';
+    display: inline;
+    float: left;
+    font-size: 4em;
+    font-weight: 700;
+    left: -5px;
+    position: relative;
+    top: -3px;
+  }
+
+  /* line 596, ../scss/mobile.scss */
+  .stage h3 {
+    font-size: 1.4em;
+  }
+
+  /* line 597, ../scss/mobile.scss */
+  .stageProgress {
+    background: url(../../images/progress.png) no-repeat;
+    background-size: 100% auto;
+    clear: both;
+    color: transparent;
+    height: 100px;
+    margin: 30px 0;
+    width: 100%;
+  }
+
+  /* line 600, ../scss/mobile.scss */
+  .button {
+    -webkit-box-sizing: border-box;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 71px;
+    margin: 3%;
+    overflow: hidden;
+    background: #a1b05d;
+    background: -moz-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a1b05d), color-stop(50%, #a1b05d), color-stop(51%, #96a754), color-stop(100%, #96a754));
+    background: -webkit-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -o-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: -ms-linear-gradient(top, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    background: linear-gradient(to bottom, #a1b05d 0%, #a1b05d 50%, #96a754 51%, #96a754 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#a1b05d', endColorstr='#96a754',GradientType=0 );
+  }
+  /* line 610, ../scss/mobile.scss */
+  .button a {
+    color: #575f30;
+    text-decoration: none;
+    display: block;
+    font-size: 2.6em;
+    height: 100%;
+    line-height: 2.6em;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* line 612, ../scss/mobile.scss */
+  .faq {
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  /* line 613, ../scss/mobile.scss */
+  .faq .faq li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 1.4em;
+    line-height: 3em;
+    min-height: 34px;
+    padding: 0 3%;
+  }
+
+  /* line 618, ../scss/mobile.scss */
+  img.placeholder {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* line 628, ../scss/mobile.scss */
+  .splash #login,
+  .splash .blurb.login,
+  .splash #signup,
+  .profileContent > div {
+    display: none;
+  }
+
+  /* line 630, ../scss/mobile.scss */
+  ::selection,
+  ::-moz-selection {
+    background: transparent;
+  }
+
+  /* line 633, ../scss/mobile.scss */
+  .loading:after {
+    content: '';
+    display: block;
+    position: fixed;
+    background: url("../../images/loading.gif") rgba(251, 251, 251, 0.9) center center no-repeat;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 200;
+  }
+
+  /* line 643, ../scss/mobile.scss */
+  #header_global .button.close:after {
+    content: '+';
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: -18px;
+    background-image: none;
+    position: absolute;
+    left: 19px;
+    color: #4e4e4e;
+    font-size: 61px;
+    text-align: center;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.9);
+  }
+
+  /* line 661, ../scss/mobile.scss */
+  .modal::after {
+    content: '';
+    display: block;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 200;
+  }
+
+  /* line 673, ../scss/mobile.scss */
+  .selectModal {
+    top: 12%;
+    left: 9%;
+    position: fixed;
+    z-index: 300;
+    background: #fbfbfb;
+    width: 82%;
+    margin: 0 auto;
+    max-height: 61%;
+    overflow-y: scroll;
+    border-radius: 10px;
+    box-shadow: 1px 1px 11px black, -1px -1px 11px black;
+  }
+  /* line 685, ../scss/mobile.scss */
+  .selectModal div {
+    display: block;
+    font: 18pt Asap;
+    color: #a6a6a6;
+    margin: 16px auto;
+    width: 88%;
+    height: 74px;
+    line-height: 74px;
+    padding-left: 20px;
+    border: 1px solid #a6a6a6;
+    border-radius: 5px;
+  }
+  /* line 696, ../scss/mobile.scss */
+  .selectModal div:active {
+    color: #fff;
+    background: #a1b05d;
+  }
+  /* line 701, ../scss/mobile.scss */
+  .selectModal div.cancel {
+    text-align: center;
+    color: #fbfbfb;
+    background: #c53e3e;
+  }
+  /* line 705, ../scss/mobile.scss */
+  .selectModal div.cancel:active {
+    color: #fbfbfb;
+    background: #c53e3e;
+  }
+  /* line 711, ../scss/mobile.scss */
+  .selectModal .submit {
+    text-align: center;
+    color: #fff;
+    background: #a1b05d;
+  }
+  /* line 715, ../scss/mobile.scss */
+  .selectModal .submit:active {
+    color: #fff;
+    background: #a1b05d;
+  }
+  /* line 721, ../scss/mobile.scss */
+  .selectModal h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    margin: 57px 5px 7px 5px;
+  }
+
+  /* line 731, ../scss/mobile.scss */
+  #footer_global {
+    clear: both;
+  }
+  /* line 733, ../scss/mobile.scss */
+  #footer_global li {
+    float: left;
+    width: 25%;
+  }
+
+  /* JQuery UI */
+  /* line 741, ../scss/mobile.scss */
+  .ui-autocomplete {
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+}
