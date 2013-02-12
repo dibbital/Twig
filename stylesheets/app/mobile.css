@@ -805,7 +805,7 @@
           top: -22px;
           width: 118px; }
         #results #advancedOptions .option .sizeImage {
-          background: url("/images/small.png") no-repeat center center;
+          background: url("/images/sizeNone.png") no-repeat center center;
           background-size: 65%; }
         #results #advancedOptions .option .typeImage {
           background: url("/images/type.png") no-repeat center center;
@@ -847,9 +847,9 @@
       float: left;
       height: 150px;
       overflow: none;
-      margin: 1% 2% 5% 2.5%;
+      margin: 1% 2% 5% 1.5%;
       position: relative;
-      width: 28%;
+      width: 89px;
       z-index: 50; }
       .returnList > li div.ajaxLoader {
         width: 94%;

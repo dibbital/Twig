@@ -45,7 +45,7 @@ var DatabaseEntryView = Backbone.View.extend({
 				$('#header_global .button.right').on('click', function () {
 					Backbone.history.navigate('search', {'trigger': true});
 					//$('#header_global .button.right').removeClass('backToDash');
-					//App.trigger('nav:enable');
+					App.trigger('nav:enable');
 				});
 			}
 		});

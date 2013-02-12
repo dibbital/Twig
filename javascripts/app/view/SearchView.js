@@ -146,7 +146,7 @@ var SearchView = Backbone.View.extend({
 									$maintenanceLevel = $($selected).data('value');
 									var $mainSelect = $('#plantMaintenance');
 									if($maintenanceLevel == 'none'){
-										$mainSelect.val('')
+										$mainSelect.val('');
 										$('.option.maintenance h3').html($maintenanceLevel);
 									}else{
 										$mainSelect.val($maintenanceLevel);

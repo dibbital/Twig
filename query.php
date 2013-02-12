@@ -47,6 +47,10 @@ switch($_REQUEST['a']){
 		$page = $_REQUEST['page'];
 		echo getAllPlants($page);
 		break;
+	case 'getMoreTypes':
+		$start = $_REQUEST['start'];
+		echo getMoreTypes($start);
+		break;
 	case 'searchDatabase':
 		$page = $_REQUEST['page'];
 		echo searchDatabase($page);
