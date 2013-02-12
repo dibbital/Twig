@@ -110,34 +110,40 @@ var SearchView = Backbone.View.extend({
 						$typeEl.insertAfter(view.$el);
 						view.makeCancelButton($typeEl);
 
+						
+						view.$types = $('.selectModal div');
+
 						//when the user scrolls, load 5 every iteration
-						$(".selectModal").on('scroll', function(){view.loadMoreTypes(view.$start * 6,this,$typeSelects)})
+						$(".selectModal").on('scroll', function(){view.loadMoreTypes(view.$start * 6,this,$typeSelects)});
 
-						var $types = $('.selectModal div');
-						$types.on('click', function(e){
-							$selected = e.currentTarget;
-							$type = $($selected).data('value');
-							
-							var $typeSelect = $('#plantType');
-							if($type == 'none'){
-								$typeSelect.val('');
-								$('.option.type h3').html($type);
-							}else{
-								$typeSelect.val($type);
-								$('.option.type h3').html($type);
-							}
-							
-							$('.selectModal').remove();
-							$('.cancel').remove();
+						setInterval(function(){
+							view.$types.on('click', function(e){
+								e.preventDefault();
+								e.stopPropagation();
+								$selected = e.currentTarget;
+								$type = $($selected).data('value');
+								
+								var $typeSelect = $('#plantType');
+								if($type == 'none'){
+									$typeSelect.val('');
+									$('.option.type h3').html($type);
+								}else{
+									$typeSelect.val($type);
+									$('.option.type h3').html($type);
+								}
+								
+								$('.selectModal').remove();
+								$('.cancel').remove();
 
-							view.$el.removeClass('modal');
+								view.$el.removeClass('modal');
 
-							$("#side_menu").css({'pointer-events':'auto'});
-							$("#advancedOptions").css({'pointer-events':'auto'});
+								$("#side_menu").css({'pointer-events':'auto'});
+								$("#advancedOptions").css({'pointer-events':'auto'});
 
-							$('#header_global .button.right').fadeIn();
-							$('#header_global .button.left').fadeIn();
-						});
+								$('#header_global .button.right').fadeIn();
+								$('#header_global .button.left').fadeIn();
+							});
+						},300);
 
 						break;
 			case 'maintenance': var $mainSelects = $("#plantMaintenance option");
@@ -539,7 +545,7 @@ var SearchView = Backbone.View.extend({
 		var $html = "";
 		//if the user is almost at the bottom of the modal, and the count is one less than the totat
 		//amount of select divs (we never made a div for the 0 index :P)
-		if(modal.offsetHeight + modal.scrollTop >= modal.scrollHeight / 2 && view.$count < view.$totalTypes - 1){
+		if(modal.offsetHeight + modal.scrollTop >= modal.scrollHeight - 300 && view.$count < view.$totalTypes - 1){
 			
 			//load in the next 5 types
 			for(var i = offset; i < offset + 6; i++){
@@ -554,6 +560,8 @@ var SearchView = Backbone.View.extend({
 			var $selects = $(".selectModal div");
 			//stick the new types after the last one loaded
 			$($html).insertAfter($selects[$selects.length - 1]);
+
+			view.$types = $selects;
 		}
 	}
 
