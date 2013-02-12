@@ -89,10 +89,19 @@ var SearchView = Backbone.View.extend({
 
 		switch($($element).data('search')){
 			case 'type': $typeSelects = $('#plantType option');
-					$html = "<div class='selectModal'><div data-value='none'>None</div>"
-					for(var i = 1; i< $typeSelects.length; i++){
+					$html = "<div class='selectModal'><div data-value='none'>None</div>";
+
+					//Because the phone crashes when all the types are loaded in at once, separate how they are loaded
+					view.$totalTypes = $typeSelects.length - 1;
+					view.$start = 1;
+					view.$count = 0;
+
+					//only load the first 5
+					for(var i = 1; i< 6; i++){
 						$value = $($typeSelects[i]).val();
 						$html += "<div data-value='"+$value+"'>"+$value+"</div>";
+						//console.log("showing" + i);
+						view.$count++;
 					}
 
 					$html += "</div>";
@@ -100,6 +109,9 @@ var SearchView = Backbone.View.extend({
 				  var $typeEl = $($html);
 						$typeEl.insertAfter(view.$el);
 						view.makeCancelButton($typeEl);
+
+						//when the user scrolls, load 5 every iteration
+						$(".selectModal").on('scroll', function(){view.loadMoreTypes(view.$start * 6,this,$typeSelects)})
 
 						var $types = $('.selectModal div');
 						$types.on('click', function(e){
@@ -519,6 +531,29 @@ var SearchView = Backbone.View.extend({
 					default: $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
 				}
 				break;
+		}
+	},
+
+	'loadMoreTypes':function(offset,modal,elem){
+		var view = this;
+		var $html = "";
+		//if the user is almost at the bottom of the modal, and the count is one less than the totat
+		//amount of select divs (we never made a div for the 0 index :P)
+		if(modal.offsetHeight + modal.scrollTop >= modal.scrollHeight - 100 && view.$count < view.$totalTypes - 1){
+			
+			//load in the next 5 types
+			for(var i = offset; i < offset + 6; i++){
+				var $value = $(elem[i]).val();
+				$html += "<div data-value='"+$value+"'>"+$value+"</div>";
+				//console.log("showing" + i);
+				view.$count++;
+			}
+
+
+			view.$start++;
+			var $selects = $(".selectModal div");
+			//stick the new types after the last one loaded
+			$($html).insertAfter($selects[$selects.length - 1]);
 		}
 	}
 

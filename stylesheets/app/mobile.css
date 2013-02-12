@@ -847,9 +847,9 @@
       float: left;
       height: 150px;
       overflow: none;
-      margin: 1% 2% 5% 1.5%;
+      margin: 1% 2% 7% 1.5%;
       position: relative;
-      width: 89px;
+      width: 29%;
       z-index: 50; }
       .returnList > li div.ajaxLoader {
         width: 94%;
