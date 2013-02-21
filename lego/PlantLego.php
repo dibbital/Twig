@@ -574,7 +574,7 @@ function getAllPlants($page){
 
 	function stripBrackets($string){
 
-		$pattern = "/\[(\d+)\]|\[(\d+)+[,\s(\d+)]+\]|\[[A-Z]\]/i";
+		$pattern = "/\[(\d+)\]|\[(\d+)+[,\s(\d+)]+\]|\[[A-Z]\]|\[(\d+)+[,\s[A-z]+]+\]/i";
 		$replacement = '';
 
 		$string = preg_replace($pattern,$replacement,$string,-1);

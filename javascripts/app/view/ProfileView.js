@@ -60,6 +60,7 @@ var ProfileView = Backbone.View.extend({
 			'uid': App.User.currentUser['userID']
 		});
 
+
 		var $hero = view.$el.find('.hero').hide();
 		var $guages = view.$el.find('.guages li').hide();
 		var $profileNav = view.$el.find('.profileNav li').hide();

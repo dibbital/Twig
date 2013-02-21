@@ -50,15 +50,15 @@ require_once(realpath( dirname( __FILE__ ) ) . "/UserCakeLego.php");
 
 			foreach($info as $key => $value){
 				$key = str_replace("_", " ", $key);
-				echo "<li>" . $key . "<span class=\"value\">" . $value . "</span></li>";
+				echo "<li class='plant$key'>" . $key . "<span class=\"value\">" . $value . "</span></li>";
 			}
 
 		echo "
+			<li data-value=\"alert\" class=\"button green \">Set Alert Type</li>
 			<li class=\"button red\">Delete</li>
 			</ul>
 		</li>
 		";
 	}
-
 
 ?>

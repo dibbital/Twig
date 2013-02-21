@@ -9,6 +9,7 @@ require_once(realpath( dirname( __FILE__ ) ) . "/lego/UserCakeLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/UploadLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/PlantLego.php");
 require_once(realpath( dirname( __FILE__ ) ) . "/lego/NotificationLego.php");
+require_once(realpath( dirname( __FILE__ ) ) . "/lego/AlertLego.php");
 ConnectDB();
 switch($_REQUEST['a']){
 	case 'newPlant':
@@ -66,6 +67,18 @@ switch($_REQUEST['a']){
 		break;
 	case 'getOptimalSettings':
 		getOptimalSettings($_REQUEST['plantID']);
+		break;
+	case 'setAlertType':
+		$type = $_REQUEST['alert'];
+		setAlertType($type);
+		break;
+	case 'sendAlert':
+		$userID = $_REQUEST['uid'];
+		$pid = $_REQUEST['pid'];
+		$temp = $_REQUEST['temp'];
+		$moisture = $_REQUEST['moisture'];
+		$light = $_REQUEST['light'];
+		sendAlert($userID,$pid,$temp,$moisture,$light);
 		break;
 	case 'getStatsHistory':
 		$info = array();
