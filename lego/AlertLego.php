@@ -47,20 +47,20 @@ function setAlertType($type)
 function sendAlert($userID,$pid,$temp,$moisture,$light){
 	$type = '';
 
-	$alertQuery = mysql_query("SELECT `value` FROM `user_plant_settings` WHERE `key` = 'Alert' AND `uid` =  $userID AND `pid` = $pID");
-	if(!mysql_num_rows($alertQuery)){
+	$alertQuery = mysql_query("SELECT `value` FROM `user_plant_settings` WHERE `key` = 'Alert' AND `uid` =  $userID AND `pid` = $pid");
+	if($result = mysql_fetch_assoc($alertQuery)){
 		$type = $result['value'];
 		
 		if($type == 'text'){
-			$phoneQuery = mysql_query("SELECT 'display_name`,`phone_number`, `carrier` FROM `uc_user` WHERE `uid` = $uid");
-			while($result = mysql_fetch_assoc($phoneQuery)){
-				$to = $result['phone_number'] . "@" . $result['carrier'];
+			$phoneQuery = mysql_query("SELECT `display_name`,`phone_number`, `carrier` FROM `uc_users` WHERE `id` = $userID");
+			while($results = mysql_fetch_assoc($phoneQuery)){
+				$to = $results['phone_number'] . "@" . $results['carrier'];
 				$name = $results['display_name'];
 			}
 		}
 
 		if($type == 'email'){
-			$emailQuery = mysql_query("SELECT `email`, `display_name` FROM `uc_user` WHERE `uid` = $uid");
+			$emailQuery = mysql_query("SELECT `email`,`display_name` FROM `uc_users` WHERE `id` = $userID");
 			while($results = mysql_fetch_assoc($emailQuery)){
 				$to = $results['email'];
 				$name = $results['display_name'];
