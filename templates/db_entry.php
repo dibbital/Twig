@@ -66,27 +66,25 @@ $pid = $_REQUEST['plantID'];
 
 	<!-- Progress -->
 	<div id="stages">
-		<div class="overview">
-			<div class='main'>
-				<div>
-					<h1>Sprouting</h1>
-					<h2>Stage 2 of 2</h2>
-				</div>
-			</div>
-			<div class='side'>
-				<div class='stats'>
-					<div class='growHeight'><?php echo getHeightInfo($pid) ?></div>
-					<div class='growthRate'><?php echo getGrowthRate($pid) ?></div>
-				</div>
-			</div>
-		</div>
-
 		<div class="content">
 			<p><?php echo getSeedPropagation($pid)?></p>
 		</div>
 	</div>
 
 	<div id="info">
+		<div class="overview">
+			<div class='main'>
+				<div>
+					<h1>Information</h1>
+					<h2>More on <strong><?php echo getCommonName($pid) ?></strong></h2>
+				</div>
+			</div>
+			<div class='side'>
+				<div class='stats'>
+					<div class='growHeight'><?php echo getHeightInfo($pid) ?></div>
+				</div>
+			</div>
+		</div>
 		<div class='content'>
 			<ul class='info'>
 				<li data-name='origins'><h2 class='label fold'>Natural Habitat</h2><div class='sub'><?php echo getNaturalRegion($pid) ?></div></li>
