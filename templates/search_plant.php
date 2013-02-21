@@ -68,6 +68,11 @@ require_once(realpath( dirname( __FILE__ ) ) . "/../lego/PlantLego.php");
 		</ul>
 	</div>
 	<div id="plantResults">
+		<div id="searchDefault">
+			<div class='image'></div>
+			<h2>Browse our Library</h2>
+			<p>Start searching by typing a plant name<br/>Tap the arrow to search by filters</p>
+		</div>
 		<ul class="returnList">
 			<!-- <?php getAllPlants(1);?> -->
 			<!--<li><img src="http://placekitten.com/150/150" />

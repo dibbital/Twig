@@ -251,7 +251,7 @@ var SettingsView = Backbone.View.extend({
 							url:'query.php?a=setAlertType&alert=' + type + '&num=' + $input + '&carrier=' + $carrier + '&uid=' + view.$userID + '&pid=' + view.$plantID,
 							success:function(data){
 
-									$(view.$list).find('span').text(type);
+									$(view.$list).find('span.value').text(type.charAt(0).toUpperCase() + type.slice(1));
 								}
 
 						});          
@@ -263,7 +263,7 @@ var SettingsView = Backbone.View.extend({
 						   $.ajax({
 								url:'query.php?a=setAlertType&alert=' + type + '&uid=' + view.$userID + '&pid=' + view.$plantID,
 								success:function(data){
-									$(view.$list).find('span').text(type);
+									$(view.$list).find('span.value').text(type.charAt(0).toUpperCase() + type.slice(1));
 
 								}
 

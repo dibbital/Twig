@@ -50,7 +50,7 @@ require_once(realpath( dirname( __FILE__ ) ) . "/UserCakeLego.php");
 
 			foreach($info as $key => $value){
 				$key = str_replace("_", " ", $key);
-				echo "<li class='plant$key'>" . $key . "<span class=\"value\">" . $value . "</span></li>";
+				echo "<li class='plant$key'><span class='key'>" . $key . "</span><span class=\"value\">" . ucfirst($value) . "</span></li>";
 			}
 
 		echo "

@@ -279,6 +279,12 @@ var SearchView = Backbone.View.extend({
 	'finishSearch': function() {
 		var view = this;
 
+		if(view.$el.find("#searchDefault").length == 1){
+			view.$el.find("#searchDefault").remove();
+		}
+
+		view.$el.find("#results").show();
+
 		view.$el.find('#plantResults').addClass('loading');
 		//close the advance search tab if open
 		if($('.advancedButton').hasClass('active')){
@@ -528,15 +534,15 @@ var SearchView = Backbone.View.extend({
 			// 	}
 			// 	break;
 
-			case 'maintenance':
-				switch(v){
-					case 'none': $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
-					case 'low' : $('.maintenanceImage').css({'background-image':"url('/images/mainLow.png')"}); break;
-					case 'medium' : $('.maintenanceImage').css({'background-image':"url('/images/mainMedium.png')"}); break;
-					case 'high' : $('.maintenanceImage').css({'background-image':"url('/images/mainHigh.png')"}); break;
-					default: $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
-				}
-				break;
+			// case 'maintenance':
+			// 	switch(v){
+			// 		case 'none': $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
+			// 		case 'low' : $('.maintenanceImage').css({'background-image':"url('/images/mainLow.png')"}); break;
+			// 		case 'medium' : $('.maintenanceImage').css({'background-image':"url('/images/mainMedium.png')"}); break;
+			// 		case 'high' : $('.maintenanceImage').css({'background-image':"url('/images/mainHigh.png')"}); break;
+			// 		default: $('.maintenanceImage').css({'background-image':"url('/images/mainNone.png')"}); break;
+			// 	}
+			// 	break;
 		}
 	},
 
