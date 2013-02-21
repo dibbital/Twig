@@ -252,6 +252,7 @@ var SettingsView = Backbone.View.extend({
 							success:function(data){
 
 									$(view.$list).find('span.value').text(type.charAt(0).toUpperCase() + type.slice(1));
+									view.$el.find('.alertDiv').remove();
 								}
 
 						});          
@@ -264,6 +265,7 @@ var SettingsView = Backbone.View.extend({
 								url:'query.php?a=setAlertType&alert=' + type + '&uid=' + view.$userID + '&pid=' + view.$plantID,
 								success:function(data){
 									$(view.$list).find('span.value').text(type.charAt(0).toUpperCase() + type.slice(1));
+									view.$el.find('.alertDiv').remove();
 
 								}
 
